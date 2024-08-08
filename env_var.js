@@ -20,7 +20,7 @@ Object.defineProperty(env, "DB_HOST", {
 });
 
 Object.defineProperty(env, "PORT", {
-  value: 3000,
+  value: 443 || 3000,
   writable: false,
   configurable: false,
 });
