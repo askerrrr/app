@@ -1,26 +1,17 @@
-let num = 1;
-
 function row(user) {
   const tbody = document.getElementById("tbody");
   const tr = document.createElement("tr");
 
-  const tdNum = document.createElement("td");
-  tdNum.append(`${num++}`);
-  tr.append(tdNum);
-
-  const tdId = document.createElement("td");
-  tdId.append(user._id);
-  tr.append(tdId);
+  const tdMongoId = document.createElement("td");
+  tdMongoId.append(user._id);
+  tr.append(tdMongoId);
 
   const tdFirstName = document.createElement("td");
-  tdFirstName.append(user.first_name);
+  tdFirstName.append(user.firstName);
   tr.append(tdFirstName);
 
   const tdUserName = document.createElement("td");
-  user.username !== undefined
-    ? tdUserName.append(user.username)
-    : tdUserName.append("");
-
+  tdUserName.append(user.userName);
   tr.append(tdUserName);
 
   const tdTelegramId = document.createElement("td");
@@ -28,17 +19,22 @@ function row(user) {
   tr.append(tdTelegramId);
 
   tbody.append(tr);
-
   return tbody;
 }
 
-async function GetUsers() {
-  const response = await fetch("/telegramuser", {
-    method: "GET",
-    headers: { Accept: "application/json" },
-  });
-  let users = await response.json();
-  return users.forEach((user) => row(user));
-}
+async function GetUserOrder() {
+  try {
+    const response = await fetch("https://test-nodejs.ru/users", {
+      method: "GET",
+      headers: { Accept: "application/json" },
+    });
 
-GetUsers().catch((err) => console.log(err));
+    const usersOrder = await response.json();
+    usersOrder.forEach((order) => row(order));
+  } catch (err) {
+    console.log(err);
+  }
+}
+GetUserOrder();
+
+setInterval(GetUserOrder, 60000);
