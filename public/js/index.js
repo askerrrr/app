@@ -24,7 +24,7 @@ function row(user) {
 
 async function GetUserOrder() {
   try {
-    const response = await fetch("/users", {
+    const response = await fetch("/root/users", {
       method: "GET",
       headers: { Accept: "application/json" },
     });
