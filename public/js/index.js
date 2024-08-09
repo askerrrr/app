@@ -24,7 +24,7 @@ function row(user) {
 
 async function GetUserOrder() {
   try {
-    const response = await fetch("/root/users", {
+    const response = await fetch("https://test-nodejs.ru/users", {
       method: "GET",
       headers: { Accept: "application/json" },
     });

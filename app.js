@@ -19,11 +19,11 @@ const app = express();
   }
 })();
 
-app.use("/root", express.static(path.join(__dirname, "public")));
-app.use("/root", express.urlencoded({ extended: true }));
-app.use("/root", express.json());
+app.use( express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
+app.use( express.json());
 
-app.post("/root", async (req, res) => {
+app.post("/", async (req, res) => {
   const collection = req.app.locals.collection;
   let user = req.body;
   const authHeader = req.headers.authorization;
@@ -39,7 +39,7 @@ app.post("/root", async (req, res) => {
   }
 });
 
-app.get("/root/users", async (req, res) => {
+app.get("/users", async (req, res) => {
   try {
     const collection = req.app.locals.collection;
     const users = await collection.find({}).toArray();
