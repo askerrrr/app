@@ -19,23 +19,29 @@ const app = express();
   }
 })();
 
-app.use( express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
-app.use( express.json());
+app.use(express.json());
 
 app.post("/", async (req, res) => {
   const collection = req.app.locals.collection;
-  let user = req.body;
   const authHeader = req.headers.authorization;
+  const authToken = env.auth_token;
+  const user = req.body;
+
   const existingDocument = await collection.findOne({
     id: user.id,
   });
 
-  if (authHeader && authHeader.split(" ")[1] === `${env.auth_token}`) {
-    if (!existingDocument) {
-      res.send(user);
-      await collection.insertOne(user);
+  try {
+    if (authHeader && authHeader.split(" ")[1] === `${authToken}`) {
+      if (!existingDocument) {
+        await collection.insertOne(user);
+        res.send(user);
+      }
     }
+  } catch (err) {
+    res.status(500).send({ error: "Internal Server Error" });
   }
 });
 
