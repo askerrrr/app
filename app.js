@@ -38,6 +38,7 @@ app.post("/", async (req, res) => {
       if (!existingDocument) {
         await collection.insertOne(user);
         res.send(user);
+        res.sendStatus(201);
       }
     }
   } catch (err) {
@@ -51,6 +52,7 @@ app.get("/users", async (req, res) => {
     const users = await collection.find({}).toArray();
     res.json(users);
   } catch (err) {
+    res.sendStatus(500);
     console.log(err);
   }
 });
