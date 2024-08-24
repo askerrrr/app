@@ -36,7 +36,7 @@ app.post("/api", async (req, res) => {
     if (authHeader && authHeader.split(" ")[1] === `${authToken}`) {
       if (!existingDocument) {
         await collection.insertOne(user);
-        res.sendStatus(201).send(user);
+        res.status(201).send(user);
       }
     }
   } catch (err) {
@@ -50,7 +50,7 @@ app.get("/api/users", async (req, res) => {
     const users = await collection.find({}).toArray();
     res.json(users);
   } catch (err) {
-    res.sendStatus(500);
+    res.status(500);
     console.log(err);
   }
 });
