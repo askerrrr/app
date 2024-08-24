@@ -27,7 +27,6 @@ app.post("/api", async (req, res) => {
   const authHeader = req.headers.authorization;
   const authToken = env.auth_token;
   const user = req.body;
-
   const existingDocument = await collection.findOne({
     id: user.id,
   });
@@ -36,6 +35,7 @@ app.post("/api", async (req, res) => {
     if (authHeader && authHeader.split(" ")[1] === `${authToken}`) {
       if (!existingDocument) {
         await collection.insertOne(user);
+
         res.status(201).send(user);
       }
     }
