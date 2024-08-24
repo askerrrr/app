@@ -2,10 +2,8 @@ function row(user) {
   const tbody = document.getElementById("tbody");
   const tr = document.createElement("tr");
 
-  let num = 1;
-  user.n = num;
   const tdNum = document.createElement("td");
-  tdNum.append(user.n++);
+  tdNum.append(user.n);
   tr.append(tdNum);
 
   const tdMongoId = document.createElement("td");
@@ -36,6 +34,8 @@ async function GetUserOrder() {
     });
 
     const usersOrder = await response.json();
+    let num = 1;
+    usersOrder.n = num++;
     usersOrder.forEach((order) => row(order));
   } catch (err) {
     console.log(err);
