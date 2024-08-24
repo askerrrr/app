@@ -2,6 +2,8 @@ function row(user) {
   const tbody = document.getElementById("tbody");
   const tr = document.createElement("tr");
 
+  let num = 1;
+  user.n = num;
   const tdNum = document.createElement("td");
   tdNum.append(user.n++);
   tr.append(tdNum);
