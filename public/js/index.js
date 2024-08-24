@@ -1,6 +1,6 @@
-let  num = 1;
-
 function row(user) {
+  let num = 1;
+
   const tbody = document.getElementById("tbody");
   const tr = document.createElement("tr");
 
@@ -42,5 +42,3 @@ async function GetUserOrder() {
   }
 }
 GetUserOrder();
-
-
