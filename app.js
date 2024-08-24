@@ -36,7 +36,7 @@ app.post("/api", async (req, res) => {
     if (authHeader && authHeader.split(" ")[1] === `${authToken}`) {
       if (!existingDocument) {
         await collection.insertOne(user);
-        await collection.updateOne({ id: user.id }, { $set: { num: n++ } });
+        await collection.updateOne({ num : ''}, { $set: { num: n++ } });
         res.status(201).send(user);
       }
     }
