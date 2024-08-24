@@ -1,11 +1,9 @@
 function row(user) {
-  let num = 1;
-  user.num = num;
   const tbody = document.getElementById("tbody");
   const tr = document.createElement("tr");
 
   const tdNum = document.createElement("td");
-  tdNum.append(user.num++);
+  tdNum.append(user.n++);
   tr.append(tdNum);
 
   const tdMongoId = document.createElement("td");
