@@ -1,6 +1,6 @@
-const num = 1;
+let  num = 1;
 
-function row(user, num) {
+function row(user) {
   const tbody = document.getElementById("tbody");
   const tr = document.createElement("tr");
 
