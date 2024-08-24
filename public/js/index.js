@@ -34,8 +34,7 @@ async function GetUserOrder() {
     });
 
     const usersOrder = await response.json();
-    let num = 1;
-    usersOrder.n = num++;
+
     usersOrder.forEach((order) => row(order));
   } catch (err) {
     console.log(err);
