@@ -43,4 +43,4 @@ async function GetUserOrder() {
 }
 GetUserOrder();
 
-setInterval(GetUserOrder, 60000);
+//setInterval(GetUserOrder, 60000);
