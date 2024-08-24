@@ -1,6 +1,12 @@
+const num = 1;
+
 function row(user) {
   const tbody = document.getElementById("tbody");
   const tr = document.createElement("tr");
+
+  const tdNum = document.createElement("td");
+  tdNum.append(num++);
+  tr.append(tdNum);
 
   const tdMongoId = document.createElement("td");
   tdMongoId.append(user._id);
