@@ -35,8 +35,12 @@ app.post("/api", async (req, res) => {
   try {
     if (authHeader && authHeader.split(" ")[1] === `${authToken}`) {
       if (!existingDocument) {
+        const lastUser = await collection.findOne({}, { sort: { num: -1 } });
+        const newNum = lastUser && lastUser.num ? lastUser.num + 1 : 1;
+        user.num = newNum;
+
         await collection.insertOne(user);
-        await collection.updateOne({ num : ''}, { $set: { num: n++ } });
+
         res.status(201).send(user);
       }
     }
