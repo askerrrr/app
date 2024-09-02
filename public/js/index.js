@@ -15,7 +15,7 @@ function row(user) {
   tr.append(tdUserName);
 
   const tdTelegramId = document.createElement("td");
-  tdTelegramId.append(user.id);
+  tdTelegramId.append(user.tgId);
   tr.append(tdTelegramId);
 
   tbody.append(tr);
