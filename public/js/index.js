@@ -6,10 +6,6 @@ function row(user) {
   tdNum.append(user.num);
   tr.append(tdNum);
 
-  const tdMongoId = document.createElement("td");
-  tdMongoId.append(user._id);
-  tr.append(tdMongoId);
-
   const tdFirstName = document.createElement("td");
   tdFirstName.append(user.firstName);
   tr.append(tdFirstName);
