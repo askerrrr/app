@@ -3,7 +3,7 @@ function row(user) {
   const tr = document.createElement("tr");
 
   const tdNum = document.createElement("td");
-  tdNum.append(user.n);
+  tdNum.append(user.num);
   tr.append(tdNum);
 
   const tdMongoId = document.createElement("td");
