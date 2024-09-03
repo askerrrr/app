@@ -2,10 +2,6 @@ function row(user) {
   const tbody = document.getElementById("tbody");
   const tr = document.createElement("tr");
 
-  const tdNum = document.createElement("td");
-  tdNum.append(user.num);
-  tr.append(tdNum);
-
   const tdFirstName = document.createElement("td");
   tdFirstName.append(user.firstName);
   tr.append(tdFirstName);
