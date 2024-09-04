@@ -9,7 +9,7 @@ const app = express();
 (async () => {
   try {
     await mongodb.connect();
-    app.listen(env.PORT, env.HOST, () => console.log("Сервер запущен..."));
+    app.listen(env.PORT, env.HOST, () => console.log("The server is running..."));
 
     const db = mongodb.db("TelegramUsers");
     const collection = db.collection("users");
