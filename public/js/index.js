@@ -20,7 +20,7 @@ function row(user) {
 
 async function GetUserOrder() {
   try {
-    const response = await fetch("/users", {
+    const response = await fetch("/api/users", {
       method: "GET",
       headers: { Accept: "application/json" },
     });

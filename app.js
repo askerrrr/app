@@ -22,7 +22,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.post("/", async (req, res) => {
+app.post("/api", async (req, res) => {
   const collection = req.app.locals.collection;
   const authHeader = req.headers.authorization;
   const authToken = env.auth_token;
@@ -44,7 +44,7 @@ app.post("/", async (req, res) => {
   }
 });
 
-app.get("/users", async (req, res) => {
+app.get("/api/users", async (req, res) => {
   try {
     const collection = req.app.locals.collection;
     const users = await collection.find({}).toArray();
