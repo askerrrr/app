@@ -40,13 +40,13 @@ app.post("/api", async (req, res) => {
 
         return res.status(201).send(user);
       } else if (existingDocument) {
-        return res.sendStatus(409).send({ error: "User already exists" });
+        return res.sendStatus(409);
       }
     } else if (!authHeader) {
-      return res.sendStatus(401).send({ error: "Unauthorized." });
+      return res.sendStatus(401)
     }
   } catch (err) {
-    return res.status(500).send({ error: "Internal Server Error" });
+    return res.status(500)
   }
 });
 
