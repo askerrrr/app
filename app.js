@@ -30,7 +30,7 @@ app.post("/api", async (req, res) => {
   const authToken = env.auth_token;
   const user = req.body;
   const existingDocument = await collection.findOne({
-    id: user.tgId,
+    tgId: user.tgId,
   });
 
   try {
