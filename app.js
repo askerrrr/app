@@ -9,7 +9,9 @@ const app = express();
 (async () => {
   try {
     await mongodb.connect();
-    app.listen(env.PORT, env.HOST, () => console.log("The server is running..."));
+    app.listen(env.PORT, env.HOST, () =>
+      console.log("The server is running...")
+    );
 
     const db = mongodb.db("TelegramUsers");
     const collection = db.collection("users");
@@ -38,6 +40,8 @@ app.post("/api", async (req, res) => {
 
         res.status(201).send(user);
       }
+    } else if (!authHeader) {
+      return res.sendStatus(401).send({ error: "Unauthorized." });
     }
   } catch (err) {
     res.status(500).send({ error: "Internal Server Error" });
