@@ -39,6 +39,8 @@ app.post("/api", async (req, res) => {
         await collection.insertOne(user);
 
         res.status(201).send(user);
+      } else if (existingDocument) {
+        return res.sendStatus(409).send({ error: "User already exists" });
       }
     } else if (!authHeader) {
       return res.sendStatus(401).send({ error: "Unauthorized." });
