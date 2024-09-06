@@ -38,7 +38,7 @@ app.post("/api", async (req, res) => {
       if (!existingDocument) {
         await collection.insertOne(user);
 
-        res.status(201).send(user);
+        return res.status(201).send(user);
       } else if (existingDocument) {
         return res.sendStatus(409).send({ error: "User already exists" });
       }
@@ -46,7 +46,7 @@ app.post("/api", async (req, res) => {
       return res.sendStatus(401).send({ error: "Unauthorized." });
     }
   } catch (err) {
-    res.status(500).send({ error: "Internal Server Error" });
+    return res.status(500).send({ error: "Internal Server Error" });
   }
 });
 
@@ -54,10 +54,9 @@ app.get("/api/users", async (req, res) => {
   try {
     const collection = req.app.locals.collection;
     const users = await collection.find({}).toArray();
-    res.json(users);
+    return res.json(users);
   } catch (err) {
-    res.status(500);
-    console.log(err);
+    return res.status(500);
   }
 });
 
