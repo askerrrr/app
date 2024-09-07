@@ -43,10 +43,10 @@ app.post("/api", async (req, res) => {
         return res.sendStatus(409);
       }
     } else if (!authHeader) {
-      return res.sendStatus(401)
+      return res.sendStatus(401);
     }
   } catch (err) {
-    return res.status(500)
+    return res.status(500);
   }
 });
 
@@ -55,7 +55,7 @@ app.get("/api/users", async (req, res) => {
     const collection = req.app.locals.collection;
     const users = await collection.find({}).toArray();
     return res.json(users);
-  } catch (err) {
+  } catch {
     return res.status(500);
   }
 });
