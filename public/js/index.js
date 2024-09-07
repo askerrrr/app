@@ -10,10 +10,13 @@ function row(user) {
   tdUserName.append(user.userName);
   tr.append(tdUserName);
 
-  const tdTelegramId = document.createElement("a");
+  const tdTelegramId = document.createElement("td");
+  const telegramIdLink = document.createElement("a");
   const url = "https://jsonplaceholder.typicode.com/";
-  tdTelegramId.href = url;
-  tdTelegramId.append(`${user.tgId}`);
+  telegramIdLink.href = url;
+  telegramIdLink.append(`${user.tgId}`);
+
+  tdTelegramId.append(telegramIdLink);
   tr.append(tdTelegramId);
 
   tbody.append(tr);
