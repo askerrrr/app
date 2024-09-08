@@ -3,7 +3,7 @@ const { env } = require("./env_var.js");
 const path = require("path");
 const MongoClient = require("mongodb").MongoClient;
 const mongodb = new MongoClient(env.mongo_url);
-
+const user = require("./router/user.js");
 const app = express();
 
 (async () => {
@@ -23,6 +23,7 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use("/api/user", user);
 
 app.post("/api", async (req, res) => {
   const collection = req.app.locals.collection;
@@ -55,16 +56,6 @@ app.get("/api/users", async (req, res) => {
     const collection = req.app.locals.collection;
     const users = await collection.find({}).toArray();
     return res.json(users);
-  } catch {
-    return res.status(500);
-  }
-});
-
-app.get(`/api/user`, async (req, res) => {
-  try {
-    const collection = req.app.locals.collection;
-    const user = await collection.findOne({}, { tgId: tgId }).toArray();
-    return res.json(user);
   } catch {
     return res.status(500);
   }
