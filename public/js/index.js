@@ -1,26 +1,32 @@
+const { createRowForTable } = require("./services/createRowForTable");
+
 function row(user) {
   const tbody = document.getElementById("tbody");
-  const tr = document.createElement("tr");
+  // const tr = document.createElement("tr");
 
-  const tdFirstName = document.createElement("td");
-  tdFirstName.append(user.firstName);
-  tr.append(tdFirstName);
+  // const tdFirstName = document.createElement("td");
+  // tdFirstName.append(user.firstName);
+  // tr.append(tdFirstName);
 
-  const tdUserName = document.createElement("td");
-  tdUserName.append(user.userName);
-  tr.append(tdUserName);
+  // const tdUserName = document.createElement("td");
+  // tdUserName.append(user.userName);
+  // tr.append(tdUserName);
 
-  const tdTelegramId = document.createElement("td");
-  const telegramIdLink = document.createElement("a");
-  const url = `/api/${user.tgId}`;
-  telegramIdLink.href = url;
-  telegramIdLink.style = "text-decoration: none;";
-  telegramIdLink.append(user.tgId);
+  // const tdTelegramId = document.createElement("td");
+  // const telegramIdLink = document.createElement("a");
+  // const url = `/api/${user.tgId}`;
+  // telegramIdLink.href = url;
+  // telegramIdLink.style = "text-decoration: none;";
+  // telegramIdLink.append(user.tgId);
 
-  tdTelegramId.append(telegramIdLink);
-  tr.append(tdTelegramId);
+  // tdTelegramId.append(telegramIdLink);
+  // tr.append(tdTelegramId);
 
-  tbody.append(tr);
+  const firstName = createRowForTable(user.firstName);
+  const userName = createRowForTable(user.userName);
+  const telegramId = createRowForTable(user.tgId);
+
+  tbody.append(firstName, userName, telegramId);
   return tbody;
 }
 
