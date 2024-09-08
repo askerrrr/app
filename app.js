@@ -3,7 +3,6 @@ const { env } = require("./env_var.js");
 const path = require("path");
 const MongoClient = require("mongodb").MongoClient;
 const mongodb = new MongoClient(env.mongo_url);
-const user = require("./router/user.js");
 const app = express();
 
 (async () => {
@@ -23,7 +22,6 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/api/user", user);
 
 app.post("/api", async (req, res) => {
   const collection = req.app.locals.collection;
