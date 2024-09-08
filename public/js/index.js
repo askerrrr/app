@@ -14,6 +14,7 @@ function row(user) {
   const telegramIdLink = document.createElement("a");
   const url = `/api/${user.tgId}`;
   telegramIdLink.href = url;
+  telegramIdLink.style = "text-decoration: none;";
   telegramIdLink.append(user.tgId);
 
   tdTelegramId.append(telegramIdLink);
