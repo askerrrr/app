@@ -12,7 +12,7 @@ function row(user) {
 
   const tdTelegramId = document.createElement("td");
   const telegramIdLink = document.createElement("a");
-  const url = "https://jsonplaceholder.typicode.com/";
+  const url = `/api/${user.tgId}`;
   telegramIdLink.href = url;
   telegramIdLink.append(user.tgId);
 
