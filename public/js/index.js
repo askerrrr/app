@@ -38,14 +38,3 @@ async function GetUsers() {
   }
 }
 GetUsers();
-
-async function GetUser() {
-  try {
-    const response = await fetch("/api/user", {
-      method: "GET",
-      headers: { Accept: "application/json" },
-    });
-  } catch (err) {
-    console.log(err);
-  }
-}
