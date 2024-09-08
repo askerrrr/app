@@ -60,7 +60,7 @@ app.get("/api/users", async (req, res) => {
   }
 });
 
-app.get(`/api/${user.tgId}`, async (req, res) => {
+app.get(`/api/user`, async (req, res) => {
   try {
     const collection = req.app.locals.collection;
     const user = await collection.findOne({}, { tgId: tgId }).toArray();

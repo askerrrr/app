@@ -23,7 +23,7 @@ function row(user) {
   return tbody;
 }
 
-async function GetUserOrder() {
+async function GetUsers() {
   try {
     const response = await fetch("/api/users", {
       method: "GET",
@@ -37,4 +37,4 @@ async function GetUserOrder() {
     console.log(err);
   }
 }
-GetUserOrder();
+GetUsers();
