@@ -30,11 +30,22 @@ async function GetUsers() {
       headers: { Accept: "application/json" },
     });
 
-    const usersOrder = await response.json();
+    const users = await response.json();
 
-    usersOrder.forEach((order) => row(order));
+    users.forEach((order) => row(order));
   } catch (err) {
     console.log(err);
   }
 }
 GetUsers();
+
+async function GetUser() {
+  try {
+    const response = await fetch("/api/user", {
+      method: "GET",
+      headers: { Accept: "application/json" },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
