@@ -14,7 +14,7 @@ function row(user) {
   tdTelegramId.append(user.tgId);
   tr.append(tdTelegramId);
 
-  tbody.append(tr);
+  tbody.append(tr); 
   return tbody;
 }
 
