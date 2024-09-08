@@ -1,5 +1,3 @@
-const { createRowForTable } = require("./services/createRowForTable");
-
 function row(user) {
   const tbody = document.getElementById("tbody");
   const tr = document.createElement("tr");
@@ -13,13 +11,7 @@ function row(user) {
   tr.append(tdUserName);
 
   const tdTelegramId = document.createElement("td");
-  const telegramIdLink = document.createElement("a");
-  const url = `/api/${user.tgId}`;
-  telegramIdLink.href = url;
-  telegramIdLink.style = "text-decoration: none;";
-  telegramIdLink.append(user.tgId);
-
-  tdTelegramId.append(telegramIdLink);
+  tdTelegramId.append(user.tgId);
   tr.append(tdTelegramId);
 
   tbody.append(tr);
