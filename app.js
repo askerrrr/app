@@ -1,6 +1,7 @@
+const path = require("path");
 const express = require("express");
 const { env } = require("./env_var.js");
-const path = require("path");
+
 const MongoClient = require("mongodb").MongoClient;
 const mongodb = new MongoClient(env.mongo_url);
 const app = express();
@@ -19,6 +20,8 @@ const app = express();
     console.log(err);
   }
 })();
+
+const userPath = require("./router/user");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -59,4 +62,5 @@ app.get("/api/users", async (req, res) => {
   }
 });
 
+app.use("/api/user", userPath);
 app.use(express.static(path.join(__dirname, "public")));
