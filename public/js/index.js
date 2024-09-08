@@ -10,11 +10,15 @@ function row(user) {
   tdUserName.append(user.userName);
   tr.append(tdUserName);
 
+  const telegramIdLink = document.createElement("a");
+  telegramIdLink.href = "https://google.com";
+  telegramIdLink.append(user.tgId);
+  telegramIdLink.target = "_blank";
   const tdTelegramId = document.createElement("td");
-  tdTelegramId.append(user.tgId);
+  tdTelegramId.append(telegramIdLink);
   tr.append(tdTelegramId);
 
-  tbody.append(tr); 
+  tbody.append(tr);
   return tbody;
 }
 
