@@ -11,7 +11,7 @@ function row(user) {
   tr.append(tdUserName);
 
   const telegramIdLink = document.createElement("a");
-  telegramIdLink.href = `/api/user/id/${user.tgId}`;
+  telegramIdLink.href = `/api/user/orderinfo/${user.tgId}`;
   telegramIdLink.append(user.tgId);
   telegramIdLink.target = "_blank";
   const tdTelegramId = document.createElement("td");

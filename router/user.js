@@ -7,17 +7,25 @@ router.get("/", async (req, res) => {
   res.send("Routing");
 });
 
-router.post("/orderinfo", async (req, res) => {
+router.get("/orderinfo/:tgId", async (req, res) => {
   try {
-    const userAndOrders = req.app.locals.userAndOrders;
-    const userOrders = req.body;
-    
+    const tgId = req.params.tgId;
+    const collection = req.app.locals.collection;
+    const userInfo = await collection.findOne({ tgId });
+    if (userInfo) {
+      res.json(userInfo);
+    } else {
+      res.sendStatus(404);
+    }
+
+    // const userAndOrders = req.app.locals.userAndOrders;
+    // const userOrders = req.body;
   } catch {
     return res.status(500);
   }
 });
 
-router.get("/order", async (req, res) => {
+router.get("/orderinfo", async (req, res) => {
   res.send("order");
 });
 
