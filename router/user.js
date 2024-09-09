@@ -9,14 +9,14 @@ router.get("/", async (req, res) => {
 
 router.post("/order", async (req, res) => {
   try {
-   
+  
   } catch {
     return res.status(500);
   }
 });
 
-router.get('/order', async (req, res) => {
-  res.send('order')
-})
+router.get("/order", async (req, res) => {
+  res.send("order");
+});
 
 module.exports = router;
