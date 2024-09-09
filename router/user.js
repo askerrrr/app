@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
   res.send("Routing");
 });
 
-router.post("/order", async (req, res) => {
+router.post("/orderinfo", async (req, res) => {
   try {
     const userAndOrders = req.app.locals.userAndOrders;
     const userOrders = req.body;
