@@ -9,7 +9,9 @@ router.get("/", async (req, res) => {
 
 router.post("/order", async (req, res) => {
   try {
-  
+    const userAndOrders = req.app.locals.userAndOrders;
+    const userOrders = req.body;
+    
   } catch {
     return res.status(500);
   }
