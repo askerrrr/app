@@ -3,15 +3,12 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.get("/", async (req, res) => {
-  res.send("Routing");
-});
-
-router.get("/orderinfo/:tgId", async (req, res) => {
+router.get("/:tgId", async (req, res) => {
   try {
-    const tgId = req.params.tgId;
+    const tgId = Number(req.params.tgId);
+
     const collection = req.app.locals.collection;
-    const userInfo = await collection.findOne({ tgId });
+    const userInfo = await collection.findOne({ tgId: tgId });
     if (userInfo) {
       res.json(userInfo);
     } else {
@@ -23,10 +20,6 @@ router.get("/orderinfo/:tgId", async (req, res) => {
   } catch {
     return res.status(500);
   }
-});
-
-router.get("/orderinfo", async (req, res) => {
-  res.send("order");
 });
 
 module.exports = router;

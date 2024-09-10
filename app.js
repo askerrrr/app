@@ -32,5 +32,5 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/", home);
-app.use("/api/user", userPath);
+app.use("/api/orderinfo", userPath);
 app.use(express.static(path.join(__dirname, "public")));
