@@ -13,7 +13,7 @@ router.get("/orderinfo/:tgId", async (req, res) => {
     const collection = req.app.locals.collection;
     const userInfo = await collection.findOne({ tgId: tgId });
     if (userInfo) {
-      res.json({ name: "asker" });
+      res.json(userInfo);
     } else {
       res.sendStatus(404);
     }
