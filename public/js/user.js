@@ -7,7 +7,7 @@ async function GetUser() {
   });
   const user = await response.json();
   const div = document.getElementById("div");
-  div.innerHTML = `${user.tgId}`;
+  div.innerHTML = `${user}`;
   return div;
 }
 
