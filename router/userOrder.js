@@ -4,7 +4,7 @@ const { env } = require("../env_var");
 
 router.use(express.json());
 
-router.post("/order", async (req, res) => {
+router.post("/ordercontent", async (req, res) => {
   const collection = req.app.locals.userAndOrders;
   const authHeader = req.headers.authorization;
   const authToken = env.auth_token;
