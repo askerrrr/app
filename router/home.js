@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { env } = require("../env_var.js");
 
-router.post("/api", async (req, res) => {
+router.post("/", async (req, res) => {
   const collection = req.app.locals.collection;
   const authHeader = req.headers.authorization;
   const authToken = env.auth_token;
@@ -28,7 +28,7 @@ router.post("/api", async (req, res) => {
   }
 });
 
-router.get("/api/users", async (req, res) => {
+router.get("/users", async (req, res) => {
   try {
     const collection = req.app.locals.collection;
     const users = await collection.find({}).toArray();
