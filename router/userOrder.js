@@ -4,21 +4,23 @@ const { env } = require("../env_var");
 
 router.use(express.json());
 
-router.post("/:tgId", async (req, res) => {
+router.post("/order", async (req, res) => {
   const collection = req.app.locals.userAndOrders;
   const authHeader = req.headers.authorization;
   const authToken = env.auth_token;
-  const user = req.body;
+  const userOrder = req.body;
+  const userOrderId = userOrder.tgId;
+
   const existingDocument = await collection.findOne({
-    tgId: user.tgId,
+    tgId: userOrderId,
   });
 
   try {
     if (authHeader && authHeader.split(" ")[1] === `${authToken}`) {
       if (existingDocument) {
-        await collection.insertOne(
-          { tgId: tgId },
-          { $push: { orders: { userOrders } } }
+        await collection.updateOne(
+          { tgId: userOrderId },
+          { $push: { orders: { userOrder } } }
         );
 
         return res.status(201).send(user);
