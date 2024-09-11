@@ -3,7 +3,7 @@ async function GetUser() {
 
   const tgId = urlParams.get("tgId");
 
-  const response = await fetch(`/api/user/${tgId}`, {
+  const response = await fetch(`/api/orderinfo/${tgId}`, {
     method: "GET",
     headers: { Accept: "application/json" },
   });

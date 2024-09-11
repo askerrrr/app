@@ -4,7 +4,7 @@ const { env } = require("../env_var");
 
 router.use(express.json());
 
-router.post("/ordercontent", async (req, res) => {
+router.post("/", async (req, res) => {
   const collection = req.app.locals.userAndOrders;
   const authHeader = req.headers.authorization;
   const authToken = env.auth_token;
@@ -53,19 +53,3 @@ router.get("/:tgId", async (req, res) => {
 });
 
 module.exports = router;
-
-function addUser(id, order) {
-  return {
-    tgId: id,
-    order: [
-      {
-        url: "google.com",
-        phone: 89381131572,
-      },
-      {
-        url: "test-nodejs.ru",
-        phone: 11212,
-      },
-    ],
-  };
-}
