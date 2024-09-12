@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { env } = require("../env_var");
+const path = require("path");
 
 router.use(express.json());
 
@@ -36,7 +37,6 @@ router.post("/", async (req, res) => {
 router.get("/:tgId", async (req, res) => {
   try {
     const tgId = Number(req.params.tgId);
-
     const collection = req.app.locals.collection;
     const userInfo = await collection.findOne({ tgId: tgId });
     if (userInfo) {
@@ -44,9 +44,6 @@ router.get("/:tgId", async (req, res) => {
     } else {
       res.sendStatus(404);
     }
-
-    // const userAndOrders = req.app.locals.userAndOrders;
-    // const userOrders = req.body;
   } catch {
     return res.status(500);
   }
