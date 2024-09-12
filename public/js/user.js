@@ -1,5 +1,5 @@
 function row(data) {
-  const user = data.orders[0];
+  const user = data[0].orders[0];
   const tbody = document.getElementById("ordercontent");
   const tr = document.createElement("tr");
 
@@ -49,7 +49,7 @@ async function GetUser() {
 
     const user = await response.json();
 
-    user.forEach((data) => row(data));
+    row(user);
   } catch (err) {
     console.log(err);
   }
