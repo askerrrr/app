@@ -1,33 +1,36 @@
-const getOrderData = require("../../services/getOrderData");
-
-function row(user) {
-  user = getOrderData(user);
+function row(data) {
+  const user = data.orders[0];
   const tbody = document.getElementById("ordercontent");
   const tr = document.createElement("tr");
 
   const date = document.createElement("td");
   date.append(user.date);
+  tr.append(date);
 
   const link = document.createElement("a");
   link.href = user.url;
-  link.target = "_brank";
+  link.target = "_blank";
   link.append("ссылка на товар");
   const url = document.createElement("td");
   url.append(link);
+  tr.append(url);
 
   const quantity = document.createElement("td");
   quantity.append(user.quantity);
+  tr.append(quantity);
 
   const size = document.createElement("td");
   size.append(user.size);
+  tr.append(size);
 
   const image = document.createElement("td");
   image.append(user.image);
+  tr.append(image);
 
   const phone = document.createElement("td");
   phone.append(user.phone);
+  tr.append(phone);
 
-  tr.append(date, url, quantity, size, phone);
   tbody.append(tr);
 
   return tbody;
