@@ -39,17 +39,15 @@ function row(data) {
 async function GetUser() {
   try {
     const urlParams = new URLSearchParams(window.location.search);
-
     const tgId = urlParams.get("tgId");
-
     const response = await fetch(`/api/orderinfo/${tgId}`, {
       method: "GET",
       headers: { Accept: "application/json" },
     });
 
     const user = await response.json();
-
-    row(user);
+    console.log(user);
+    return user.forEach((item) => row(item));
   } catch (err) {
     console.log(err);
   }
