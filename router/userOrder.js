@@ -34,16 +34,25 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/:tgId", async (req, res) => {
+router.get("/data/:tgId", async (req, res) => {
   try {
     const tgId = Number(req.params.tgId);
     const collection = req.app.locals.collection;
     const userInfo = await collection.findOne({ tgId: tgId });
+    console.log(userInfo);
     if (userInfo) {
       res.json(userInfo);
     } else {
       res.sendStatus(404);
     }
+  } catch {
+    return res.status(500);
+  }
+});
+
+router.get("/:tgId", async (req, res) => {
+  try {
+    res.sendFile(path.join(__dirname, "../public", "userOrder.html"));
   } catch {
     return res.status(500);
   }

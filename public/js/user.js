@@ -1,5 +1,5 @@
 function row(data) {
-  const user = data.orders[-1];
+  const user = data.orders[data.orders.length - 1];
   const tbody = document.getElementById("ordercontent");
   const tr = document.createElement("tr");
 
@@ -40,14 +40,14 @@ async function GetUser() {
   try {
     const urlParams = new URLSearchParams(window.location.search);
     const tgId = urlParams.get("tgId");
-    const response = await fetch(`/api/orderinfo/${tgId}`, {
+    const response = await fetch(`/api/orderinfo/data/${tgId}`, {
       method: "GET",
       headers: { Accept: "application/json" },
     });
 
     const user = await response.json();
     console.log(user);
-    row(user);
+    return row(user);
   } catch (err) {
     console.log(err);
   }
