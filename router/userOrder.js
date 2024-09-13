@@ -39,7 +39,6 @@ router.get("/data/:tgId", async (req, res) => {
     const tgId = Number(req.params.tgId);
     const collection = req.app.locals.collection;
     const userInfo = await collection.findOne({ tgId: tgId });
-    console.log(userInfo);
     if (userInfo) {
       res.json(userInfo);
     } else {
