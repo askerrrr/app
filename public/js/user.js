@@ -38,15 +38,19 @@ function row(data) {
 
 async function GetUser() {
   try {
-    const urlParams = new URLSearchParams(window.location.search);
-    const tgId = urlParams.get("tgId");
+    const pathParts = window.location.pathname.split("/");
+    const tgId = pathParts[pathParts.length - 1];
+
+    if (!tgId) {
+      throw new Error("No tgID");
+    }
     const response = await fetch(`/api/orderinfo/data/${tgId}`, {
       method: "GET",
       headers: { Accept: "application/json" },
     });
 
     const user = await response.json();
-    console.log(user);
+
     return row(user);
   } catch (err) {
     console.log(err);
