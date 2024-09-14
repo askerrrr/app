@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { env } = require("../env_var");
 const path = require("path");
-
+const encodingToBase64 = require("../services/encodingToBase64");
 router.use(express.json());
 
 router.post("/", async (req, res) => {
@@ -57,4 +57,26 @@ router.get("/:tgId", async (req, res) => {
   }
 });
 
+router.get("/getimage/:tgId", async (req, res) => {
+  try {
+    const collection = req.app.locals.collection;
+    const tgId = req.params.tgId;
+    const userInfo = await collection.findOne({ tgId: tgId });
+    if (userInfo) {
+      res.json(userInfo);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch {
+    return res.status(500);
+  }
+});
+
+router.get("/tgId/:image", async (req, res) => {
+  try {
+    res.sendFile(path.join(__dirname, "../public", "sendImage.html"));
+  } catch {
+    return res.sendStatus(500);
+  }
+});
 module.exports = router;

@@ -24,7 +24,11 @@ function row(data) {
   tr.append(size);
 
   const image = document.createElement("td");
-  image.append(user.image);
+  const imageURL = document.createElement("a");
+  imageURL.href = `/api/orderinfo/tgId/${user.image}`;
+  imageURL.target = "_blank";
+  imageURL.append("Фото");
+  image.append(imageURL);
   tr.append(image);
 
   const phone = document.createElement("td");
@@ -36,14 +40,17 @@ function row(data) {
   return tbody;
 }
 
+function encodingToBase64(json) {
+  const base64 = Buffer.from(json, "base64");
+
+  return base64;
+}
+
 async function GetUser() {
   try {
     const pathParts = window.location.pathname.split("/");
     const tgId = pathParts[pathParts.length - 1];
 
-    if (!tgId) {
-      throw new Error("No tgID");
-    }
     const response = await fetch(`/api/orderinfo/data/${tgId}`, {
       method: "GET",
       headers: { Accept: "application/json" },
@@ -58,3 +65,24 @@ async function GetUser() {
 }
 
 GetUser();
+
+async function GetImage() {
+  try {
+    const response = await fetch(`/api/orderinfo/getimage/${tgId}`, {
+      method: "GET",
+      headers: { Accept: "application/json" },
+    });
+    const json = await response.json();
+    const imgJson = json.orders[0].image;
+
+    const body = document.getElementById("img");
+    const image = `<img src='data:image/jpeg;base64,${encodingToBase64(
+      imgJson
+    )}'/>`;
+
+    body.append(image);
+    return body;
+  } catch (err) {
+    console.log(err);
+  }
+}
