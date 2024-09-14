@@ -12,8 +12,10 @@ function row(user) {
 
   const telegramIdLink = document.createElement("a");
   telegramIdLink.href = `/api/orderinfo/${user.tgId}`;
-  telegramIdLink.append(user.tgId);
   telegramIdLink.target = "_blank";
+  const buttontoId = document.createElement("button");
+  buttontoId.append(`${user.tgId}`);
+  telegramIdLink.append(buttontoId);
   const tdTelegramId = document.createElement("td");
   tdTelegramId.append(telegramIdLink);
   tr.append(tdTelegramId);

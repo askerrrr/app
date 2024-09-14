@@ -10,7 +10,9 @@ function row(data) {
   const link = document.createElement("a");
   link.href = user.url;
   link.target = "_blank";
-  link.append("ссылка на товар");
+  const buttonUrl = document.createElement("button");
+  buttonUrl.append("ссылка на товар");
+  link.append(buttonUrl);
   const url = document.createElement("td");
   url.append(link);
   tr.append(url);
@@ -27,7 +29,9 @@ function row(data) {
   const imageURL = document.createElement("a");
   imageURL.href = `/api/orderinfo/tgId/${user.image}`;
   imageURL.target = "_blank";
-  imageURL.append("Фото");
+  const buttonImage = document.createElement("button");
+  buttonImage.append("Фото");
+  imageURL.append(buttonImage);
   image.append(imageURL);
   tr.append(image);
 
