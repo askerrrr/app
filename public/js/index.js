@@ -11,7 +11,7 @@ function row(user) {
   tr.append(tdUserName);
 
   const telegramIdLink = document.createElement("a");
-  telegramIdLink.href = `/api/orderinfo/${user.tgId}`;
+  telegramIdLink.href = `/orderinfo/${user.tgId}`;
   telegramIdLink.target = "_blank";
   const buttontoId = document.createElement("button");
   buttontoId.append(`${user.tgId}`);
@@ -26,7 +26,7 @@ function row(user) {
 
 async function GetUsers() {
   try {
-    const response = await fetch("/api/users", {
+    const response = await fetch("/users", {
       method: "GET",
       headers: { Accept: "application/json" },
     });

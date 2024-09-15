@@ -27,7 +27,7 @@ function row(data) {
 
   const image = document.createElement("td");
   const imageURL = document.createElement("a");
-  imageURL.href = `/api/orderinfo/tgId/${user.image}`;
+  imageURL.href = `/orderinfo/tgId/${user.image}`;
   imageURL.target = "_blank";
   const buttonImage = document.createElement("button");
   buttonImage.append("Фото");
@@ -55,7 +55,7 @@ async function GetUser() {
     const pathParts = window.location.pathname.split("/");
     const tgId = pathParts[pathParts.length - 1];
 
-    const response = await fetch(`/api/orderinfo/data/${tgId}`, {
+    const response = await fetch(`/orderinfo/data/${tgId}`, {
       method: "GET",
       headers: { Accept: "application/json" },
     });
@@ -72,7 +72,7 @@ GetUser();
 
 async function GetImage() {
   try {
-    const response = await fetch(`/api/orderinfo/getimage/${tgId}`, {
+    const response = await fetch(`/orderinfo/getimage/${tgId}`, {
       method: "GET",
       headers: { Accept: "application/json" },
     });

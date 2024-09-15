@@ -31,5 +31,5 @@ const home = require("./router/home.js");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/api", home);
-app.use("/api/orderinfo", userPath);
+app.use("/", home);
+app.use("/orderinfo", userPath);
