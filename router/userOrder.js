@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
           { $push: { orders: { userOrder } } }
         );
 
-        return res.status(201).send(existingDocument);
+        return res.status(201)
       }
     } else if (!authHeader) {
       return res.sendStatus(401);
