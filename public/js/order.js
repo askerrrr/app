@@ -20,13 +20,9 @@ function row(data) {
     url.append(link);
     tr.append(url);
 
-    const quantity = document.createElement("td");
-    quantity.append(order.quantity);
-    tr.append(quantity);
-
-    const size = document.createElement("td");
-    size.append(order.size);
-    tr.append(size);
+    const description = document.createElement("td");
+    description.append(order.description);
+    tr.append(description);
 
     const image = document.createElement("td");
     const imageURL = document.createElement("a");
