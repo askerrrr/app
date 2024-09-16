@@ -51,7 +51,7 @@ router.get("/data/:tgId", async (req, res) => {
 
 router.get("/:tgId", async (req, res) => {
   try {
-    res.sendFile(path.join(__dirname, "../public", "userOrder.html"));
+    res.sendFile(path.join(__dirname, "../public", "html", "userOrder.html"));
   } catch {
     return res.status(500);
   }
