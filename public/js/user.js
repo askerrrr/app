@@ -1,47 +1,53 @@
 function row(data) {
-  const user = data.orders[data.orders.length - 1];
-  const tbody = document.getElementById("ordercontent");
-  const tr = document.createElement("tr");
+  const table = document.getElementById("table");
+  let id = 1;
 
-  const date = document.createElement("td");
-  date.append(user.date);
-  tr.append(date);
+  data.orders.forEach((order) => {
+    const tbody = document.createElement("tbody");
+    const tr = document.createElement("tr");
 
-  const link = document.createElement("a");
-  link.href = user.url;
-  link.target = "_blank";
-  const buttonUrl = document.createElement("button");
-  buttonUrl.append("ссылка на товар");
-  link.append(buttonUrl);
-  const url = document.createElement("td");
-  url.append(link);
-  tr.append(url);
+    const date = document.createElement("td");
+    date.append(order.date);
+    tr.append(date);
 
-  const quantity = document.createElement("td");
-  quantity.append(user.quantity);
-  tr.append(quantity);
+    const link = document.createElement("a");
+    link.href = order.url;
+    link.target = "_blank";
+    const buttonUrl = document.createElement("button");
+    buttonUrl.append("ссылка на товар");
+    link.append(buttonUrl);
+    const url = document.createElement("td");
+    url.append(link);
+    tr.append(url);
 
-  const size = document.createElement("td");
-  size.append(user.size);
-  tr.append(size);
+    const quantity = document.createElement("td");
+    quantity.append(order.quantity);
+    tr.append(quantity);
 
-  const image = document.createElement("td");
-  const imageURL = document.createElement("a");
-  imageURL.href = `/orderinfo/tgId/${user.image}`;
-  imageURL.target = "_blank";
-  const buttonImage = document.createElement("button");
-  buttonImage.append("Фото");
-  imageURL.append(buttonImage);
-  image.append(imageURL);
-  tr.append(image);
+    const size = document.createElement("td");
+    size.append(order.size);
+    tr.append(size);
 
-  const phone = document.createElement("td");
-  phone.append(user.phone);
-  tr.append(phone);
+    const image = document.createElement("td");
+    const imageURL = document.createElement("a");
+    imageURL.href = `/orderinfo/tgId/${order.image}`;
+    imageURL.target = "_blank";
+    const buttonImage = document.createElement("button");
+    buttonImage.append("Фото");
+    imageURL.append(buttonImage);
+    image.append(imageURL);
+    tr.append(image);
 
-  tbody.append(tr);
+    const phone = document.createElement("td");
+    phone.append(order.phone);
+    tr.append(phone);
 
-  return tbody;
+    tbody.append(tr);
+    tbody.id = id++;
+    table.append(tbody);
+  });
+
+  return table;
 }
 
 function encodingToBase64(json) {
