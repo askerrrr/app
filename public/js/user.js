@@ -14,7 +14,7 @@ function row(data) {
     link.href = order.url;
     link.target = "_blank";
     const buttonUrl = document.createElement("button");
-    buttonUrl.append("ссылка на товар");
+    buttonUrl.append("https://....");
     link.append(buttonUrl);
     const url = document.createElement("td");
     url.append(link);
@@ -33,7 +33,7 @@ function row(data) {
     imageURL.href = `/orderinfo/tgId/${order.image}`;
     imageURL.target = "_blank";
     const buttonImage = document.createElement("button");
-    buttonImage.append("Фото");
+    buttonImage.append("image");
     imageURL.append(buttonImage);
     image.append(imageURL);
     tr.append(image);
