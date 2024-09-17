@@ -6,7 +6,7 @@ const encodingToBase64 = require("../services/encodingToBase64");
 router.use(express.json());
 
 router.post("/", async (req, res) => {
-  const collection = req.app.locals.userAndOrders;
+  const collection = req.app.locals.collection;
   const authHeader = req.headers.authorization;
   const authToken = env.auth_token;
   const userOrder = req.body;
@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
           { $push: { orders: { userOrder } } }
         );
 
-        return res.status(201)
+        return res.status(201);
       }
     } else if (!authHeader) {
       return res.sendStatus(401);
