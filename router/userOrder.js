@@ -74,7 +74,7 @@ router.get("/getimage/:tgId", async (req, res) => {
 
 router.get("/tgId/:image", async (req, res) => {
   try {
-    res.sendFile(path.join(__dirname, "../public", "sendImage.html"));
+    res.sendFile(path.join(__dirname, "../public", "html", "sendImage.html"));
   } catch {
     return res.sendStatus(500);
   }
