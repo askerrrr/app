@@ -30,7 +30,7 @@ function row(data) {
 
     const image = document.createElement("td");
     const imageURL = document.createElement("a");
-    imageURL.href = `/orderinfo/tgId/${order.userOrder.image}`;
+    imageURL.href = `/orderinfo/tgId/${order.userOrder.file}`;
     imageURL.target = "_blank";
     const buttonImage = document.createElement("button");
     buttonImage.append("image");
