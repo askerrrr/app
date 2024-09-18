@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { env } = require("../env_var");
 const path = require("path");
-const encodingToBase64 = require("../services/encodingToBase64");
+//const encodingToBase64 = require("../services/encodingToBase64");
 router.use(express.json());
 
 router.post("/", async (req, res) => {

@@ -1,3 +1,5 @@
+const { checkFileType } = require("./services/checkFileType");
+
 function row(data) {
   const table = document.getElementById("table");
   let id = 1;
@@ -30,7 +32,8 @@ function row(data) {
 
     const image = document.createElement("td");
     const imageURL = document.createElement("a");
-    imageURL.href = `/orderinfo/tgId/${order.userOrder.file}`;
+    const file = order.userOrder.file;
+    imageURL.href = `/orderinfo/tgId/${checkFileType(file)}`;
     imageURL.target = "_blank";
     const buttonImage = document.createElement("button");
     buttonImage.append("image");
