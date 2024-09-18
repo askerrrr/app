@@ -21,7 +21,11 @@ function row(data) {
     tr.append(url);
 
     const description = document.createElement("td");
-    description.append(order.userOrder.description);
+    const quantity = document.createElement("div");
+    quantity.append(`1)Количество :${order.userOrder.description[0]}`);
+    const size = document.createElement("div");
+    size.append(`2)Размер : ${order.userOrder.description[1]}`);
+    description.append(quantity, size);
     tr.append(description);
 
     const image = document.createElement("td");
