@@ -1,8 +1,8 @@
-import getDate from "./date.js";
-import getFile from "./file.js";
-import getPhone from "./phone.js";
-import getProductLink from "./productLink.js";
-import getDesctiption from "./description.js";
+import getDate from "./services/date.js";
+import getFile from "./services/file.js";
+import getPhone from "./services/phone.js";
+import getProductLink from "./services/productLink.js";
+import getDesctiption from "./services/description.js";
 
 function row(data) {
   const table = document.getElementById("table");
