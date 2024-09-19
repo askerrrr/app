@@ -1,4 +1,4 @@
-const { checkFileType } = require("./services/checkFileType");
+import checkFileType from "./services/checkFileType";
 
 function row(data) {
   const table = document.getElementById("table");

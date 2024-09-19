@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { env } = require("../env_var.js");
+const { env } = require("../env_var.js").default;
 
 router.post("/", async (req, res) => {
   const collection = req.app.locals.collection;

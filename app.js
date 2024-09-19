@@ -1,8 +1,11 @@
-const path = require("path");
-const express = require("express");
-const { env } = require("./env_var.js");
+import path from "path";
+import express from "express";
+import { dirname } from "path";
+import { env } from "./env_var.js";
+import { fileURLToPath } from "url";
+import { MongoClient } from "mongodb";
 
-const MongoClient = require("mongodb").MongoClient;
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const mongodb = new MongoClient(env.mongo_url);
 const app = express();
 
@@ -25,7 +28,7 @@ const app = express();
   }
 })();
 
-const userPath = require("./router/userOrder");
+const userPath = require("./router/userOrder").default;
 const home = require("./router/home.js");
 
 app.use(express.urlencoded({ extended: true }));

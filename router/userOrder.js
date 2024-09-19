@@ -1,9 +1,13 @@
-const express = require("express");
-const router = express.Router();
-const { env } = require("../env_var");
-const path = require("path");
+import { Router, json } from "express";
+import { env } from "../env_var";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
+
 //const encodingToBase64 = require("../services/encodingToBase64");
-router.use(express.json());
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const router = Router();
+router.use(json());
 
 router.post("/", async (req, res) => {
   const collection = req.app.locals.collection;
@@ -52,7 +56,7 @@ router.get("/data/:tgId", async (req, res) => {
 
 router.get("/:tgId", async (req, res) => {
   try {
-    res.sendFile(path.join(__dirname, "../public", "html", "userOrder.html"));
+    res.sendFile(join(__dirname, "../public", "html", "userOrder.html"));
   } catch {
     return res.status(500);
   }
@@ -75,9 +79,9 @@ router.get("/getimage/:tgId", async (req, res) => {
 
 router.get("/tgId/:image", async (req, res) => {
   try {
-    res.sendFile(path.join(__dirname, "../public", "html", "sendImage.html"));
+    res.sendFile(join(__dirname, "../public", "html", "sendImage.html"));
   } catch {
     return res.sendStatus(500);
   }
 });
-module.exports = router;
+export default router;
