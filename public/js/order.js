@@ -1,11 +1,5 @@
 import { row } from "./services/row/row.js";
 
-function encodingToBase64(json) {
-  const base64 = Buffer.from(json, "base64");
-
-  return base64;
-}
-
 async function GetUser() {
   try {
     const pathParts = window.location.pathname.split("/");

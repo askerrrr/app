@@ -9,7 +9,6 @@ function row(data) {
   let id = 1;
 
   data.orders.forEach((order) => {
-    const tbody = document.createElement("tbody");
     const tr = document.createElement("tr");
 
     tr.append(getDate(order));
@@ -18,6 +17,7 @@ function row(data) {
     tr.append(getFile(order));
     tr.append(getPhone(order));
 
+    const tbody = document.createElement("tbody");
     tbody.append(tr);
     tbody.id = id++;
     table.append(tbody);
