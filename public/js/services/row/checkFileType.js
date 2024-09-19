@@ -1,4 +1,4 @@
-function checkFileType(file) {
+export default function checkFileType(file) {
   const image = /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(file);
   const document = /\.(xlsx)$/.test(file);
   if (image) {
@@ -9,5 +9,3 @@ function checkFileType(file) {
     return "Тип файла не определен";
   }
 }
-
-export { checkFileType };

@@ -1,6 +1,6 @@
-import { checkFileType } from "../checkFileType.js";
+import checkFileType from "./checkFileType.js";
 
-export function getFile(data) {
+export default function getFile(data) {
   const imageURL = document.createElement("a");
   const file = data.userOrder.file;
   const result = checkFileType(file);
