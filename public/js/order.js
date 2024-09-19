@@ -1,4 +1,4 @@
-import { row } from "./services/row.js";
+import { row } from "./services/row/row.js";
 
 function encodingToBase64(json) {
   const base64 = Buffer.from(json, "base64");
