@@ -4,4 +4,4 @@ function encodingToBase64(json) {
   return base64;
 }
 
-module.exports = encodingToBase64;
+export { encodingToBase64 };

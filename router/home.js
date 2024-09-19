@@ -1,7 +1,7 @@
-const express = require("express");
-const router = express.Router();
-const { env } = require("../env_var.js").default;
+import { env } from "../env_var.js";
+import { Router } from "express";
 
+const router = Router();
 router.post("/", async (req, res) => {
   const collection = req.app.locals.collection;
   const authHeader = req.headers.authorization;
@@ -38,4 +38,4 @@ router.get("/users", async (req, res) => {
   }
 });
 
-module.exports = router;
+export { router as home };

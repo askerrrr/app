@@ -1,4 +1,4 @@
-import checkFileType from "./services/checkFileType";
+import { checkFileType } from "./services/checkFileType.js";
 
 function row(data) {
   const table = document.getElementById("table");

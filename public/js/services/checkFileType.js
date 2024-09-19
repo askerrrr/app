@@ -10,4 +10,4 @@ function checkFileType(file) {
   }
 }
 
-module.exports = { checkFileType };
+export { checkFileType };

@@ -1,12 +1,11 @@
-import { Router, json } from "express";
-import { env } from "../env_var";
-import { dirname, join } from "path";
+import { env } from "../env_var.js";
 import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+import { Router, json } from "express";
 
-//const encodingToBase64 = require("../services/encodingToBase64");
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const router = Router();
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 router.use(json());
 
 router.post("/", async (req, res) => {
@@ -84,4 +83,4 @@ router.get("/tgId/:image", async (req, res) => {
     return res.sendStatus(500);
   }
 });
-export default router;
+export { router as userPath };

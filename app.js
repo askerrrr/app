@@ -28,8 +28,8 @@ const app = express();
   }
 })();
 
-const userPath = require("./router/userOrder").default;
-const home = require("./router/home.js");
+import { home } from "./router/home.js";
+import { userPath } from "./router/userOrder.js";
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
