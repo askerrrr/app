@@ -61,14 +61,19 @@ router.get("/:tgId", async (req, res) => {
   }
 });
 
-router.get("/getimage/:tgId", async (req, res) => {
+router.get("/file/:tgId", async (req, res) => {
   try {
     const collection = req.app.locals.collection;
     const tgId = req.params.tgId;
     const user = await collection.findOne({ tgId: tgId });
     const fileUrl = user.orders[user.orders.length - 1].userOrder.file;
+    const file = "";
+
     if (user) {
-      res.json(fileUrl);
+      await user.updateOne({ tgId }, { $set: { fileUrl: file } });
+      const image = `<img src='data:image/jpeg;base64,${encodingToBase64(
+        imgJson
+      )}'/>`;
     } else {
       res.sendStatus(404);
     }
@@ -77,11 +82,4 @@ router.get("/getimage/:tgId", async (req, res) => {
   }
 });
 
-router.get("/tgId/:image", async (req, res) => {
-  try {
-    res.sendFile(join(__dirname, "../public", "html", "sendImage.html"));
-  } catch {
-    return res.sendStatus(500);
-  }
-});
 export { router as userPath };
