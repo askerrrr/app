@@ -42,9 +42,9 @@ router.get("/data/:tgId", async (req, res) => {
   try {
     const tgId = Number(req.params.tgId);
     const collection = req.app.locals.collection;
-    const userInfo = await collection.findOne({ tgId: tgId });
-    if (userInfo) {
-      res.json(userInfo);
+    const user = await collection.findOne({ tgId: tgId });
+    if (user) {
+      res.json(user);
     } else {
       res.sendStatus(404);
     }
@@ -65,12 +65,15 @@ router.get("/getimage/:tgId", async (req, res) => {
   try {
     const collection = req.app.locals.collection;
     const tgId = req.params.tgId;
-    const userInfo = await collection.findOne({ tgId: tgId });
-    if (userInfo) {
-      res.json(userInfo);
+    const user = await collection.findOne({ tgId: tgId });
+    if (user) {
+      res.json(user);
     } else {
       res.sendStatus(404);
     }
+
+
+    const fileUrl = user.orders[user.orders.length-1]
   } catch {
     return res.status(500);
   }
