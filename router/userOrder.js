@@ -66,14 +66,12 @@ router.get("/getimage/:tgId", async (req, res) => {
     const collection = req.app.locals.collection;
     const tgId = req.params.tgId;
     const user = await collection.findOne({ tgId: tgId });
+    const fileUrl = user.orders[user.orders.length - 1].userOrder.file;
     if (user) {
-      res.json(user);
+      res.json(fileUrl);
     } else {
       res.sendStatus(404);
     }
-
-
-    const fileUrl = user.orders[user.orders.length-1]
   } catch {
     return res.status(500);
   }
