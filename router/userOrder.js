@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
           { $push: { orders: { userOrder } } }
         );
 
-        return res.sendStatus(201);
+        return res.sendStatus(201).json({ message: "Данные успешно приняты" });
       }
     } else if (!authHeader) {
       return res.sendStatus(401);
