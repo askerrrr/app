@@ -27,7 +27,9 @@ async function GetImage() {
       headers: { Accept: "application/json" },
     });
     const json = await response.json();
-
+    const image = `<img src='data:image/jpeg;base64,${encodingToBase64(
+      imgJson
+    )}'/>`;
     const body = document.getElementById("img");
 
     body.append(image);

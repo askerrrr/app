@@ -2,6 +2,8 @@ import { env } from "../env_var.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
+import { convertToBuffer } from "./services/convertFileToBuffer.js";
+import { encodingToBase64 } from "./services/encodingToBase64.js";
 
 const router = Router();
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -64,20 +66,19 @@ router.get("/:tgId", async (req, res) => {
 router.get("/file/:tgId", async (req, res) => {
   try {
     const collection = req.app.locals.collection;
-    const tgId = req.params.tgId;
+    const tgId = Number(req.params.tgId);
     const user = await collection.findOne({ tgId: tgId });
     const fileUrl = user.orders[user.orders.length - 1].userOrder.file;
-    const file = "";
 
     if (user) {
-      await user.updateOne({ tgId }, { $set: { fileUrl: file } });
-      const image = `<img src='data:image/jpeg;base64,${encodingToBase64(
-        imgJson
-      )}'/>`;
+      const buffer = await convertToBuffer(fileUrl);
+      const file = await encodingToBase64(buffer);
+      await collection.updateOne({ tgId }, { $set: { fileUrl: file } });
     } else {
       res.sendStatus(404);
     }
-  } catch {
+  } catch (err) {
+    console.log(err);
     return res.status(500);
   }
 });
