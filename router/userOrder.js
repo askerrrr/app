@@ -2,6 +2,7 @@ import { env } from "../env_var.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
+import compress from "./services/compress.js";
 import { convertToBuffer } from "./services/convertFileToBuffer.js";
 import { encodingToBase64 } from "./services/encodingToBase64.js";
 
@@ -31,15 +32,15 @@ router.post("/", async (req, res) => {
         const fileUrl =
           existingDocument.orders[user.orders.length - 1].userOrder.file;
         const buffer = await convertToBuffer(fileUrl);
-        const file = await encodingToBase64(buffer);
+        const compressFile = await compress(buffer);
 
         await collection.updateOne(
           { tgId: id },
           {
-            $set: { file: file },
+            $set: { file: compressFile },
           }
         );
-        return res.sendStatus(201)
+        return res.sendStatus(201);
       }
     } else if (!authHeader) {
       return res.sendStatus(401);
