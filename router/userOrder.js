@@ -15,20 +15,30 @@ router.post("/", async (req, res) => {
   const authHeader = req.headers.authorization;
   const authToken = env.auth_token;
   const userOrder = req.body;
-  const userOrderId = userOrder.tgId;
-
+  const id = userOrder.tgId;
   const existingDocument = await collection.findOne({
-    tgId: userOrderId,
+    tgId: id,
   });
 
   try {
     if (authHeader && authHeader.split(" ")[1] === `${authToken}`) {
       if (existingDocument) {
         await collection.updateOne(
-          { tgId: userOrderId },
+          { tgId: id },
           { $push: { orders: { userOrder } } }
         );
 
+        const fileUrl =
+          existingDocument.orders[user.orders.length - 1].userOrder.file;
+        const buffer = await convertToBuffer(fileUrl);
+        const file = await encodingToBase64(buffer);
+
+        await collection.updateOne(
+          { tgId: id },
+          {
+            $set: { file: file },
+          }
+        );
         return res.sendStatus(201).json({ message: "Данные успешно приняты" });
       }
     } else if (!authHeader) {
