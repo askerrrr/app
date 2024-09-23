@@ -39,7 +39,7 @@ router.post("/", async (req, res) => {
             $set: { file: file },
           }
         );
-        return res.sendStatus(201).json({ message: "Данные успешно приняты" });
+        return res.sendStatus(201)
       }
     } else if (!authHeader) {
       return res.sendStatus(401);
