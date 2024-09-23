@@ -8,3 +8,7 @@ async function encodingToBase64(buffer) {
 }
 
 export { encodingToBase64 };
+
+
+
+//decode base64 new Buffer(base64, 'base64').toString('utf-8')

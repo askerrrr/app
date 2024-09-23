@@ -82,8 +82,7 @@ router.get("/file/:tgId", async (req, res) => {
     const fileUrl = user.orders[user.orders.length - 1].userOrder.file;
 
     if (user) {
-      const buffer = await convertToBuffer(fileUrl);
-      const file = await encodingToBase64(buffer);
+      const buffer = "";
       await collection.updateOne({ tgId }, { $set: { fileUrl: file } });
     } else {
       res.sendStatus(404);

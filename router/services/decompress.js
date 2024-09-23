@@ -1,8 +1,8 @@
 import zlib from "zlib";
 
-async function compress(buffer) {
+async function decompress(buffer) {
   return new Promise((resolve, reject) => {
-    zlib.gzip(buffer, (err, buf) => {
+    zlib.unzip(buffer, (err, buf) => {
       if (err) {
         reject(err);
       } else {
@@ -12,4 +12,4 @@ async function compress(buffer) {
   });
 }
 
-export default compress;
+export default decompress;
