@@ -32,12 +32,12 @@ router.post("/", async (req, res) => {
         const fileUrl =
           existingDocument.orders[user.orders.length - 1].userOrder.file;
         const buffer = await convertToBuffer(fileUrl);
-        const compressFile = await compress(buffer);
+        const compressedFile = await compress(buffer);
 
         await collection.updateOne(
           { tgId: id },
           {
-            $set: { file: compressFile },
+            $set: { file: compressedFile },
           }
         );
         return res.sendStatus(201);
