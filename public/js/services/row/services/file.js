@@ -2,9 +2,10 @@ import checkFileType from "./checkFileType.js";
 
 export default function getFile(data) {
   const imageURL = document.createElement("a");
-  const file = data.userOrder.file;
-  const result = checkFileType(file);
-  imageURL.href = `/orderinfo/data/tgId/${file}}`;
+  const fileId = data.userOrder.file.id;
+  const fileURL = data.userOrder.file.url;
+  const result = checkFileType(fileURL);
+  imageURL.href = `/orderinfo/data/tgId/${fileId}}`;
   imageURL.target = "_blank";
 
   const buttonImage = document.createElement("button");

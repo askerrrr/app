@@ -74,7 +74,7 @@ router.get("/:tgId", async (req, res) => {
   }
 });
 
-router.get("/file/:tgId", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const collection = req.app.locals.collection;
     const tgId = Number(req.params.tgId);
