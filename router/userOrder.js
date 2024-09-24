@@ -15,8 +15,8 @@ router.post("/", async (req, res) => {
   const collection = req.app.locals.collection;
   const authHeader = req.headers.authorization;
   const authToken = env.auth_token;
-  const userOrder = req.body;
-  const id = userOrder.tgId;
+  const order = req.body;
+  const id = order.tgId;
   const existingDocument = await collection.findOne({
     tgId: id,
   });
@@ -26,11 +26,11 @@ router.post("/", async (req, res) => {
       if (existingDocument) {
         await collection.updateOne(
           { tgId: id },
-          { $push: { orders: { userOrder } } }
+          { $push: { orders: { order } } }
         );
 
         const fileUrl =
-          existingDocument.orders[user.orders.length - 1].userOrder.file;
+          existingDocument.orders[user.orders.length - 1].order.file.url;
         const buffer = await convertToBuffer(fileUrl);
         const compressedFile = await compress(buffer);
 
@@ -68,18 +68,20 @@ router.get("/data/:tgId", async (req, res) => {
 
 router.get("/:tgId", async (req, res) => {
   try {
-    res.sendFile(join(__dirname, "../public", "html", "userOrder.html"));
+    res.sendFile(join(__dirname, "../public", "html", "order.html"));
   } catch {
     return res.status(500);
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/data/tgId/:fileId", async (req, res) => {
   try {
+    const fileId = Number(req.params.fileId);
     const collection = req.app.locals.collection;
-    const tgId = Number(req.params.tgId);
+    const id = co
+    const file = collection;
     const user = await collection.findOne({ tgId: tgId });
-    const fileUrl = user.orders[user.orders.length - 1].userOrder.file;
+    const fileUrl = user.orders[user.orders.length - 1].order.file;
 
     if (user) {
       const buffer = "";
