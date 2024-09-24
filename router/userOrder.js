@@ -6,7 +6,7 @@ import compress from "./services/compress.js";
 import decompress from "./services/decompress.js";
 import { convertToBuffer } from "./services/convertFileToBuffer.js";
 import { encodingToBase64 } from "./services/encodingToBase64.js";
-
+import decompressAndConvertBufferToBase64 from "./services/decompressAndConvertBufferToBase64.js";
 const router = Router();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -79,20 +79,13 @@ router.get("/data/tgId/:fileId", async (req, res) => {
   try {
     const fileId = Number(req.params.fileId);
     const collection = req.app.locals.collection;
-    const user = await collection
+    const data = await collection
       .find({ "orders.order.file.id": fileId })
       .toArray();
 
-    if (user) {
-      user.forEach((user) =>
-        user.orders.forEach((orders) => {
-          if (orders.order.file.id) {
-            const decompressBuffer = decompress(orders.order.file.url);
-            const base64 = encodingToBase64(decompressBuffer);
-            res.json(base64);
-          }
-        })
-      );
+    if (data) {
+      const base64 = await decompressAndConvertBufferToBase64(data);
+      res.json(base64);
     } else {
       res.sendStatus(404);
     }
