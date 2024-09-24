@@ -29,7 +29,8 @@ router.post("/", async (req, res) => {
         );
 
         const fileUrl =
-          existingDocument.orders[order.orders.length - 1].order.file.url;
+          existingDocument.orders[existingDocument.orders.length - 1].order.file
+            .url;
         const buffer = await convertToBuffer(fileUrl);
         const compressedFile = await compress(buffer);
 
