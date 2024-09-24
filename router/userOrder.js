@@ -36,7 +36,7 @@ router.post("/", async (req, res) => {
         await collection.updateOne(
           { tgId: id },
           {
-            $set: { file: compressedFile },
+            $set: { file: { url: compressedFile } },
           }
         );
         return res.sendStatus(201);
@@ -84,7 +84,7 @@ router.get("/data/tgId/:fileId", async (req, res) => {
 
     if (data) {
       const base64 = await decompressAndConvertBufferToBase64(data);
-      res.json(base64);
+      res.json({ base64 });
     } else {
       res.sendStatus(404);
     }

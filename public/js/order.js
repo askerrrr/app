@@ -20,21 +20,26 @@ async function GetUser() {
 
 GetUser();
 
-async function GetImage() {
+async function GetFile() {
   try {
-    const response = await fetch(`/orderinfo/getimage/${tgId}`, {
+    const pathParts = window.location.pathname.split("/");
+    const fileId = pathParts[pathParts.length - 1];
+
+    const response = await fetch(`/orderinfo/data/tgId/${fileId}`, {
       method: "GET",
       headers: { Accept: "application/json" },
     });
+
     const json = await response.json();
-    const image = `<img src='data:image/jpeg;base64,${encodingToBase64(
-      imgJson
-    )}'/>`;
+    const base64 = json.base64;
+    const image = `<img src='data:image/jpeg;base64,${base64}'/>`;
     const body = document.getElementById("img");
 
-    body.append(image);
+    body.innerHTML = image;
     return body;
   } catch (err) {
     console.log(err);
   }
 }
+
+GetFile();
