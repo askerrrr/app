@@ -2,8 +2,8 @@ import checkFileType from "./checkFileType.js";
 
 export default function getFile(data) {
   const imageURL = document.createElement("a");
-  const fileId = data.userOrder.file.id;
-  const fileURL = data.userOrder.file.url;
+  const fileId = data.order.file.id;
+  const fileURL = data.order.file.url;
   const result = checkFileType(fileURL);
   imageURL.href = `/orderinfo/data/tgId/${fileId}}`;
   imageURL.target = "_blank";

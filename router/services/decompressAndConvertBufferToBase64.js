@@ -1,5 +1,5 @@
-import decompress from "./decompress";
-import { encodingToBase64 } from "./encodingToBase64";
+import decompress from "./decompress.js";
+import encodingToBase64 from "./encodingToBase64.js";
 
 async function decompressAndConvertBufferToBase64(data) {
   for (const user of data) {

@@ -3,9 +3,7 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
 import compress from "./services/compress.js";
-import decompress from "./services/decompress.js";
 import { convertToBuffer } from "./services/convertFileToBuffer.js";
-import { encodingToBase64 } from "./services/encodingToBase64.js";
 import decompressAndConvertBufferToBase64 from "./services/decompressAndConvertBufferToBase64.js";
 const router = Router();
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -69,8 +67,9 @@ router.get("/data/:tgId", async (req, res) => {
 
 router.get("/:tgId", async (req, res) => {
   try {
-    res.sendFile(join(__dirname, "../public", "html", "order.html"));
-  } catch {
+    res.sendFile(join(__dirname, "../public", "html", "userOrder.html"));
+  } catch (err) {
+    console.log(err);
     return res.status(500);
   }
 });
