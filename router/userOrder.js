@@ -3,8 +3,10 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
 import compress from "./services/compress.js";
-import { convertToBuffer } from "./services/convertFileToBuffer.js";
-import decompressAndConvertBufferToBase64 from "./services/decompressAndConvertBufferToBase64.js";
+import fileIsImage from "./services/fileIsImage.js";
+import convertToBuffer from "./services/convertFileToBuffer.js";
+import getBufferOrString from "./services/getBufferOrString.js";
+
 const router = Router();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -19,7 +21,7 @@ router.post("/", async (req, res) => {
   const existingDocument = await collection.findOne({
     tgId: id,
   });
-
+  console.log(existingDocument);
   try {
     if (authHeader && authHeader.split(" ")[1] === `${authToken}`) {
       if (existingDocument) {
@@ -31,16 +33,19 @@ router.post("/", async (req, res) => {
         const fileUrl =
           existingDocument.orders[existingDocument.orders.length - 1].order.file
             .url;
-        const buffer = await convertToBuffer(fileUrl);
-        const compressedFile = await compress(buffer);
 
-        await collection.updateOne(
-          { tgId: id },
-          {
-            $set: { file: { url: compressedFile } },
-          }
-        );
-        return res.sendStatus(201);
+        if (fileIsImage(fileUrl)) {
+          const buffer = await convertToBuffer(fileUrl);
+          const compressedFile = await compress(buffer);
+
+          await collection.updateOne(
+            { tgId: id },
+            {
+              $set: { file: { url: compressedFile } },
+            }
+          );
+          return res.sendStatus(201);
+        }
       }
     } else if (!authHeader) {
       return res.sendStatus(401);
@@ -83,9 +88,10 @@ router.get("/data/tgId/:fileId", async (req, res) => {
       .find({ "orders.order.file.id": fileId })
       .toArray();
 
-    if (data) {
-      const base64 = await decompressAndConvertBufferToBase64(data);
-      res.json({ base64 });
+    const result = await getBufferOrString(data);
+
+    if (result) {
+      res.json({ result });
     } else {
       res.sendStatus(404);
     }

@@ -12,4 +12,4 @@ async function convertToBuffer(url) {
   }
 }
 
-export { convertToBuffer };
+export default convertToBuffer;
