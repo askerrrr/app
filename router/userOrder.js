@@ -36,6 +36,8 @@ router.post("/", async (req, res) => {
         if (fileIsImage(fileUrl)) {
           await convertDataToBufferAndCompress(fileUrl, collection, id);
           return res.sendStatus(201);
+        } else {
+          return res.sendStatus(201);
         }
       }
     } else if (!authHeader) {
