@@ -2,8 +2,8 @@ import { env } from "../env_var.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
-import fileIsImage from "./services/fileIsImage.js";
-import getBufferOrString from "./services/getBufferOrString.js";
+import fileIsImage from "./services/output/fileIsImage.js";
+import getBufferOrString from "./services/output/getBufferOrString.js";
 import convertDataToBufferAndCompress from "./services/convertDataToBufferAndCompress.js";
 
 const router = Router();
