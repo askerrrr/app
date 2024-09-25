@@ -7,7 +7,7 @@ function row(user) {
   const tr = document.createElement("tr");
 
   tr.append(getFirstName(user));
-  tr.append(getFirstName(user));
+  tr.append(getUserName(user));
   tr.append(getTelegramId(user));
 
   tbody.append(tr);
