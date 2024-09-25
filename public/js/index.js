@@ -1,23 +1,14 @@
+import getTelegramId from "./services/rowForIndex/link";
+import getUserName from "./services/rowForIndex/userName";
+import getFirstName from "./services/rowForIndex/firstName";
+
 function row(user) {
   const tbody = document.getElementById("tbody");
   const tr = document.createElement("tr");
 
-  const tdFirstName = document.createElement("td");
-  tdFirstName.append(user.firstName);
-  tr.append(tdFirstName);
-
-  const tdUserName = document.createElement("td");
-  tdUserName.append(user.userName);
-  tr.append(tdUserName);
-
-  const telegramIdLink = document.createElement("a");
-  telegramIdLink.href = `/orderinfo/${user.tgId}`;
-  const buttontoId = document.createElement("button");
-  buttontoId.append(`${user.tgId}`);
-  telegramIdLink.append(buttontoId);
-  const tdTelegramId = document.createElement("td");
-  tdTelegramId.append(telegramIdLink);
-  tr.append(tdTelegramId);
+  tr.append(getFirstName(user));
+  tr.append(getFirstName(user));
+  tr.append(getTelegramId(user));
 
   tbody.append(tr);
   return tbody;
