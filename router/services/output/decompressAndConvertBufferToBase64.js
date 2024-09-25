@@ -11,4 +11,4 @@ async function decompressAndConvertBufferToBase64(buffer) {
   }
 }
 
-export default decompressAndConvertBufferToBase64 //export to userOrder;
+export default decompressAndConvertBufferToBase64; //export to userOrder;
