@@ -27,4 +27,4 @@ function row(data) {
   return table;
 }
 
-export { row };
+export { row }; 

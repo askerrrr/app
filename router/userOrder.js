@@ -2,10 +2,9 @@ import { env } from "../env_var.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
-import compress from "./services/compress.js";
 import fileIsImage from "./services/fileIsImage.js";
-import convertToBuffer from "./services/convertFileToBuffer.js";
 import getBufferOrString from "./services/getBufferOrString.js";
+import convertDataToBufferAndCompress from "./services/convertDataToBufferAndCompress.js";
 
 const router = Router();
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -35,15 +34,7 @@ router.post("/", async (req, res) => {
             .url;
 
         if (fileIsImage(fileUrl)) {
-          const buffer = await convertToBuffer(fileUrl);
-          const compressedFile = await compress(buffer);
-
-          await collection.updateOne(
-            { tgId: id },
-            {
-              $set: { file: { url: compressedFile } },
-            }
-          );
+          await convertDataToBufferAndCompress(fileUrl, collection, id);
           return res.sendStatus(201);
         }
       }
@@ -71,7 +62,7 @@ router.get("/data/:tgId", async (req, res) => {
   }
 });
 
-router.get("/:tgId", async (req, res) => {
+router.get("/:tgId", async (_, res) => {
   try {
     res.sendFile(join(__dirname, "../public", "html", "userOrder.html"));
   } catch (err) {
