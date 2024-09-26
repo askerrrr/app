@@ -4,9 +4,9 @@ async function getBufferOrString(data) {
   try {
     for (const user of data) {
       for (const order of user.orders) {
-        if (Buffer.isBuffer(order.order.file.url)) {
+        if (Buffer.isBuffer(order.order.file.binary)) {
           const base64 = await decompressAndConvertBufferToBase64(
-            order.order.file.url
+            order.order.file.binaryы
           );
           return base64;
         } else if (typeof order.order.file.url === "string") {
