@@ -1,6 +1,6 @@
-import getTelegramId from "./services/rowForIndex/link";
-import getUserName from "./services/rowForIndex/userName";
-import getFirstName from "./services/rowForIndex/firstName";
+import getTelegramId from "./services/rowForIndex/link.js";
+import getUserName from "./services/rowForIndex/userName.js";
+import getFirstName from "./services/rowForIndex/firstName.js";
 
 function row(user) {
   const tbody = document.getElementById("tbody");
