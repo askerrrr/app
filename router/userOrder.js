@@ -54,8 +54,12 @@ router.post("/", async (req, res) => {
 router.get("/checkdata", async (req, res) => {
   const collection = req.app.locals.collection;
   const obj = await collection.findOne({ tgId: 43544 });
+
   const a = obj.orders[obj.orders.length - 1].order.file.url;
-  res.json(a);
+  const b = fileIsImage(a);
+  res.json(a
+    
+  );
 });
 
 router.get("/data/:tgId", async (req, res) => {
