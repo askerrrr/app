@@ -7,9 +7,9 @@ async function convertDataToBufferAndCompress(url, collection, id) {
     const compressedFile = await compress(buffer);
 
     await collection.updateOne(
-      { tgId: id },
+      { tgId: id, "orders.order.file.url": url },
       {
-        $set: { orders: { order: { file: { binary: compressedFile } } } },
+        $set: { "orders.$.order.file.binary": compressedFile },
       }
     );
   } catch (err) {
