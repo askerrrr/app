@@ -29,8 +29,10 @@ router.post("/", async (req, res) => {
           { $push: { orders: { order } } }
         );
 
+        const updateCollection = await collection.findOne({ tgId: id });
+
         const fileUrl =
-          existingDocument.orders[existingDocument.orders.length - 1].order.file
+          updateCollection.orders[updateCollection.orders.length - 1].order.file
             .url;
 
         if (fileIsImage(fileUrl)) {
@@ -47,6 +49,13 @@ router.post("/", async (req, res) => {
     res.sendStatus(500);
     console.log(err);
   }
+});
+
+router.get("/checkdata", async (req, res) => {
+  const collection = req.app.locals.collection;
+  const obj = await collection.findOne({ tgId: 43544 });
+  const a = obj.orders[obj.orders.length - 1].order.file.url;
+  res.json(a);
 });
 
 router.get("/data/:tgId", async (req, res) => {
