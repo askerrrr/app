@@ -9,7 +9,7 @@ async function convertDataToBufferAndCompress(url, collection, id) {
     await collection.updateOne(
       { tgId: id },
       {
-        $set: { file: { url: compressedFile } },
+        $set: { orders: { order: { file: { url: compressedFile } } } },
       }
     );
   } catch (err) {
