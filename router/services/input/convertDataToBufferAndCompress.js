@@ -5,6 +5,7 @@ async function convertDataToBufferAndCompress(url, collection, id) {
   try {
     const buffer = await convertToBuffer(url);
     const compressedFile = await compress(buffer);
+    console.log(buffer);
     if (compressedFile) {
       await collection.updateOne(
         { tgId: id, "orders.order.file.url": url },

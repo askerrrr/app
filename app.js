@@ -20,9 +20,8 @@ const app = express();
     const collection = db.collection("users");
     app.locals.collection = collection;
 
-    const userOrders = mongodb.db("userOrders");
-    const userAndOrders = userOrders.collection("userAndOrders");
-    app.locals.userAndOrders = userAndOrders;
+    const orderFiles = db.collection("orderFiles");
+    app.locals.orderFiles = orderFiles;
   } catch (err) {
     console.log(err);
   }
