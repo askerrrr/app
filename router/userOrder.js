@@ -63,10 +63,10 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/checkdata", async (req, res) => {
-  const collection = req.app.locals.collection;
-  const obj = await collection.findOne({ tgId: 43544 });
+  const orderFiles = req.app.locals.orderFiles;
+  const obj = await orderFiles.findOne({ tgId: 43544 });
 
-  const a = obj.orders[obj.orders.length - 1].orderContent.file.url;
+  const a = obj.files[obj.files.length - 1].fileContent;
   const b = fileIsImage(a);
   res.json(a);
 });
@@ -98,9 +98,9 @@ router.get("/:tgId", async (_, res) => {
 router.get("/data/tgId/:fileId", async (req, res) => {
   try {
     const fileId = Number(req.params.fileId);
-    const collection = req.app.locals.collection;
-    const data = await collection
-      .find({ "orders.orderContent.file.id": fileId })
+    const orderFiles = req.app.locals.orderFiles;
+    const data = await orderFiles
+      .find({ "files.fileContent.id": fileId })
       .toArray();
 
     const result = await getBufferOrString(data);
