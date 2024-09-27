@@ -62,16 +62,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/checkdata/:tgId", async (req, res) => {
-  const tgId = req.params.tgId;
-  const orderFiles = req.app.locals.orderFiles;
-  const obj = await orderFiles.findOne({ tgId: tgId });
-
-  const a = obj.files[obj.files.length - 1].fileContent;
-  const b = fileIsImage(a);
-  res.json(a);
-});
-
 router.get("/data/:tgId", async (req, res) => {
   try {
     const tgId = Number(req.params.tgId);
