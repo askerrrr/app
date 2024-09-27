@@ -43,7 +43,8 @@ router.post("/", async (req, res) => {
         const updateCollection = await orderFiles.findOne({ tgId: id });
 
         const fileUrl =
-          updateCollection.files[updateCollection.files.length - 1].file.url;
+          updateCollection.files[updateCollection.files.length - 1].fileContent
+            .url;
 
         if (fileIsImage(fileUrl)) {
           await convertDataToBufferAndCompress(fileUrl, orderFiles, id);
