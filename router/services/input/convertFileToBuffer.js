@@ -5,8 +5,9 @@ async function convertToBuffer(url) {
       throw new Error(`Запрос по url файла не удался`);
     }
 
-    const buffer = await response.arrayBuffer();
-    return buffer;
+    const arrayBuffer = await response.arrayBuffer();
+
+    return Buffer.from(arrayBuffer);
   } catch (err) {
     console.log(err);
   }
