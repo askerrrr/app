@@ -2,7 +2,7 @@ import decompressAndConvertBufferToBase64 from "./decompressAndConvertBufferToBa
 
 async function getBufferOrString(data) {
   try {
-    for (const files of data) {
+    for (const files of data.files) {
       for (const fileContent of files.fileContent) {
         if (fileContent.hasOwnProperty(binary)) {
           const base64 = await decompressAndConvertBufferToBase64(
