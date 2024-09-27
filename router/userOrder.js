@@ -31,9 +31,10 @@ router.post("/", async (req, res) => {
           { $push: { orders: { orderContent } } }
         );
 
-        // await orderFiles.insertOne({
-        //   tgId: tgId,
-        // });
+        await orderFiles.insertOne({
+          tgId, 
+          
+        });
 
         const updateCollection = await collection.findOne({ tgId: id });
 
