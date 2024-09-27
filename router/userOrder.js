@@ -13,10 +13,12 @@ router.use(json());
 
 router.post("/", async (req, res) => {
   const collection = req.app.locals.collection;
+  const orderFiles = req.app.locals.orderFiles;
   const authHeader = req.headers.authorization;
   const authToken = env.auth_token;
-  const order = req.body;
-  const id = order.tgId;
+  const orderContent = req.body;
+
+  const id = orderContent.tgId;
   const existingDocument = await collection.findOne({
     tgId: id,
   });
@@ -26,14 +28,18 @@ router.post("/", async (req, res) => {
       if (existingDocument) {
         await collection.updateOne(
           { tgId: id },
-          { $push: { orders: { order } } }
+          { $push: { orders: { orderContent } } }
         );
+
+        // await orderFiles.insertOne({
+        //   tgId: tgId,
+        // });
 
         const updateCollection = await collection.findOne({ tgId: id });
 
         const fileUrl =
-          updateCollection.orders[updateCollection.orders.length - 1].order.file
-            .url;
+          updateCollection.orders[updateCollection.orders.length - 1]
+            .orderContent.file.url;
 
         if (fileIsImage(fileUrl)) {
           await convertDataToBufferAndCompress(fileUrl, collection, id);
@@ -55,11 +61,9 @@ router.get("/checkdata", async (req, res) => {
   const collection = req.app.locals.collection;
   const obj = await collection.findOne({ tgId: 43544 });
 
-  const a = obj.orders[obj.orders.length - 1].order.file.url;
+  const a = obj.orders[obj.orders.length - 1].orderContent.file.url;
   const b = fileIsImage(a);
-  res.json(a
-    
-  );
+  res.json(a);
 });
 
 router.get("/data/:tgId", async (req, res) => {
@@ -91,7 +95,7 @@ router.get("/data/tgId/:fileId", async (req, res) => {
     const fileId = Number(req.params.fileId);
     const collection = req.app.locals.collection;
     const data = await collection
-      .find({ "orders.order.file.id": fileId })
+      .find({ "orders.orderContent.file.id": fileId })
       .toArray();
 
     const result = await getBufferOrString(data);
