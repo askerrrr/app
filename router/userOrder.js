@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
   const authHeader = req.headers.authorization;
   const authToken = env.auth_token;
   const orderContent = req.body;
-
+  const fileContent = orderContent.file;
   const id = orderContent.tgId;
   const existingDocument = await collection.findOne({
     tgId: id,
@@ -31,19 +31,23 @@ router.post("/", async (req, res) => {
           { $push: { orders: { orderContent } } }
         );
 
-        await orderFiles.insertOne({
-          tgId, 
-          
-        });
+        await orderFiles.updateOne(
+          {
+            tgId: id,
+          },
+          {
+            $push: { files: { fileContent } },
+          }
+        );
 
-        const updateCollection = await collection.findOne({ tgId: id });
+        const updateCollection = await orderFiles.findOne({ tgId: id });
 
         const fileUrl =
           updateCollection.orders[updateCollection.orders.length - 1]
             .orderContent.file.url;
 
         if (fileIsImage(fileUrl)) {
-          await convertDataToBufferAndCompress(fileUrl, collection, id);
+          await convertDataToBufferAndCompress(fileUrl, orderFiles, id);
           return res.sendStatus(201);
         } else {
           return res.sendStatus(201);
