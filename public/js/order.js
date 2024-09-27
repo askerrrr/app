@@ -1,4 +1,5 @@
 import { row } from "./services/row/row.js";
+import checkBufferOrString from "./services/different/checkBufferOrString.js";
 
 async function GetUser() {
   try {
@@ -31,12 +32,7 @@ async function GetFile() {
     });
 
     const json = await response.json();
-    const base64 = json.base64;
-    const image = `<img src='data:image/jpeg;base64,${base64}'/>`;
-    const body = document.getElementById("img");
-
-    body.innerHTML = image;
-    return body;
+    await checkBufferOrString(json);
   } catch (err) {
     console.log(err);
   }
