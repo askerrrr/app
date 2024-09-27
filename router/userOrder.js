@@ -88,16 +88,14 @@ router.get("/:tgId", async (_, res) => {
 
 router.get("/data/tgId/:fileId", async (req, res) => {
   try {
-    const fileId = Number(req.params.fileId);
+    const fileId = req.params.fileId;
     const orderFiles = req.app.locals.orderFiles;
-    const data = await orderFiles
-      .find({ "files.fileContent.id": fileId })
-      .toArray();
+    const data = await orderFiles.findOne({ "files.fileContent.id": fileId });
 
     const result = await getBufferOrString(data);
 
     if (result) {
-      res.json({ result });
+      res.json(data.files);
     } else {
       res.sendStatus(404);
     }
