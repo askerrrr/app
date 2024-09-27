@@ -95,7 +95,7 @@ router.get("/data/tgId/:fileId", async (req, res) => {
     const result = await getBufferOrString(data);
 
     if (result) {
-      res.json(data.files);
+      res.json(data);
     } else {
       res.sendStatus(404);
     }
