@@ -3,7 +3,7 @@ export default function getProductLink(data) {
   button.append("https://....");
 
   const link = document.createElement("a");
-  link.href = data.order.url;
+  link.href = data.orderContent.url;
   link.target = "_blank";
   link.append(button);
 
