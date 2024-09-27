@@ -4,7 +4,7 @@ import { Router } from "express";
 const router = Router();
 router.post("/", async (req, res) => {
   const collection = req.app.locals.collection;
-  const orderFiles = req.app.locals.collection;
+  const orderFiles = req.app.locals.orderFiles;
   const authHeader = req.headers.authorization;
   const authToken = env.auth_token;
   const user = req.body;
