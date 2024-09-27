@@ -8,7 +8,7 @@ async function convertDataToBufferAndCompress(url, orderFiles, id) {
     console.log(buffer);
     if (compressedFile) {
       await orderFiles.updateOne(
-        { tgId: id },
+        { tgId: id, "files.file.url": url },
         {
           $set: { "files.$.file.binary": compressedFile },
         }
