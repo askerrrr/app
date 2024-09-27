@@ -4,12 +4,13 @@ async function getBufferOrString(data) {
   try {
     for (const files of data) {
       const fileContent = files.fileContent;
-      if (Buffer.isBuffer(fileContent.binary)) {
+
+      if (fileContent.hasOwnProperty(binary)) {
         const base64 = await decompressAndConvertBufferToBase64(
           fileContent.binary
         );
         return base64;
-      } else if (!Buffer.isBuffer(fileContent.binary)) {
+      } else if (!fileContent.hasOwnProperty(binary)) {
         return fileContent.url;
       }
     }
