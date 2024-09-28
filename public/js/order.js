@@ -32,7 +32,8 @@ async function GetFile() {
     });
 
     const json = await response.json();
-    await checkBufferOrString(json);
+    const result = await checkBufferOrString(json);
+    return result;
   } catch (err) {
     console.log(err);
   }

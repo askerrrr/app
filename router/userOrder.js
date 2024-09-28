@@ -95,13 +95,21 @@ router.get("/data/tgId/:fileId", async (req, res) => {
     const result = await getBufferOrString(data);
 
     if (result) {
-      res.json(data);
+      res.json(result);
     } else {
       res.sendStatus(404);
     }
   } catch (err) {
     console.log(err);
     return res.status(500);
+  }
+});
+
+router.get("/data/tgId/file/:fileId", async (req, res) => {
+  try {
+    res.sendFile(join(__dirname, "../public", "html", "sendImage.html"));
+  } catch (err) {
+    console.log(err);
   }
 });
 

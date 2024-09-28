@@ -8,7 +8,12 @@ async function checkBufferOrString(json) {
       body.innerHTML = image;
       return body;
     } else if (json.url) {
-      return json.url;
+      const div = document.createElement("div");
+      const body = document.getElementById("img");
+      div.append(json.url);
+      body.append(div);
+      return body;
+      //return json.url;
     }
   } catch (err) {
     console.log(err);
