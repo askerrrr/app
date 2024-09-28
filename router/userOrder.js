@@ -86,12 +86,15 @@ router.get("/:tgId", async (_, res) => {
   }
 });
 
-router.get("/data/tgId/:fileId", async (req, res) => {
+router.get("/:fileId", async (req, res) => {
   try {
     const fileId = req.params.fileId;
     const orderFiles = req.app.locals.orderFiles;
     const data = await orderFiles.findOne({ "files.fileContent.id": fileId });
 
+    if (!data) {
+      return res.sendStatus(404);
+    }
     const result = await getBufferOrString(data);
 
     if (result) {
@@ -105,9 +108,9 @@ router.get("/data/tgId/:fileId", async (req, res) => {
   }
 });
 
-router.get("/data/tgId/file/:fileId", async (req, res) => {
+router.get("/fileid/:fileId", async (_, res) => {
   try {
-    res.sendFile(join(__dirname, "../public", "html", "sendImage.html"));
+    res.sendFile(join(__dirname, "../public", "html", "sendFile.html"));
   } catch (err) {
     console.log(err);
   }

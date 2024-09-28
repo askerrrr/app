@@ -2,11 +2,15 @@ import decompressAndConvertBufferToBase64 from "./decompressAndConvertBufferToBa
 
 async function getBufferOrString(data) {
   try {
-    let binary = data.files.map((files) => files.fileContent.binary).join("");
-    if (binary) {
-      return await decompressAndConvertBufferToBase64(binary);
+    if (!data) {
+      return "data is not defined";
     } else {
-      return binary;
+      let binary = data.files.map((files) => files.fileContent.binary).join("");
+      if (binary) {
+        return await decompressAndConvertBufferToBase64(binary);
+      } else if (binary) {
+        return binary;
+      }
     }
   } catch (err) {
     console.log(err);

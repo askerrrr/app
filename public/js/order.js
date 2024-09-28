@@ -14,29 +14,10 @@ async function GetUser() {
     const user = await response.json();
 
     return row(user);
+    ``;
   } catch (err) {
     console.log(err);
   }
 }
 
 GetUser();
-
-async function GetFile() {
-  try {
-    const pathParts = window.location.pathname.split("/");
-    const fileId = pathParts[pathParts.length - 1];
-
-    const response = await fetch(`/orderinfo/data/tgId/${fileId}`, {
-      method: "GET",
-      headers: { Accept: "application/json" },
-    });
-
-    const json = await response.json();
-    const result = await checkBufferOrString(json);
-    return result;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-GetFile();

@@ -5,7 +5,7 @@ export default function getFile(data) {
   const fileId = data.orderContent.file.id;
   const fileURL = data.orderContent.file.url;
   const result = checkFileType(fileURL);
-  imageURL.href = `/orderinfo/data/tgId/file/${fileId}}`;
+  imageURL.href = `/orderinfo/fileid/${fileId}}`;
   imageURL.target = "_blank";
 
   const buttonImage = document.createElement("button");
