@@ -1,8 +1,6 @@
 import getDate from "./services/date.js";
 import getFile from "./services/file.js";
 import getPhone from "./services/phone.js";
-import getProductLink from "./services/productLink.js";
-import getDesctiption from "./services/description.js";
 
 function row(data) {
   const table = document.getElementById("table");
@@ -12,8 +10,6 @@ function row(data) {
     const tr = document.createElement("tr");
 
     tr.append(getDate(order));
-    tr.append(getProductLink(order));
-    tr.append(getDesctiption(order));
     tr.append(getFile(order));
     tr.append(getPhone(order));
 
@@ -27,4 +23,4 @@ function row(data) {
   return table;
 }
 
-export { row }; 
+export { row };
