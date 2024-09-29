@@ -13,7 +13,6 @@ async function GetUser() {
     const user = await response.json();
 
     return row(user);
-    ``;
   } catch (err) {
     console.log(err);
   }

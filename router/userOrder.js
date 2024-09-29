@@ -2,9 +2,6 @@ import { env } from "../env_var.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
-import fileIsImage from "./services/output/fileIsImage.js";
-import getBufferOrString from "./services/output/getBufferOrString.js";
-import convertDataToBufferAndCompress from "./services/input/convertDataToBufferAndCompress.js";
 
 const router = Router();
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -13,11 +10,9 @@ router.use(json());
 
 router.post("/", async (req, res) => {
   const collection = req.app.locals.collection;
-  const orderFiles = req.app.locals.orderFiles;
   const authHeader = req.headers.authorization;
   const authToken = env.auth_token;
   const orderContent = req.body;
-  const fileContent = orderContent.file;
   const id = orderContent.tgId;
   const existingDocument = await collection.findOne({
     tgId: id,
@@ -30,31 +25,10 @@ router.post("/", async (req, res) => {
           { tgId: id },
           { $push: { orders: { orderContent } } }
         );
-
-        await orderFiles.updateOne(
-          {
-            tgId: id,
-          },
-          {
-            $push: { files: { fileContent } },
-          }
-        );
-
-        const updateCollection = await orderFiles.findOne({ tgId: id });
-
-        const fileUrl =
-          updateCollection.files[updateCollection.files.length - 1].fileContent
-            .url;
-
-        if (fileIsImage(fileUrl)) {
-          await convertDataToBufferAndCompress(fileUrl, orderFiles, id);
-          return res.sendStatus(201);
-        } else {
-          return res.sendStatus(201);
-        }
+        return res.sendStatus(201);
+      } else if (!authHeader) {
+        return res.sendStatus(401);
       }
-    } else if (!authHeader) {
-      return res.sendStatus(401);
     }
   } catch (err) {
     res.sendStatus(500);
@@ -83,39 +57,6 @@ router.get("/:tgId", async (_, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500);
-  }
-});
-
-router.get("/:fileId", async (req, res) => {
-  try {
-    const fileId = req.params.fileId;
-    const orderFiles = req.app.locals.orderFiles;
-    const data = await orderFiles.findOne({ "files.fileContent.id": fileId });
-
-    if (!data) {
-      return res.sendStatus(404);
-    }
-    const result = await getBufferOrString(data);
-
-    if (result) {
-      if (typeof result === "string") {
-        return res.json({ url: result, id });
-      }
-      return res.json({ binary: result });
-    } else {
-      res.sendStatus(404);
-    }
-  } catch (err) {
-    console.log(err);
-    return res.status(500);
-  }
-});
-
-router.get("/fileid/:fileId", async (_, res) => {
-  try {
-    res.sendFile(join(__dirname, "../public", "html", "sendFile.html"));
-  } catch (err) {
-    console.log(err);
   }
 });
 

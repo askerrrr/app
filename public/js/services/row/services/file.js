@@ -8,7 +8,7 @@ export default function getFile(data) {
   const fileURL = document.createElement("a");
   fileURL.id = id;
   fileURL.target = "_blank";
-  fileURL.href = `/orderinfo/fileid/${id}}`;
+  fileURL.href = `${data.orderContent.file.url}`;
 
   const buttonImage = document.createElement("button");
   buttonImage.append(result);

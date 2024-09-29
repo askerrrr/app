@@ -19,9 +19,6 @@ const app = express();
     const db = mongodb.db("TelegramUsers");
     const collection = db.collection("users");
     app.locals.collection = collection;
-
-    const orderFiles = db.collection("orderFiles");
-    app.locals.orderFiles = orderFiles;
   } catch (err) {
     console.log(err);
   }
