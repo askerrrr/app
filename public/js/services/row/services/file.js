@@ -6,6 +6,7 @@ export default function getFile(data) {
   const result = checkFileType(url);
 
   const fileURL = document.createElement("a");
+  fileURL.id = id;
   fileURL.target = "_blank";
   fileURL.href = `/orderinfo/fileid/${id}}`;
 

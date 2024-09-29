@@ -7,12 +7,12 @@ async function checkBufferOrString(json) {
       body.innerHTML = image;
       return body;
     } else if (json.url) {
-      // const fileURL = document.getElementById(json.url);
-      // fileURL.href = `${json.url}`;
+      const fileURL = document.getElementById(json.id);
+      fileURL.href = `${json.url}`;
       const div = document.createElement("div");
       const body = document.getElementById("img");
       div.textContent = json.url;
-      body.append(div);
+      body.append(fileURL);
       return body;
       //return fileURL;
     }

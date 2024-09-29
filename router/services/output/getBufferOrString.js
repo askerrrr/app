@@ -3,13 +3,13 @@ import decompressAndConvertBufferToBase64 from "./decompressAndConvertBufferToBa
 async function getBufferOrString(data) {
   try {
     for (const file of data.files) {
-      const { binary, url } = file.fileContent;
+      const { binary, url, id } = file.fileContent;
 
       if (binary) {
         return await decompressAndConvertBufferToBase64(binary);
       }
 
-      return url;
+      return { url, id };
     }
     return null;
   } catch (err) {

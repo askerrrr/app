@@ -99,7 +99,7 @@ router.get("/:fileId", async (req, res) => {
 
     if (result) {
       if (typeof result === "string") {
-        return res.json({ url: result });
+        return res.json({ url: result, id });
       }
       return res.json({ binary: result });
     } else {
