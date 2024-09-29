@@ -1,3 +1,5 @@
+import checkBufferOrString from "./services/different/checkBufferOrString.js";
+
 async function GetFile() {
   try {
     const pathParts = window.location.pathname.split("/");
@@ -13,6 +15,7 @@ async function GetFile() {
     }
 
     const json = await response.json();
+
     const result = await checkBufferOrString(json);
     return result;
   } catch (err) {

@@ -98,7 +98,10 @@ router.get("/:fileId", async (req, res) => {
     const result = await getBufferOrString(data);
 
     if (result) {
-      res.json(result);
+      if (typeof result === "string") {
+        return res.json({ url: result });
+      }
+      return res.json({ binary: result });
     } else {
       res.sendStatus(404);
     }
