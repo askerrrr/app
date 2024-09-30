@@ -1,6 +1,6 @@
 import { row } from "./services/row/row.js";
 
-async function GetUser() {
+async function GetExtendedOrders() {
   try {
     const pathParts = window.location.pathname.split("/");
     const tgId = pathParts[pathParts.length - 1];
@@ -18,4 +18,4 @@ async function GetUser() {
   }
 }
 
-GetUser();
+GetExtendedOrders();
