@@ -1,6 +1,6 @@
-import rowForOrders from "./services/rowForOrders/rowForOrders.js";
+import rowForOrders from "./services/rowForOrdersList/rowForOrdersList.js";
 
-async function GetOrders() {
+async function GetOrdersList() {
   try {
     const pathParts = window.location.pathname.split("/");
     const tgId = pathParts[pathParts.length - 1];
@@ -18,4 +18,4 @@ async function GetOrders() {
   }
 }
 
-GetOrders();
+GetOrdersList();

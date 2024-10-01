@@ -1,6 +1,6 @@
 import { row } from "./services/row/row.js";
 
-async function GetExtendedOrders() {
+async function GetAllInfoAboutTheOrder() {
   try {
     const pathParts = window.location.pathname.split("/");
     const orderId = pathParts[pathParts.length - 1];
@@ -18,4 +18,4 @@ async function GetExtendedOrders() {
   }
 }
 
-GetExtendedOrders();
+GetAllInfoAboutTheOrder();
