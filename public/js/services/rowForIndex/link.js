@@ -1,6 +1,6 @@
 function getTelegramId(user) {
   const telegramIdLink = document.createElement("a");
-  telegramIdLink.href = `/orderinfo/${user.tgId}`;
+  telegramIdLink.href = `/orderinfo/orders/${user.tgId}`;
 
   const buttontoId = document.createElement("button");
   buttontoId.append(`${user.tgId}`);

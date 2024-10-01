@@ -41,6 +41,7 @@ router.get("/data/:tgId", async (req, res) => {
     const tgId = Number(req.params.tgId);
     const collection = req.app.locals.collection;
     const user = await collection.findOne({ tgId: tgId });
+
     if (user) {
       res.json(user);
     } else {
@@ -51,7 +52,31 @@ router.get("/data/:tgId", async (req, res) => {
   }
 });
 
-router.get("/:tgId", async (_, res) => {
+router.get("/data/order/:orderId", async (req, res) => {
+  try {
+    const orderId = req.params.orderId;
+    const collection = req.app.locals.collection;
+
+    const user = await collection.findOne({
+      "orders.orderContent.file.id": orderId,
+    });
+
+    const order = user.orders.find(
+      (order) => order.orderContent.file.id === orderId
+    );
+
+    if (order) {
+      console.log(order);
+      res.json(order);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch {
+    return res.status(500);
+  }
+});
+
+router.get("/orders/order/:orderId", async (_, res) => {
   try {
     res.sendFile(join(__dirname, "../public", "html", "userOrder.html"));
   } catch (err) {
@@ -60,4 +85,12 @@ router.get("/:tgId", async (_, res) => {
   }
 });
 
+router.get("/orders/:tgId", async (_, res) => {
+  try {
+    res.sendFile(join(__dirname, "../public", "html", "orders.html"));
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
 export { router as userPath };
