@@ -87,7 +87,7 @@ router.get("/orders/order/:orderId", async (_, res) => {
 
 router.get("/orders/:tgId", async (_, res) => {
   try {
-    res.sendFile(join(__dirname, "../public", "html", "orders.html"));
+    res.sendFile(join(__dirname, "../public", "html", "ordersList.html"));
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
