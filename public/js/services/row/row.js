@@ -1,6 +1,7 @@
 import getDate from "./services/date.js";
 import getFile from "./services/file.js";
 import getPhone from "./services/phone.js";
+import buttonBack from "./services/buttonBack.js";
 
 function row(order) {
   const table = document.getElementById("table");
@@ -16,7 +17,11 @@ function row(order) {
   tbody.append(tr);
   tbody.id = id++;
   table.append(tbody);
-  return table;
+
+  const body = document.getElementById("allInformationAboutTheOrder");
+  body.append(buttonBack(order));
+  body.append(table);
+  return body;
 }
 
 export { row };

@@ -5,7 +5,6 @@ export default function getFile(data) {
   const fileURL = document.createElement("a");
   fileURL.id = id;
   fileURL.href = `${url}`;
-  fileURL.target = "_blank";
 
   const buttonImage = document.createElement("button");
   buttonImage.append("https://docs.google");
