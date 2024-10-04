@@ -2,6 +2,7 @@ import { env } from "../env_var.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
+import checkFileUrl from "./services/checkFileUrl.js";
 
 const router = Router();
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -17,10 +18,16 @@ router.post("/", async (req, res) => {
   const existingDocument = await collection.findOne({
     tgId: id,
   });
+
   console.log(existingDocument);
   try {
     if (authHeader && authHeader.split(" ")[1] === `${authToken}`) {
       if (existingDocument) {
+        const fileURL = existingDocument.orderContent.file.url;
+        const result = await checkFileUrl(fileURL, existingDocument);
+
+        if (res) {
+        }
         await collection.updateOne(
           { tgId: id },
           { $push: { orders: { orderContent } } }
