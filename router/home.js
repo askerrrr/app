@@ -1,18 +1,20 @@
 import { env } from "../env_var.js";
 import { Router } from "express";
+import checkAuthToken from "./services/checkAuthToken.js";
 
 const router = Router();
 router.post("/", async (req, res) => {
   const collection = req.app.locals.collection;
   const authHeader = req.headers.authorization;
-  const authToken = env.auth_token;
   const user = req.body;
   const existingDocument = await collection.findOne({
     tgId: user.tgId,
   });
 
   try {
-    if (authHeader && authHeader.split(" ")[1] === `${authToken}`) {
+    const authToken = checkAuthToken(authHeader);
+
+    if (authToken) {
       if (!existingDocument) {
         await collection.insertOne(user);
         return res.status(201).send(user);

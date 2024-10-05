@@ -1,8 +1,10 @@
-import { env } from "../env_var.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
+import addNewOrder from "./services/addNewOrder.js";
 import checkFileUrl from "./services/checkFileUrl.js";
+import checkAuthToken from "./services/checkAuthToken.js";
+import updateOrderContent from ".services/updateOrderContent.js";
 
 const router = Router();
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -10,29 +12,28 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 router.use(json());
 
 router.post("/", async (req, res) => {
-  const collection = req.app.locals.collection;
-  const authHeader = req.headers.authorization;
-  const authToken = env.auth_token;
-  const orderContent = req.body;
-  const id = orderContent.tgId;
-  const existingDocument = await collection.findOne({
-    tgId: id,
-  });
-
-  console.log(existingDocument);
   try {
-    if (authHeader && authHeader.split(" ")[1] === `${authToken}`) {
-      if (existingDocument) {
-        const fileURL = existingDocument.orderContent.file.url;
-        const result = await checkFileUrl(fileURL, existingDocument);
+    const collection = req.app.locals.collection;
+    const authHeader = req.headers.authorization;
+    const orderContent = req.body;
+    const id = orderContent.tgId;
 
-        if (res) {
+    const authToken = checkAuthToken(authHeader);
+    const existingDocument = await collection.findOne({
+      tgId: id,
+    });
+
+    if (authToken) {
+      if (existingDocument) {
+        const fileURL = orderContent.file.url;
+        const result = await checkFileUrl(id, fileURL, existingDocument);
+        if (result) {
+          await updateOrderContent(id, orderContent, existingDocument);
+          return res.sendStatus(201);
+        } else {
+          await addNewOrder(id, collection, orderContent);
+          return res.sendStatus(201);
         }
-        await collection.updateOne(
-          { tgId: id },
-          { $push: { orders: { orderContent } } }
-        );
-        return res.sendStatus(201);
       } else if (!authHeader) {
         return res.sendStatus(401);
       }
