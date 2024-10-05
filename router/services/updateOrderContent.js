@@ -1,5 +1,5 @@
-async function updateOrderContent(id, orderContent, existingDocument) {
-  return await existingDocument.updateOne(
+async function updateOrderContent(id, orderContent, collection) {
+  return await collection.updateOne(
     {
       tgId: id,
       "orders.orderContent.file.url": fileURL,

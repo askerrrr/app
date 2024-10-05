@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
         const fileURL = orderContent.file.url;
         const result = await checkFileUrl(id, fileURL, collection);
         if (result) {
-          await updateOrderContent(id, orderContent, existingDocument);
+          await updateOrderContent(id, orderContent, collection);
           return res.sendStatus(201);
         } else {
           await addNewOrder(id, collection, orderContent);
