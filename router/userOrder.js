@@ -4,7 +4,7 @@ import { Router, json } from "express";
 import addNewOrder from "./services/addNewOrder.js";
 import checkFileUrl from "./services/checkFileUrl.js";
 import checkAuthToken from "./services/checkAuthToken.js";
-import updateOrderContent from ".services/updateOrderContent.js";
+import updateOrderContent from "./services/updateOrderContent.js";
 
 const router = Router();
 const __dirname = dirname(fileURLToPath(import.meta.url));
