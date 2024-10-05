@@ -4,7 +4,7 @@ async function updateOrderContent(id, orderContent, collection) {
       tgId: id,
       "orders.orderContent.file.url": fileURL,
     },
-    { $set: { orders: orderContent } }
+    { $set: { orders: { orderContent: orderContent } } }
   );
 }
 
