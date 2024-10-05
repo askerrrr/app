@@ -1,5 +1,5 @@
-async function checkFileUrl(id, fileURL, existingDocument) {
-  return await existingDocument.findOne({
+async function checkFileUrl(id, fileURL, collection) {
+  return await collection.findOne({
     "orders.orderContent.file.url": fileURL,
     "orders.tgId": id,
   });

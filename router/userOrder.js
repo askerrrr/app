@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
     if (authToken) {
       if (existingDocument) {
         const fileURL = orderContent.file.url;
-        const result = await checkFileUrl(id, fileURL, existingDocument);
+        const result = await checkFileUrl(id, fileURL, collection);
         if (result) {
           await updateOrderContent(id, orderContent, existingDocument);
           return res.sendStatus(201);
