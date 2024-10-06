@@ -2,8 +2,9 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
 import addNewOrder from "./services/addNewOrder.js";
-import checkFileUrl from "./services/checkFileUrl.js";
+import createNewUser from "./services/createNewUser.js";
 import checkAuthToken from "./services/checkAuthToken.js";
+import findDublicateUrl from "./services/findDublicateUrl.js";
 import updateOrderContent from "./services/updateOrderContent.js";
 
 const router = Router();
@@ -25,18 +26,23 @@ router.post("/", async (req, res) => {
 
     if (authToken) {
       if (existingDocument) {
-        const fileURL = orderContent.file.url;
-        const result = await checkFileUrl(id, fileURL, collection);
-        if (result) {
-          await updateOrderContent(id, orderContent, collection);
+        const dublicateUrl = await findDublicateUrl(collection, orderContent);
+        if (dublicateUrl) {
+          await updateOrderContent(collection, orderContent);
           return res.sendStatus(201);
         } else {
-          await addNewOrder(id, collection, orderContent);
+          await addNewOrder(collection, orderContent);
           return res.sendStatus(201);
         }
-      } else if (!authHeader) {
-        return res.sendStatus(401);
+      } else {
+        const newUser = await createNewUser(collection, orderContent);
+
+        if (newUser) {
+          return await addNewOrder(collection, orderContent);
+        }
       }
+    } else if (!authToken) {
+      return res.sendStatus(401);
     }
   } catch (err) {
     res.sendStatus(500);
@@ -50,11 +56,7 @@ router.get("/data/:tgId", async (req, res) => {
     const collection = req.app.locals.collection;
     const user = await collection.findOne({ tgId: tgId });
 
-    if (user) {
-      res.json(user);
-    } else {
-      res.sendStatus(404);
-    }
+    return user ? res.json(user) : res.sendStatus(404);
   } catch {
     return res.status(500);
   }
@@ -73,12 +75,7 @@ router.get("/data/order/:orderId", async (req, res) => {
       (order) => order.orderContent.file.id === orderId
     );
 
-    if (order) {
-      console.log(order);
-      res.json(order);
-    } else {
-      res.sendStatus(404);
-    }
+    return order ? res.json(order) : res.sendStatus(404);
   } catch {
     return res.status(500);
   }

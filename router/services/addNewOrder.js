@@ -1,6 +1,6 @@
-async function addNewOrder(id, collection, orderContent) {
+async function addNewOrder(collection, orderContent) {
   return await collection.updateOne(
-    { tgId: id },
+    { tgId: orderContent.tgId },
     { $push: { orders: { orderContent } } }
   );
 }
