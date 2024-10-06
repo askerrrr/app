@@ -1,11 +1,8 @@
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
-import addNewOrder from "./services/addNewOrder.js";
-import createNewUser from "./services/createNewUser.js";
+import db from "./services/database/db.js";
 import checkAuthToken from "./services/checkAuthToken.js";
-import findDublicateUrl from "./services/findDublicateUrl.js";
-import updateOrderContent from "./services/updateOrderContent.js";
 
 const router = Router();
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -20,25 +17,29 @@ router.post("/", async (req, res) => {
     const id = orderContent.tgId;
 
     const authToken = checkAuthToken(authHeader);
+
     const existingDocument = await collection.findOne({
       tgId: id,
     });
 
     if (authToken) {
       if (existingDocument) {
-        const dublicateUrl = await findDublicateUrl(collection, orderContent);
+        const dublicateUrl = await db.findDublicateUrl(
+          collection,
+          orderContent
+        );
         if (dublicateUrl) {
-          await updateOrderContent(collection, orderContent);
+          await db.updateOrderContent(collection, orderContent);
           return res.sendStatus(201);
         } else {
-          await addNewOrder(collection, orderContent);
+          await db.addNewOrder(collection, orderContent);
           return res.sendStatus(201);
         }
       } else {
-        const newUser = await createNewUser(collection, orderContent);
+        const newUser = await db.createNewUser(collection, orderContent);
 
         if (newUser) {
-          return await addNewOrder(collection, orderContent);
+          return await db.addNewOrder(collection, orderContent);
         }
       }
     } else if (!authToken) {
