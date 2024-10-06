@@ -39,7 +39,8 @@ router.post("/", async (req, res) => {
         const newUser = await db.createNewUser(collection, orderContent);
 
         if (newUser) {
-          return await db.addNewOrder(collection, orderContent);
+          await db.addNewOrder(collection, orderContent);
+          return res.sendStatus(201);
         }
       }
     } else if (!authToken) {
