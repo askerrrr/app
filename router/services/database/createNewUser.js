@@ -1,6 +1,6 @@
 async function createNewUser(collection, orderContent) {
   return await collection.insertOne({
-    tgId: id,
+    tgId: orderContent.tgId,
     firstName: orderContent.firstName,
     userName: orderContent.userName,
     orders: [],
