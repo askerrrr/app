@@ -1,6 +1,6 @@
 import { env } from "../env_var.js";
 import { Router } from "express";
-import checkAuthToken from "./services/checkAuthToken.js";
+import checkAuthToken from "./services/different/checkAuthToken.js";
 
 const router = Router();
 router.post("/", async (req, res) => {

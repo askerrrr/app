@@ -1,4 +1,4 @@
-import { env } from "../../env_var.js";
+import { env } from "../../../env_var.js";
 
 function checkAuthToken(authHeader) {
   const authToken = env.auth_token;

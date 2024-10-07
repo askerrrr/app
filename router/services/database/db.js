@@ -1,7 +1,7 @@
-import addNewOrder from "./addNewOrder";
-import createNewUser from "./createNewUser";
-import findDublicateUrl from "./findDublicateUrl";
-import updateOrderContent from "./updateOrderContent";
+import addNewOrder from "./addNewOrder.js";
+import createNewUser from "./createNewUser.js";
+import findDublicateUrl from "./findDublicateUrl.js";
+import updateOrderContent from "./updateOrderContent.js";
 
 const db = { addNewOrder, createNewUser, findDublicateUrl, updateOrderContent };
 

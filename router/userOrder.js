@@ -2,7 +2,7 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
 import db from "./services/database/db.js";
-import checkAuthToken from "./services/checkAuthToken.js";
+import checkAuthToken from "./services/different/checkAuthToken.js";
 
 const router = Router();
 const __dirname = dirname(fileURLToPath(import.meta.url));
