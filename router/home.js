@@ -1,4 +1,3 @@
-import { env } from "../env_var.js";
 import { Router } from "express";
 import checkAuthToken from "./services/different/checkAuthToken.js";
 
