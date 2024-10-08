@@ -4,7 +4,7 @@ import { Router, json } from "express";
 import db from "./services/database/db.js";
 import checkAuthToken from "./services/different/checkAuthToken.js";
 
-const router = Router();
+const router = Router({ caseSensitive: true, strict: true });
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 router.use(json());

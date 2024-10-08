@@ -1,7 +1,7 @@
 import { Router } from "express";
 import checkAuthToken from "./services/different/checkAuthToken.js";
 
-const router = Router();
+const router = Router({ caseSensitive: true, strict: true });
 router.post("/", async (req, res) => {
   const collection = req.app.locals.collection;
   const authHeader = req.headers.authorization;
