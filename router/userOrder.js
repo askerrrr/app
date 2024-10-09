@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
 import db from "./services/database/db.js";
+import { downloadAndSaveFile } from "./services/different/downloadAndSaveFile.js";
 
 const router = Router({ caseSensitive: true, strict: true });
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -15,6 +16,7 @@ router.post("/", async (req, res) => {
     const authHeader = req.headers.authorization;
     const orderContent = req.body;
     const id = orderContent.tgId;
+    const fileUrl = orderContent.file.url;
 
     const validToken =
       authHeader && authHeader.split(" ")[1] === `${env.auth_token}`;
@@ -25,6 +27,8 @@ router.post("/", async (req, res) => {
 
     if (validToken) {
       if (existingDocument) {
+        await downloadAndSaveFile(id, fileUrl);
+
         const dublicateUrl = await db.findDublicateUrl(
           collection,
           orderContent

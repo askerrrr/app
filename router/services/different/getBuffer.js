@@ -1,8 +1,12 @@
 async function getBuffer(url) {
-  const response = await fetch(url);
+  try {
+    const response = await fetch(url);
 
-  const arrayBuffer = await response.arrayBuffer();
+    const arrayBuffer = await response.arrayBuffer();
 
-  return Buffer.from(arrayBuffer);
+    return Buffer.from(arrayBuffer);
+  } catch (err) {
+    console.log(err);
+  }
 }
 export default getBuffer;
