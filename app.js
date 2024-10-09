@@ -27,7 +27,7 @@ const app = express();
 import { home } from "./router/home.js";
 import { userPath } from "./router/userOrder.js";
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
