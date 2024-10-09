@@ -1,8 +1,8 @@
+import { env } from "../env_var.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
 import db from "./services/database/db.js";
-import checkAuthToken from "./services/different/checkAuthToken.js";
 
 const router = Router({ caseSensitive: true, strict: true });
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -16,13 +16,14 @@ router.post("/", async (req, res) => {
     const orderContent = req.body;
     const id = orderContent.tgId;
 
-    const authToken = checkAuthToken(authHeader);
+    const validToken =
+      authHeader && authHeader.split(" ")[1] === `${env.auth_token}`;
 
     const existingDocument = await collection.findOne({
       tgId: id,
     });
 
-    if (authToken) {
+    if (validToken) {
       if (existingDocument) {
         const dublicateUrl = await db.findDublicateUrl(
           collection,
@@ -43,7 +44,7 @@ router.post("/", async (req, res) => {
           return res.sendStatus(201);
         }
       }
-    } else if (!authToken) {
+    } else {
       return res.sendStatus(401);
     }
   } catch (err) {
