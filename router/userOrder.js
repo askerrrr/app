@@ -28,21 +28,10 @@ router.post("/", async (req, res) => {
     if (validToken) {
       if (existingDocument) {
         await downloadAndSaveFile(id, fileUrl);
-
-        const dublicateUrl = await db.findDublicateUrl(
-          collection,
-          orderContent
-        );
-        if (dublicateUrl) {
-          await db.updateOrderContent(collection, orderContent);
-          return res.sendStatus(201);
-        } else {
-          await db.addNewOrder(collection, orderContent);
-          return res.sendStatus(201);
-        }
+        await db.addNewOrder(collection, orderContent);
+        return res.sendStatus(201);
       } else {
         const newUser = await db.createNewUser(collection, orderContent);
-
         if (newUser) {
           await db.addNewOrder(collection, orderContent);
           return res.sendStatus(201);
