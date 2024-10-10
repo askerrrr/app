@@ -3,7 +3,7 @@ import path from "path";
 
 async function getUserDir(id) {
   try {
-    const userDir = path.join("var", "www", "userFiles", `${id}`);
+    const userDir = path.join("/var", "www", "userFiles", `${id}`);
 
     if (!fs.existsSync(userDir)) {
       await fs.promises.mkdir(userDir, { recursive: true });
