@@ -7,7 +7,7 @@ export default function getFile(data) {
   fileURL.href = `${pathToFile}`;
 
   const buttonImage = document.createElement("button");
-  buttonImage.append("https://docs.google");
+  buttonImage.append("file.xlsx");
   fileURL.append(buttonImage);
 
   const file = document.createElement("td");

@@ -26,6 +26,7 @@ const app = express();
 
 import { home } from "./router/home.js";
 import { userPath } from "./router/userOrder.js";
+import { download } from "./router/downloadFile.js";
 
 app.use(express.urlencoded());
 app.use(express.json());
@@ -33,3 +34,4 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", home);
 app.use("/orderinfo", userPath);
+app.use("/download", download);
