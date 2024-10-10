@@ -1,6 +1,6 @@
 import fs from "fs";
-import getBuffer from "./getBuffer";
-import getUserDir from "./getUserDir";
+import getBuffer from "./getBuffer.js";
+import getUserDir from "./getUserDir.js";
 
 async function downloadAndSaveFile(id, url) {
   try {
