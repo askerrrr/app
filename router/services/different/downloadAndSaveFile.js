@@ -4,7 +4,7 @@ import getUserDir from "./getUserDir.js";
 
 async function downloadAndSaveFile(id, fileId, fileUrl) {
   try {
-    const buffer = await getBuffer(url);
+    const buffer = await getBuffer(fileUrl);
     if (buffer) {
       const orderDir = await getUserDir(id);
 
