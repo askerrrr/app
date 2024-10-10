@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 import getBuffer from "./getBuffer.js";
 import getUserDir from "./getUserDir.js";
 
