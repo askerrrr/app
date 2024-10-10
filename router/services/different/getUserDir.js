@@ -1,3 +1,5 @@
+import path from "path";
+
 async function getUserDir(id) {
   try {
     const userDir = path.join("var", "www", "userFiles", `${id}`);
