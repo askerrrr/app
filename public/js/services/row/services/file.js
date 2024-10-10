@@ -1,10 +1,10 @@
 export default function getFile(data) {
   const id = data.orderContent.file.id;
-  const url = data.orderContent.file.url;
+  const pathToFile = data.orderContent.file.pathToFile;
 
   const fileURL = document.createElement("a");
   fileURL.id = id;
-  fileURL.href = `${url}`;
+  fileURL.href = `${pathToFile}`;
 
   const buttonImage = document.createElement("button");
   buttonImage.append("https://docs.google");
