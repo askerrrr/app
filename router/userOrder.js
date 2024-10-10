@@ -17,6 +17,7 @@ router.post("/", async (req, res) => {
     const orderContent = req.body;
     const id = orderContent.tgId;
     const fileUrl = orderContent.file.url;
+    const fileId = orderContent.file.id;
 
     const validToken =
       authHeader && authHeader.split(" ")[1] === `${env.auth_token}`;
@@ -27,7 +28,7 @@ router.post("/", async (req, res) => {
 
     if (validToken) {
       if (existingDocument) {
-        await downloadAndSaveFile(id, fileUrl);
+        await downloadAndSaveFile(id, fileId, fileUrl);
         await db.addNewOrder(collection, orderContent);
         return res.sendStatus(201);
       } else {
