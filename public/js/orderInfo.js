@@ -12,7 +12,7 @@ async function getOrderInfo() {
 
     const order = await response.json();
 
-    return row(order);
+    return await row(order);
   } catch (err) {
     console.log(err);
   }
