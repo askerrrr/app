@@ -5,7 +5,7 @@ import buttonBack from "./services/buttonBack.js";
 
 function row(order) {
   const table = document.getElementById("table");
-  let id = 1;
+  let id = order.orderContent.file.id;
 
   const tr = document.createElement("tr");
 
