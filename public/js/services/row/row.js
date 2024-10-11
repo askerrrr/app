@@ -15,7 +15,7 @@ function row(order) {
 
   const tbody = document.createElement("tbody");
   tbody.append(tr);
-  tbody.id = id++;
+  tbody.id = id;
   table.append(tbody);
 
   const body = document.getElementById("allInformationAboutTheOrder");
