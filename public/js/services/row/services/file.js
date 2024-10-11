@@ -4,7 +4,7 @@ export default function getFile(data) {
 
   const fileURL = document.createElement("a");
   fileURL.id = id;
-  fileURL.href = `${pathToFile}`;
+  fileURL.href = `/download/${pathToFile}`;
 
   const buttonImage = document.createElement("button");
   buttonImage.append("file.xlsx");
