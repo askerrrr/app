@@ -96,3 +96,33 @@ router.get("/orders/:tgId", async (_, res) => {
   }
 });
 export { router as userPath };
+
+router.delete("/delete/:tgId/:orderId", async (req, res) => {
+  try {
+    const userId = req.params.tgId;
+    const orderId = req.params.orderId;
+
+    const collection = req.app.locals.collection;
+    const existingDocument = collection.findOne({
+      tgId: userId,
+      "orders.orderContent.file.id": orderId,
+    });
+
+    if (existingDocument) {
+      return await collection.updateOne(
+        {
+          tgId: userId,
+          "orders.orderContent.file.id": orderId,
+        },
+        {
+          $pull: {
+            orders: { "orderContent.file.id": orderId },
+          },
+        }
+      );
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(500);
+  }
+});
