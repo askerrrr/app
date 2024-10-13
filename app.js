@@ -28,7 +28,7 @@ import { home } from "./router/home.js";
 import { userPath } from "./router/userOrder.js";
 import { download } from "./router/downloadFile.js";
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
