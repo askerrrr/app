@@ -22,7 +22,7 @@ async function createButtonForDeleteOrder(fileId, userId) {
 }
 
 async function row(order) {
-  const userId = order.tgId;
+  const userId = order.userId;
   const fileId = order.orderContent.file.id;
 
   const tr = document.createElement("tr");
