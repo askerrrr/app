@@ -7,7 +7,7 @@ router.post("/", async (req, res) => {
   const authHeader = req.headers.authorization;
   const user = req.body;
   const existingDocument = await collection.findOne({
-    tgId: user.tgId,
+    userId: user.userId,
   });
 
   try {

@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
     const collection = req.app.locals.collection;
     const authHeader = req.headers.authorization;
     const orderContent = req.body;
-    const id = orderContent.tgId;
+    const userId = orderContent.userId;
     const fileUrl = orderContent.file.url;
     const fileId = orderContent.file.id;
 
@@ -23,12 +23,12 @@ router.post("/", async (req, res) => {
       authHeader && authHeader.split(" ")[1] === `${env.auth_token}`;
 
     const existingDocument = await collection.findOne({
-      tgId: id,
+      userId: userId,
     });
 
     if (validToken) {
       if (existingDocument) {
-        await downloadAndSaveFile(id, fileId, fileUrl);
+        await downloadAndSaveFile(userId, fileId, fileUrl);
         await db.addNewOrder(collection, orderContent);
         return res.sendStatus(201);
       } else {
@@ -47,11 +47,11 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/data/:tgId", async (req, res) => {
+router.get("/data/:userId", async (req, res) => {
   try {
-    const tgId = Number(req.params.tgId);
+    const userId = Number(req.params.userId);
     const collection = req.app.locals.collection;
-    const user = await collection.findOne({ tgId: tgId });
+    const user = await collection.findOne({ userId: userId });
 
     return user ? res.json(user) : res.sendStatus(404);
   } catch {
@@ -87,7 +87,7 @@ router.get("/orders/order/:orderId", async (_, res) => {
   }
 });
 
-router.get("/orders/:tgId", async (_, res) => {
+router.get("/orders/:userId", async (_, res) => {
   try {
     res.sendFile(join(__dirname, "../public", "html", "ordersList.html"));
   } catch (err) {
@@ -97,9 +97,9 @@ router.get("/orders/:tgId", async (_, res) => {
 });
 export { router as userPath };
 
-router.delete("/delete/:tgId/:orderId", async (req, res) => {
+router.delete("/delete/:userId/:orderId", async (req, res) => {
   try {
-    const userId = req.params.tgId;
+    const userId = req.params.userId;
     const orderId = req.params.orderId;
 
     const collection = req.app.locals.collection;
