@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
 import db from "./services/database/db.js";
+import deleteOrder from "../public/js/deleteOrder.js";
 import { downloadAndSaveFile } from "./services/different/downloadAndSaveFile.js";
 
 const router = Router({ caseSensitive: true, strict: true });
@@ -96,7 +97,6 @@ router.get("/orders/:userId", async (_, res) => {
     res.sendStatus(500);
   }
 });
-export { router as userPath };
 
 router.delete("/delete/:userId/:orderId", async (req, res) => {
   try {
@@ -122,6 +122,8 @@ router.delete("/delete/:userId/:orderId", async (req, res) => {
         }
       );
 
+      await deleteOrder(userId, fileId);
+
       return res.sendStatus(200);
     }
   } catch (err) {
@@ -129,3 +131,5 @@ router.delete("/delete/:userId/:orderId", async (req, res) => {
     return res.status(500);
   }
 });
+
+export { router as userPath };
