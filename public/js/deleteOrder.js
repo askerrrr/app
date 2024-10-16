@@ -7,7 +7,7 @@ async function deleteOrder(userId, orderId) {
     if (!response.ok) {
       console.log("!res.ok");
     }
-    return await response.json();
+    return response;
   } catch (err) {
     console.log(err);
   }

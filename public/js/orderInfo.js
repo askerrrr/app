@@ -4,7 +4,7 @@ async function getOrderInfo() {
   try {
     const pathParts = window.location.pathname.split("/");
     const orderId = pathParts[pathParts.length - 1];
-    console.log(orderId);
+
     const response = await fetch(`/orderinfo/data/order/${orderId}`, {
       method: "GET",
       headers: { Accept: "application/json" },
@@ -19,4 +19,3 @@ async function getOrderInfo() {
 }
 
 getOrderInfo();
-

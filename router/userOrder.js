@@ -101,15 +101,15 @@ router.delete("/delete/:userId/:orderId", async (req, res) => {
   try {
     const userId = req.params.userId;
     const orderId = req.params.orderId;
-
     const collection = req.app.locals.collection;
+
     const existingDocument = collection.findOne({
       userId: userId,
       "orders.orderContent.file.id": orderId,
     });
 
     if (existingDocument) {
-      return await collection.updateOne(
+      await collection.updateOne(
         {
           userId: userId,
           "orders.orderContent.file.id": orderId,
@@ -120,6 +120,7 @@ router.delete("/delete/:userId/:orderId", async (req, res) => {
           },
         }
       );
+      return res.sendStatus(200);
     }
   } catch (err) {
     console.log(err);
