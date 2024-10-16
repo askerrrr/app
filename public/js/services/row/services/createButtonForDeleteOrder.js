@@ -10,6 +10,7 @@ async function createButtonForDeleteOrder(userId, fileId) {
     const table = document.getElementById("table");
     const tbody = document.getElementById(fileId);
     table.removeChild(tbody);
+    alert("Заказ был удален!");
     return deleteOrder(userId, fileId);
   });
 

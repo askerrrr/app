@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
       authHeader && authHeader.split(" ")[1] === `${env.auth_token}`;
 
     const existingDocument = await collection.findOne({
-      userId: userId,
+      userId,
     });
 
     if (validToken) {
@@ -104,17 +104,15 @@ router.delete("/delete/:userId/:orderId", async (req, res) => {
     const orderId = req.params.orderId;
     const collection = req.app.locals.collection;
 
-    console.log(userId, orderId);
     const existingDocument = await collection.findOne({
-      userId: userId,
+      userId,
       "orders.orderContent.file.id": orderId,
     });
 
-    console.log(`ExistingDoc : ${existingDocument}`);
     if (existingDocument) {
       await collection.updateOne(
         {
-          userId: userId,
+          userId,
           "orders.orderContent.file.id": orderId,
         },
         {
@@ -123,6 +121,7 @@ router.delete("/delete/:userId/:orderId", async (req, res) => {
           },
         }
       );
+
       return res.sendStatus(200);
     }
   } catch (err) {
