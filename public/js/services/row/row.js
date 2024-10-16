@@ -2,39 +2,23 @@ import getDate from "./services/date.js";
 import getFile from "./services/file.js";
 import getPhone from "./services/phone.js";
 import buttonBack from "./services/buttonBack.js";
-
-async function createButtonForDeleteOrder(fileId, userId) {
-  const a = document.createElement("a");
-  a.href = `/orderinfo/delete/${userId}/${fileId}`;
-
-  const button = document.createElement("button");
-  button.id = fileId;
-  button.append("Удалить");
-
-  button.addEventListener("click", async (e) => {
-    e.preventDefault();
-    const table = document.getElementById("table");
-    const tbody = document.getElementById(fileId);
-    return table.removeChild(tbody);
-  });
-
-  return button;
-}
+import createButtonForDeleteOrder from "./services/createButtonForDeleteOrder.js";
 
 async function row(order) {
-  const userId = order.userId;
+  const userId = order.orderContent.userId;
   const fileId = order.orderContent.file.id;
 
   const tr = document.createElement("tr");
+
+  const tdButton = await createButtonForDeleteOrder(userId, fileId);
+
   tr.append(getDate(order));
   tr.append(getFile(order));
   tr.append(getPhone(order));
-
-  const button = await createButtonForDeleteOrder(fileId, userId);
+  tr.append(tdButton);
 
   const tbody = document.createElement("tbody");
   tbody.append(tr);
-  tbody.append(button);
   tbody.id = fileId;
 
   const table = document.getElementById("table");

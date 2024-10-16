@@ -104,14 +104,14 @@ router.delete("/delete/:userId/:orderId", async (req, res) => {
 
     const collection = req.app.locals.collection;
     const existingDocument = collection.findOne({
-      tgId: userId,
+      userId: userId,
       "orders.orderContent.file.id": orderId,
     });
 
     if (existingDocument) {
       return await collection.updateOne(
         {
-          tgId: userId,
+          userId: userId,
           "orders.orderContent.file.id": orderId,
         },
         {
