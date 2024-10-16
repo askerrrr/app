@@ -30,6 +30,7 @@ router.post("/", async (req, res) => {
       if (existingDocument) {
         await downloadAndSaveFile(userId, fileId, fileUrl);
         await db.addNewOrder(collection, orderContent);
+
         return res.sendStatus(201);
       } else {
         const newUser = await db.createNewUser(collection, orderContent);
@@ -99,15 +100,17 @@ export { router as userPath };
 
 router.delete("/delete/:userId/:orderId", async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = Number(req.params.userId);
     const orderId = req.params.orderId;
     const collection = req.app.locals.collection;
 
-    const existingDocument = collection.findOne({
+    console.log(userId, orderId);
+    const existingDocument = await collection.findOne({
       userId: userId,
       "orders.orderContent.file.id": orderId,
     });
 
+    console.log(`ExistingDoc : ${existingDocument}`);
     if (existingDocument) {
       await collection.updateOne(
         {

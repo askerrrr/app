@@ -9,8 +9,8 @@ async function createButtonForDeleteOrder(userId, fileId) {
     e.preventDefault();
     const table = document.getElementById("table");
     const tbody = document.getElementById(fileId);
-    deleteOrder(userId, fileId);
     table.removeChild(tbody);
+    return deleteOrder(userId, fileId);
   });
 
   const form = document.createElement("form");
