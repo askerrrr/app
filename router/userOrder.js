@@ -39,7 +39,7 @@ router.post("/", async (req, res) => {
         if (newUser) {
           await db.addNewOrder(collection, orderContent);
 
-          return res.sendStatus(201);
+          return res.send(201).type("text/plain").send("Created");
         }
       }
     } else {
