@@ -2,7 +2,7 @@ import getDate from "./services/date.js";
 import getFile from "./services/file.js";
 import getPhone from "./services/phone.js";
 import buttonBack from "./services/buttonBack.js";
-import createButtonForDeleteOrder from "./services/createButtonForDeleteOrder.js";
+import buttonForDeleteOrder from "./services/buttonForDeleteOrder.js";
 
 async function row(order) {
   const userId = order.orderContent.userId;
@@ -10,7 +10,7 @@ async function row(order) {
 
   const tr = document.createElement("tr");
 
-  const tdButton = await createButtonForDeleteOrder(userId, fileId);
+  const tdButton = await buttonForDeleteOrder(userId, fileId);
 
   tr.append(getDate(order));
   tr.append(getFile(order));
@@ -30,4 +30,4 @@ async function row(order) {
   return body;
 }
 
-export { row };
+export default row;

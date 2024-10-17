@@ -14,11 +14,13 @@ async function downloadAndSaveFile(id, fileId, fileUrl) {
 
         await fs.promises.writeFile(filePath, buffer);
 
-        console.log(`Файл успешно сохранён по пути: ${orderDir}`);
+        console.log(`Файл ${fileId} успешно сохранён по пути: ${orderDir}`);
       }
     }
   } catch (err) {
-    console.log(`Ошибка при загрузке и сохранении файла: ${err}`);
+    console.log(
+      `Ошибка при загрузке и сохранении файла ${fileId}. Ошибка : ${err}`
+    );
   }
 }
 

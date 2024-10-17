@@ -1,6 +1,6 @@
 import deleteOrder from "../../../deleteOrder.js";
 
-async function createButtonForDeleteOrder(userId, fileId) {
+async function buttonForDeleteOrder(userId, fileId) {
   const button = document.createElement("button");
   button.type = "submit";
   button.append("Удалить");
@@ -23,4 +23,4 @@ async function createButtonForDeleteOrder(userId, fileId) {
   return tdButton;
 }
 
-export default createButtonForDeleteOrder;
+export default buttonForDeleteOrder;

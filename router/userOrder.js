@@ -100,6 +100,24 @@ router.get("/orders/:userId", async (_, res) => {
   }
 });
 
+router.delete("/delete/:userId", async (req, res) => {
+  try {
+    const userId = Number(req.params.userId);
+    const collection = req.app.locals.collection;
+
+    const existingDocument = await collection.findOne({ userId });
+
+    if (existingDocument) {
+      await db.deleteUser(userId, collection);
+
+      return res.sendStatus(200);
+    }
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
 router.delete("/delete/:userId/:orderId", async (req, res) => {
   try {
     const userId = Number(req.params.userId);
