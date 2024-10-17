@@ -1,5 +1,5 @@
-export default function getPhone(data) {
-  const phone = document.createElement("td");
-  phone.append(data.orderContent.phone);
-  return phone;
+export default function getPhone(orders) {
+  const td = document.createElement("td");
+  td.append(orders.orderContent.phone);
+  return td;
 }

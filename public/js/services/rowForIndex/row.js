@@ -3,7 +3,7 @@ import getUserName from "./services/userName.js";
 import getFirstName from "./services/firstName.js";
 //import buttonForDeleteUser from "./services/buttonForDeleteUser.js";
 
-async function row(user) {
+export default async function row(user) {
   const userId = user.userId;
 
   const tr = document.createElement("tr");
@@ -27,5 +27,3 @@ async function row(user) {
 
   return body;
 }
-
-export default row;

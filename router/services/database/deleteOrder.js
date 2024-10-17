@@ -1,4 +1,4 @@
-async function deleteOrder(userId, orderId, collection) {
+export default async function deleteOrder(userId, orderId, collection) {
   return await collection.updateOne(
     {
       userId,
@@ -11,5 +11,3 @@ async function deleteOrder(userId, orderId, collection) {
     }
   );
 }
-
-export default deleteOrder;

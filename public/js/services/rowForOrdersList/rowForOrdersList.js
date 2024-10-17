@@ -1,7 +1,7 @@
 import createId from "./services/id.js";
 import createDate from "./services/date.js";
 
-function rowForOrders(data) {
+export default function rowForOrders(data) {
   const table = document.getElementById("orders");
 
   data.orders.forEach((order) => {
@@ -17,5 +17,3 @@ function rowForOrders(data) {
   });
   return table;
 }
-
-export default rowForOrders;

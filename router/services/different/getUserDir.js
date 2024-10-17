@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-async function getUserDir(id) {
+export default async function getUserDir(id) {
   try {
     const userDir = path.join("/var", "www", "userFiles", `${id}`);
 
@@ -16,5 +16,3 @@ async function getUserDir(id) {
     console.log(`Ошибка при создании папки ${id}`, err);
   }
 }
-
-export default getUserDir;

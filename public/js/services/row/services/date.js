@@ -1,5 +1,6 @@
-export default function getDate(data) {
-  const date = document.createElement("td");
-  date.append(data.orderContent.date);
-  return date;
+export default function getDate(orders) {
+  const td = document.createElement("td");
+  td.append(orders.orderContent.date);
+
+  return td;
 }

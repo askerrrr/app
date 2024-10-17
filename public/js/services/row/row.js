@@ -4,17 +4,17 @@ import getPhone from "./services/phone.js";
 import buttonBack from "./services/buttonBack.js";
 import buttonForDeleteOrder from "./services/buttonForDeleteOrder.js";
 
-async function row(order) {
-  const userId = order.orderContent.userId;
-  const fileId = order.orderContent.file.id;
+export default async function row(orders) {
+  const userId = orders.orderContent.userId;
+  const fileId = orders.orderContent.file.id;
 
   const tr = document.createElement("tr");
 
-  const tdButton = await buttonForDeleteOrder(userId, fileId);
+  const tdButton = await buttonForDeleteOrder(userId, fileId, orders);
 
-  tr.append(getDate(order));
-  tr.append(getFile(order));
-  tr.append(getPhone(order));
+  tr.append(getDate(orders));
+  tr.append(getFile(orders));
+  tr.append(getPhone(orders));
   tr.append(tdButton);
 
   const tbody = document.createElement("tbody");
@@ -25,9 +25,7 @@ async function row(order) {
   table.append(tbody);
 
   const body = document.getElementById("orderInfo");
-  body.append(buttonBack(order));
+  body.append(buttonBack(orders));
   body.append(table);
   return body;
 }
-
-export default row;

@@ -1,4 +1,4 @@
-async function deleteOrder(userId, orderId) {
+export default async function deleteOrder(userId, orderId) {
   try {
     const response = await fetch(`/orderinfo/delete/${userId}/${orderId}`, {
       method: "DELETE",
@@ -12,5 +12,3 @@ async function deleteOrder(userId, orderId) {
     console.log(err);
   }
 }
-
-export default deleteOrder;

@@ -1,4 +1,4 @@
-async function getBuffer(url) {
+export default async function getBuffer(url) {
   try {
     const response = await fetch(url);
 
@@ -9,4 +9,3 @@ async function getBuffer(url) {
     console.log(err);
   }
 }
-export default getBuffer;

@@ -1,5 +1,5 @@
 export default function buttonBack(data) {
-  const id = data.orderContent.tgId;
+  const id = data.orderContent.userId;
 
   const a = document.createElement("a");
   a.className = "backToOrders";

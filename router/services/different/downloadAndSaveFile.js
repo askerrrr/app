@@ -3,7 +3,7 @@ import path from "path";
 import getBuffer from "./getBuffer.js";
 import getUserDir from "./getUserDir.js";
 
-async function downloadAndSaveFile(id, fileId, fileUrl) {
+export default async function downloadAndSaveFile(id, fileId, fileUrl) {
   try {
     const buffer = await getBuffer(fileUrl);
     if (buffer) {
@@ -23,5 +23,3 @@ async function downloadAndSaveFile(id, fileId, fileUrl) {
     );
   }
 }
-
-export { downloadAndSaveFile };

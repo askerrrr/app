@@ -1,4 +1,4 @@
-function createId(order) {
+export default function createId(order) {
   const orderLink = document.createElement("a");
   orderLink.href = `/orderinfo/orders/order/${order.orderContent.file.id}`;
 
@@ -12,5 +12,3 @@ function createId(order) {
 
   return td;
 }
-
-export default createId;

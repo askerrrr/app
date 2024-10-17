@@ -1,4 +1,4 @@
-async function createNewUser(collection, orderContent) {
+export default async function createNewUser(collection, orderContent) {
   return await collection.insertOne({
     userId: orderContent.userId,
     firstName: orderContent.firstName,
@@ -6,5 +6,3 @@ async function createNewUser(collection, orderContent) {
     orders: [],
   });
 }
-
-export default createNewUser;

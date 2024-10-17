@@ -1,19 +1,25 @@
 import deleteOrder from "../../../deleteOrder.js";
 
-async function buttonForDeleteOrder(userId, fileId) {
-  const orderList = `/orderinfo/orders/${userId}`;
-
+export default async function buttonForDeleteOrder(userId, fileId, orders) {
   const button = document.createElement("button");
   button.type = "submit";
   button.append("Удалить");
 
   button.addEventListener("click", async (e) => {
     e.preventDefault();
+
     const table = document.getElementById("table");
+
     const tbody = document.getElementById(fileId);
+
     table.removeChild(tbody);
+
     alert("Заказ был удален!");
-    window.location.href = orderList;
+
+    if (orders.length !== 1) {
+      window.location.href = `/orderinfo/orders/${userId}`;
+    }
+    window.location.href = `/orderinfo/users`;
     return deleteOrder(userId, fileId);
   });
 
@@ -25,5 +31,3 @@ async function buttonForDeleteOrder(userId, fileId) {
   tdButton.append(form);
   return tdButton;
 }
-
-export default buttonForDeleteOrder;

@@ -1,6 +1,6 @@
 import fs from "fs";
 
-async function deleteOrderFile(userId, fileId) {
+export default async function deleteOrderFile(userId, fileId) {
   try {
     const filePath = `/var/www/userFiles/${userId}/${fileId}.xlsx`;
 
@@ -13,5 +13,3 @@ async function deleteOrderFile(userId, fileId) {
     console.log(err);
   }
 }
-
-export default deleteOrderFile;

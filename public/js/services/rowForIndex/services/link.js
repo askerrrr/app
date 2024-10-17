@@ -1,4 +1,4 @@
-function getUserId(user) {
+export default function getUserId(user) {
   const userIdLink = document.createElement("a");
   userIdLink.href = `/orderinfo/orders/${user.userId}`;
 
@@ -11,5 +11,3 @@ function getUserId(user) {
   tdTelegramId.append(userIdLink);
   return tdTelegramId;
 }
-
-export default getUserId;

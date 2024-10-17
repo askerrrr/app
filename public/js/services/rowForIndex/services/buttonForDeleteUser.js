@@ -1,6 +1,6 @@
 import deleteUser from "../../../deleteUser.js";
 
-async function buttonForDeleteUser(userId) {
+export default async function buttonForDeleteUser(userId) {
   const button = document.createElement("button");
   button.type = "submit";
   button.append("Удалить");
@@ -24,5 +24,3 @@ async function buttonForDeleteUser(userId) {
   tdButton.append(form);
   return tdButton;
 }
-
-export default buttonForDeleteUser;

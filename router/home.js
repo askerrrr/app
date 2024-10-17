@@ -1,4 +1,4 @@
-import { env } from "../env_var.js";
+import env from "../env_var.js";
 import { Router } from "express";
 
 const router = Router({ caseSensitive: true, strict: true });

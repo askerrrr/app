@@ -1,7 +1,7 @@
 import path from "path";
 import express from "express";
 import { dirname } from "path";
-import { env } from "./env_var.js";
+import env  from "./env_var.js";
 import { fileURLToPath } from "url";
 import { MongoClient } from "mongodb";
 

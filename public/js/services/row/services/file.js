@@ -1,16 +1,17 @@
-export default function getFile(data) {
-  const id = data.orderContent.file.id;
-  const pathToFile = data.orderContent.file.pathToFile;
+export default function getFile(orders) {
+  const fileId = orders.orderContent.file.id;
+  const filePath = orders.orderContent.file.pathToFile;
 
-  const fileURL = document.createElement("a");
-  fileURL.id = id;
-  fileURL.href = `/download/${pathToFile}`;
+  const buttonForDownload = document.createElement("button");
+  buttonForDownload.append("file.xlsx");
 
-  const buttonImage = document.createElement("button");
-  buttonImage.append("file.xlsx");
-  fileURL.append(buttonImage);
+  const form = document.createElement("form");
+  form.action = `/download/${filePath}`;
+  form.id = fileId;
+  form.append(buttonForDownload);
 
-  const file = document.createElement("td");
-  file.append(fileURL);
-  return file;
+  const td = document.createElement("td");
+  td.append(form);
+
+  return td;
 }

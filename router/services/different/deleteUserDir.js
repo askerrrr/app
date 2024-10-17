@@ -1,6 +1,6 @@
 import fs from "fs";
 
-async function deleteUserDir(userId) {
+export default async function deleteUserDir(userId) {
   try {
     const dirPath = `/var/www/userFiles/${userId}`;
 
@@ -11,5 +11,3 @@ async function deleteUserDir(userId) {
     console.log(err);
   }
 }
-
-export default deleteUserDir;
