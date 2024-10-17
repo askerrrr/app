@@ -56,3 +56,10 @@ button:hover {
   background-color: #212529;
   color: white;
 }
+
+.form-for-delete-order {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 10px;
+}

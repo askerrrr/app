@@ -2,7 +2,7 @@ import getDate from "./services/date.js";
 import getFile from "./services/file.js";
 import getPhone from "./services/phone.js";
 import buttonBack from "./services/buttonBack.js";
-import buttonForDeleteOrder from "./services/buttonForDeleteOrder.js";
+import formForDeleteOrder from "./services/formForDeleteOrder.js";
 
 export default async function row(orders) {
   const userId = orders.orderContent.userId;
@@ -10,12 +10,11 @@ export default async function row(orders) {
 
   const tr = document.createElement("tr");
 
-  const tdButton = await buttonForDeleteOrder(userId, fileId, orders);
+  const form = await formForDeleteOrder(userId, fileId, orders);
 
   tr.append(getDate(orders));
   tr.append(getFile(orders));
   tr.append(getPhone(orders));
-  tr.append(tdButton);
 
   const tbody = document.createElement("tbody");
   tbody.append(tr);
@@ -27,5 +26,6 @@ export default async function row(orders) {
   const body = document.getElementById("orderInfo");
   body.append(buttonBack(orders));
   body.append(table);
+  body.append(form);
   return body;
 }
