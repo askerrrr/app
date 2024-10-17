@@ -12,6 +12,7 @@ async function buttonForDeleteUser(userId) {
     const tbody = document.getElementById(userId);
     table.removeChild(tbody);
     alert("Пользователь был удален");
+    window.location.href = `/orderinfo/users`;
     return deleteUser(userId);
   });
 

@@ -1,6 +1,8 @@
 import deleteOrder from "../../../deleteOrder.js";
 
 async function buttonForDeleteOrder(userId, fileId) {
+  const orderList = `/orderinfo/orders/${userId}`;
+
   const button = document.createElement("button");
   button.type = "submit";
   button.append("Удалить");
@@ -11,6 +13,7 @@ async function buttonForDeleteOrder(userId, fileId) {
     const tbody = document.getElementById(fileId);
     table.removeChild(tbody);
     alert("Заказ был удален!");
+    window.location.href = orderList;
     return deleteOrder(userId, fileId);
   });
 
