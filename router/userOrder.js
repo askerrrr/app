@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
 import db from "./services/database/db.js";
+import deleteUserDir from "./services/different/deleteUserDir.js";
 import deleteOrderFile from "./services/different/deleteOrderFile.js";
 import { downloadAndSaveFile } from "./services/different/downloadAndSaveFile.js";
 
@@ -108,6 +109,7 @@ router.delete("/delete/:userId", async (req, res) => {
     const existingDocument = await collection.findOne({ userId });
 
     if (existingDocument) {
+      await deleteUserDir(userId);
       await db.deleteUser(userId, collection);
 
       return res.sendStatus(200);
