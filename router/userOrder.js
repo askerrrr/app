@@ -3,7 +3,7 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
 import db from "./services/database/db.js";
-import deleteOrder from "../public/js/deleteOrder.js";
+import deleteOrderFile from "./services/different/deleteOrderFile.js";
 import { downloadAndSaveFile } from "./services/different/downloadAndSaveFile.js";
 
 const router = Router({ caseSensitive: true, strict: true });
@@ -29,14 +29,16 @@ router.post("/", async (req, res) => {
 
     if (validToken) {
       if (existingDocument) {
-        await downloadAndSaveFile(userId, fileId, fileUrl);
         await db.addNewOrder(collection, orderContent);
+        await downloadAndSaveFile(userId, fileId, fileUrl);
 
         return res.sendStatus(201);
       } else {
         const newUser = await db.createNewUser(collection, orderContent);
+
         if (newUser) {
           await db.addNewOrder(collection, orderContent);
+
           return res.sendStatus(201);
         }
       }
@@ -110,19 +112,9 @@ router.delete("/delete/:userId/:orderId", async (req, res) => {
     });
 
     if (existingDocument) {
-      await collection.updateOne(
-        {
-          userId,
-          "orders.orderContent.file.id": orderId,
-        },
-        {
-          $pull: {
-            orders: { "orderContent.file.id": orderId },
-          },
-        }
-      );
+      await db.deleteOrder(userId, orderId, collection);
 
-      await deleteOrder(userId, fileId);
+      await deleteOrderFile(userId, orderId);
 
       return res.sendStatus(200);
     }
