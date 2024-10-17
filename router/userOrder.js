@@ -54,7 +54,7 @@ router.post("/", async (req, res) => {
 
 router.get("/data/:userId", async (req, res) => {
   try {
-    const userId = Number(req.params.userId);
+    const userId = req.params.userId;
     const collection = req.app.locals.collection;
     const user = await collection.findOne({ userId: userId });
 
@@ -103,7 +103,7 @@ router.get("/orders/:userId", async (_, res) => {
 
 router.delete("/delete/:userId", async (req, res) => {
   try {
-    const userId = Number(req.params.userId);
+    const userId = req.params.userId;
     const collection = req.app.locals.collection;
 
     const existingDocument = await collection.findOne({ userId });
@@ -122,7 +122,7 @@ router.delete("/delete/:userId", async (req, res) => {
 
 router.delete("/delete/:userId/:orderId", async (req, res) => {
   try {
-    const userId = Number(req.params.userId);
+    const userId = req.params.userId;
     const orderId = req.params.orderId;
     const collection = req.app.locals.collection;
 
