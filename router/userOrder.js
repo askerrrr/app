@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
         await db.addNewOrder(collection, orderContent);
         await downloadAndSaveFile(userId, fileId, fileUrl);
 
-        return res.sendStatus(201);
+        return res.send(201).json({ order: "Created" });
       } else {
         const newUser = await db.createNewUser(collection, orderContent);
 
