@@ -1,4 +1,4 @@
-import { row } from "./services/row/row.js";
+import row from "./services/row/row.js";
 
 async function getOrderInfo() {
   try {
