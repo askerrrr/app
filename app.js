@@ -1,7 +1,7 @@
 import path from "path";
 import express from "express";
 import { dirname } from "path";
-import env  from "./env_var.js";
+import env from "./env_var.js";
 import { fileURLToPath } from "url";
 import { MongoClient } from "mongodb";
 
@@ -27,6 +27,7 @@ const app = express();
 import { home } from "./router/home.js";
 import { userPath } from "./router/userOrder.js";
 import { download } from "./router/downloadFile.js";
+import { orderStatus } from "./router/orderStatus.js";
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -35,3 +36,4 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", home);
 app.use("/orderinfo", userPath);
 app.use("/download", download);
+app.use("/status", orderStatus);

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/orderStatus.css" type="text/css" />
+  </head>
+  <body>
+    <form action="" class="order-status">
+      <fieldset>
+        <legend>Статус заказа</legend>
+        <label class="in-processing" for="1">
+          <input
+            id="1"
+            name="order-status"
+            type="radio"
+            class="in-processing"
+          />
+          <div>взят в обработку</div></label
+        >
+        <label class="purchased" for="2">
+          <input id="2" name="order-status" type="radio" class="purchased" />
+          <div>выкуплен</div></label
+        >
+        <label class="china-warehouse" for="3">
+          <input
+            id="3"
+            name="order-status"
+            type="radio"
+            class="china-warehouse"
+          />
+          <div>доставлен на склад в китае</div></label
+        >
+        <label class="on-the-way" for="4">
+          <input id="4" name="order-status" type="radio" class="on-the-way" />
+          <div>товар в пути</div></label
+        >
+        <label class="awaiting-receipt" for="5">
+          <input
+            id="5"
+            name="order-status"
+            type="radio"
+            class="awaiting-receipt"
+          />
+          <div>ожидает получения</div></label
+        >
+      </fieldset>
+      <button id="submit-status" type="submit">Отправить</button>
+    </form>
+    <script src="app.js" type="modulejs"></script>
+  </body>
+</html>
