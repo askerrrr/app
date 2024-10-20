@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Order info</title>
     <link rel="stylesheet" href="/css/index.css" type="text/css" />
+    <link rel="stylesheet" href="/css/dialogStyle.css" type="text/css" />
     <link rel="icon" href="../image/favicon.ico" type="image/x-icon" />
   </head>
   <body id="orderInfo">
     <div>
-      <a href="/"><button>На главную</button></a>
+      <form action="/"><button>На главную</button></form>
     </div>
     <table id="table">
       <thead>
@@ -20,6 +21,76 @@
         </tr>
       </thead>
     </table>
+    <dialog id="dialog">
+      <form class="order-status" id="set-order-status">
+        <fieldset>
+          <legend>Статус заказа</legend>
+          <label class="in-processing" for="0">
+            <input
+              id="0"
+              type="radio"
+              name="order-status"
+              value="in-processing"
+              class="in-processing"
+            />
+            <div>взят в обработку</div></label
+          >
+          <label class="purchased" for="1">
+            <input
+              id="1"
+              type="radio"
+              name="order-status"
+              class="purchased"
+              value="purchased"
+            />
+            <div>выкуплен</div></label
+          >
+          <label class="china-warehouse" for="2">
+            <input
+              id="2"
+              type="radio"
+              name="order-status"
+              value="china-warehouse"
+              class="china-warehouse"
+            />
+            <div>доставлен на склад в китае</div></label
+          >
+          <label class="on-the-way" for="3">
+            <input
+              id="3"
+              type="radio"
+              name="order-status"
+              value="on-the-way-to-moskou"
+              class="on-the-way-to-moskou"
+            />
+            <div>товар в пути</div></label
+          >
+          <label class="awaiting-receipt" for="4">
+            <input
+              id="4"
+              type="radio"
+              name="order-status"
+              value="awaiting-receipt"
+              class="awaiting-receipt"
+            />
+            <div>ожидает получения</div></label
+          >
+        </fieldset>
+        <button
+          id="submit-order-status"
+          type="submit"
+          onclick="window.dialog.close()"
+        >
+          Изменить</button
+        ><button
+          type="button"
+          id="close-dialog"
+          onclick="window.dialog.close()"
+        >
+          Закрыть окно
+        </button>
+      </form>
+    </dialog>
     <script src="/js/orderInfo.js" type="module"></script>
   </body>
 </html>

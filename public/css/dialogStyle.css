@@ -1,3 +1,14 @@
+dialog {
+  width: 400px;
+  max-width: 90%;
+  margin: auto;
+  padding: 20px;
+  background-color: #343a40;
+  border: 2px solid #495057;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 body {
   background-color: #212529;
   color: #f8f9fa;
@@ -39,7 +50,7 @@ label {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-label:hover {
+label:hover div {
   background-color: #6f42c1;
 }
 

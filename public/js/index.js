@@ -2,7 +2,7 @@ import row from "./services/rowForIndex/row.js";
 
 async function GetUsers() {
   try {
-    const response = await fetch("/users", {
+    const response = await fetch("/api/users", {
       method: "GET",
       headers: { Accept: "application/json" },
     });

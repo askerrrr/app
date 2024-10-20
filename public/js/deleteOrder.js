@@ -1,6 +1,6 @@
 export default async function deleteOrder(userId, orderId) {
   try {
-    const response = await fetch(`/orderinfo/delete/${userId}/${orderId}`, {
+    const response = await fetch(`/orderinfo/api/delete/${userId}/${orderId}`, {
       method: "DELETE",
       headers: { Accept: "application/json" },
     });

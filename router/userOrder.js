@@ -52,7 +52,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/data/:userId", async (req, res) => {
+router.get("/api/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
     const collection = req.app.locals.collection;
@@ -64,7 +64,7 @@ router.get("/data/:userId", async (req, res) => {
   }
 });
 
-router.get("/data/order/:orderId", async (req, res) => {
+router.get("/api/order/:orderId", async (req, res) => {
   try {
     const orderId = req.params.orderId;
     const collection = req.app.locals.collection;
@@ -101,7 +101,7 @@ router.get("/orders/:userId", async (_, res) => {
   }
 });
 
-router.delete("/delete/:userId", async (req, res) => {
+router.delete("/api/delete/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
     const collection = req.app.locals.collection;
@@ -120,7 +120,7 @@ router.delete("/delete/:userId", async (req, res) => {
   }
 });
 
-router.delete("/delete/:userId/:orderId", async (req, res) => {
+router.delete("/api/delete/:userId/:orderId", async (req, res) => {
   try {
     const userId = req.params.userId;
     const orderId = req.params.orderId;

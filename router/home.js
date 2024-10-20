@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/users", async (req, res) => {
+router.get("/api/users", async (req, res) => {
   try {
     const collection = req.app.locals.collection;
     const users = await collection.find({}).toArray();

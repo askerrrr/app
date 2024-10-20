@@ -5,7 +5,7 @@ async function getOrderList() {
     const pathParts = window.location.pathname.split("/");
     const userId = pathParts[pathParts.length - 1];
 
-    const response = await fetch(`/orderinfo/data/${userId}`, {
+    const response = await fetch(`/orderinfo/api/${userId}`, {
       method: "GET",
       headers: { Accept: "application/json" },
     });

@@ -2,6 +2,7 @@ import getDate from "./services/date.js";
 import getFile from "./services/file.js";
 import getPhone from "./services/phone.js";
 import buttonBack from "./services/buttonBack.js";
+import formForOpenPopUp from "./services/formForOpenPopUp.js";
 import formForDeleteOrder from "./services/formForDeleteOrder.js";
 import formForSetOrderStatus from "./services/formForSetOrderStatus.js";
 
@@ -12,7 +13,8 @@ export default async function row(orders) {
   const tr = document.createElement("tr");
 
   const form = await formForDeleteOrder(userId, fileId, orders);
-  const orderStatus = await formForSetOrderStatus(userId, fileId);
+  const openPopUp = await formForOpenPopUp();
+  await formForSetOrderStatus(userId, fileId);
 
   tr.append(getDate(orders));
   tr.append(getFile(orders));
@@ -27,8 +29,9 @@ export default async function row(orders) {
 
   const body = document.getElementById("orderInfo");
   body.append(buttonBack(orders));
-  body.append(orderStatus);
+  body.append(openPopUp);
   body.append(table);
   body.append(form);
+
   return body;
 }

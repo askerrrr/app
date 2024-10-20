@@ -1,6 +1,6 @@
 export default function getUserId(user) {
-  const userIdLink = document.createElement("a");
-  userIdLink.href = `/orderinfo/orders/${user.userId}`;
+  const userIdLink = document.createElement("form");
+  userIdLink.action = `/orderinfo/orders/${user.userId}`;
 
   const buttontoId = document.createElement("button");
   buttontoId.append(`${user.userId}`);
