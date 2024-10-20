@@ -18,13 +18,12 @@ export default async function saveOrderStatus(userId, fileId) {
   let trueCheckedId = arr.filter((elem) => elem.value === status)[0].id;
   console.log(trueCheckedId);
 
-  let arr1 = [];
   for (let i = 0; i <= trueCheckedId; i++) {
-    return (document.getElementById(i).checked = true);
+    document.getElementById(i).checked = true;
+    document.getElementById(i).disabled = true;
   }
 
-  console.log("arr1", arr1);
   console.log("arr", arr);
   return;
 }
-  ///устанавливается только одна радио кнопка, так как это радио кнопка..., надо переделать на checkbox...
+///устанавливается только одна радио кнопка, так как это радио кнопка..., надо переделать на checkbox...
