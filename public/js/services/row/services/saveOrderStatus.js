@@ -1,29 +1,29 @@
 export default async function saveOrderStatus(userId, fileId) {
-  const response = await fetch(`/status/api/${userId}/${fileId}`);
+  try {
+    const response = await fetch(`/status/api/${userId}/${fileId}`);
 
-  const status = await response.json();
+    const status = await response.json();
 
-  const radioButton = document.querySelectorAll(`input[name=order-status]`);
-  console.log(radioButton);
+    const checkboxButton = document.querySelectorAll(
+      `input[name=order-status]`
+    );
 
-  let arr = [];
-  for (let i = 0; i < radioButton.length; i++) {
-    let id = radioButton[i].id;
-    let value = radioButton[i].value;
-    let checked = radioButton[i].checked;
+    let arr = [];
+    for (let i = 0; i < checkboxButton.length; i++) {
+      let id = checkboxButton[i].id;
+      let value = checkboxButton[i].value;
+      let checked = checkboxButton[i].checked;
 
-    arr.push({ id, value, checked });
+      arr.push({ id, value, checked });
+    }
+
+    let trueCheckedId = arr.filter((elem) => elem.value === status)[0].id;
+
+    for (let i = 0; i <= trueCheckedId; i++) {
+      document.getElementById(i).checked = true;
+      document.getElementById(i).disabled = true;
+    }
+  } catch (err) {
+    console.log(err);
   }
-
-  let trueCheckedId = arr.filter((elem) => elem.value === status)[0].id;
-  console.log(trueCheckedId);
-
-  for (let i = 0; i <= trueCheckedId; i++) {
-    document.getElementById(i).checked = true;
-    document.getElementById(i).disabled = true;
-  }
-
-  console.log("arr", arr);
-  return;
-}
-///устанавливается только одна радио кнопка, так как это радио кнопка..., надо переделать на checkbox...
+} //export to formForSetOrderStatus.js
