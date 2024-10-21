@@ -10,9 +10,8 @@ export default async function row(user) {
 
   //const tdButton = await buttonForDeleteUser(userId);
 
-  tr.append(getFirstName(user));
-  tr.append(getUserName(user));
-  tr.append(getUserId(user));
+  tr.append(getFirstName(user), getUserName(user), getUserId(user));
+
   // tr.append(tdButton);
 
   const tbody = document.createElement("tbody");

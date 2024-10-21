@@ -10,15 +10,12 @@ export default async function row(orders) {
   const userId = orders.orderContent.userId;
   const fileId = orders.orderContent.file.id;
 
-  const tr = document.createElement("tr");
-
-  const form = await formForDeleteOrder(userId, fileId, orders);
   const openPopUp = await formForOpenPopUp();
   await formForSetOrderStatus(userId, fileId);
+  const form = await formForDeleteOrder(userId, fileId, orders);
 
-  tr.append(getDate(orders));
-  tr.append(getFile(orders));
-  tr.append(getPhone(orders));
+  const tr = document.createElement("tr");
+  tr.append(getDate(orders), getFile(orders), getPhone(orders));
 
   const tbody = document.createElement("tbody");
   tbody.append(tr);
@@ -28,10 +25,6 @@ export default async function row(orders) {
   table.append(tbody);
 
   const body = document.getElementById("orderInfo");
-  body.append(buttonBack(orders));
-  body.append(openPopUp);
-  body.append(table);
-  body.append(form);
-
+  body.append(buttonBack(orders), openPopUp, table, form);
   return body;
 }
