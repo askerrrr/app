@@ -18,18 +18,16 @@ export default async function saveOrderStatus(userId, fileId) {
     }
 
     let trueCheckedId = arr.filter((elem) => elem.value === status)[0].id;
+    trueCheckedId++;
     console.log(trueCheckedId);
 
-    for (let i = 0; i < arr.length; i++) {
-      if (document.getElementById(i) == trueCheckedId) {
-        return console.log(document.getElementById(i));
+    const result = arr.map((item, index) => {
+      if (index !== trueCheckedId) {
+        document.getElementById(index).checked = true;
+        document.getElementById(index).disabled = true;
       }
-    }
-
-    // for (let i = 0; i <= trueCheckedId; i++) {
-    //   document.getElementById(i).checked = true;
-    //   document.getElementById(i).disabled = true;
-    // }
+    });
+    return result;
   } catch (err) {
     console.log(err);
   }
