@@ -1,5 +1,3 @@
-import saveOrderStatus from "./saveOrderStatus.js";
-
 export default async function formForSetOrderStatus(userId, fileId) {
   const button = document.getElementById("submit-order-status");
 
@@ -15,7 +13,6 @@ export default async function formForSetOrderStatus(userId, fileId) {
       headers: { Accept: "application/json" },
     });
 
-    await saveOrderStatus(userId, fileId);
     return response;
   });
   return button;

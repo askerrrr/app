@@ -10,7 +10,7 @@ export default async function row(orders) {
   const userId = orders.orderContent.userId;
   const fileId = orders.orderContent.file.id;
 
-  const openPopUp = await formForOpenPopUp();
+  const openPopUp = await formForOpenPopUp(userId, fileId);
   await formForSetOrderStatus(userId, fileId);
   const form = await formForDeleteOrder(userId, fileId, orders);
 

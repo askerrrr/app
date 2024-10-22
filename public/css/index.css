@@ -64,7 +64,7 @@ button:hover {
   margin: 10px;
 }
 
-button.set-order-status {
+button.change-order-status {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -80,6 +80,6 @@ button.set-order-status {
   transition: background-color 0.3s ease;
 }
 
-button.set-order-status:hover {
+button.change-order-status:hover {
   background-color: #8e44ad;
 }

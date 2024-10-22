@@ -1,18 +1,23 @@
 export default async function saveOrderStatus(userId, fileId) {
   try {
-    const response = await fetch(`/status/api/${userId}/${fileId}`);
+    const response = await fetch(`/status/api/${userId}/${fileId}`, {
+      method: "GET",
+    });
 
+    if (!response.ok) {
+      console.log("response err");
+    }
     const status = await response.json();
-
-    const checkboxButton = document.querySelectorAll(
+    console.log(status);
+    const checkBoxCollection = document.querySelectorAll(
       `input[name=order-status]`
     );
 
-    let arr = [];
-    for (let i = 0; i < checkboxButton.length; i++) {
-      let id = checkboxButton[i].id;
-      let value = checkboxButton[i].value;
-      let checked = checkboxButton[i].checked;
+    const arr = [];
+    for (let i = 0; i < checkBoxCollection.length; i++) {
+      let id = checkBoxCollection[i].id;
+      let value = checkBoxCollection[i].value;
+      let checked = checkBoxCollection[i].checked;
 
       arr.push({ id, value, checked });
     }
@@ -21,13 +26,14 @@ export default async function saveOrderStatus(userId, fileId) {
     trueCheckedId++;
     console.log(trueCheckedId);
 
-    const result = arr.map((item, index) => {
-      if (index !== trueCheckedId) {
-        document.getElementById(index).checked = true;
-        document.getElementById(index).disabled = true;
-      }
-    });
-    return result;
+    if (status === "in-processing") {
+      const arrWithoutFirstStatus = arr.slice(1);
+      arrWithoutFirstStatus.forEach((item) => {
+        (document.getElementById(item.id).checked = true),
+          (document.getElementById(item.id).disabled = true);
+      });
+    } else {
+    }
   } catch (err) {
     console.log(err);
   }
