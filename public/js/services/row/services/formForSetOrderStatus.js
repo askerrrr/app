@@ -12,7 +12,7 @@ export default async function formForSetOrderStatus(userId, fileId) {
       method: "POST",
       headers: { Accept: "application/json" },
     });
-
+    window.location.reload();
     return response;
   });
   return button;

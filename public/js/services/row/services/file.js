@@ -3,7 +3,7 @@ export default function getFile(orders) {
   const filePath = orders.orderContent.file.pathToFile;
 
   const buttonForDownload = document.createElement("button");
-  buttonForDownload.append("file.xlsx");
+  buttonForDownload.append("Скачать файл");
 
   const form = document.createElement("form");
   form.action = `/download/${filePath}`;
