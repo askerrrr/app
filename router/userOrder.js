@@ -33,14 +33,14 @@ router.post("/", async (req, res) => {
         await db.addNewOrder(collection, orderContent);
         await downloadAndSaveFile(userId, fileId, fileUrl);
 
-        return res.send(201).json({ order: "Created" });
+        return res.sendStatus(201);
       } else {
         const newUser = await db.createNewUser(collection, orderContent);
 
         if (newUser) {
           await db.addNewOrder(collection, orderContent);
 
-          return res.send(201).json({ order: "Created" });
+          return res.sendStatus(201);
         }
       }
     } else {
@@ -60,7 +60,7 @@ router.get("/api/:userId", async (req, res) => {
 
     return user ? res.json(user) : res.sendStatus(404);
   } catch {
-    return res.status(500);
+    return res.sendStatus(500);
   }
 });
 
@@ -79,7 +79,7 @@ router.get("/api/order/:orderId", async (req, res) => {
 
     return order ? res.json(order) : res.sendStatus(404);
   } catch {
-    return res.status(500);
+    return res.sendStatus(500);
   }
 });
 
@@ -88,7 +88,7 @@ router.get("/orders/order/:orderId", async (_, res) => {
     res.sendFile(join(__dirname, "../public", "html", "userOrder.html"));
   } catch (err) {
     console.log(err);
-    return res.status(500);
+    return res.sendStatus(500);
   }
 });
 
@@ -140,7 +140,7 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    return res.status(500);
+    return res.sendStatus(500);
   }
 });
 

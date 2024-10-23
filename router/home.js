@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
     if (validToken) {
       if (!existingDocument) {
         await collection.insertOne(user);
-        return res.status(201).send(user);
+        return res.sendStatus(201);
       } else if (existingDocument) {
         return res.sendStatus(409);
       }
@@ -25,7 +25,7 @@ router.post("/", async (req, res) => {
       return res.sendStatus(401);
     }
   } catch (err) {
-    return res.status(500);
+    return res.sendStatus(500);
   }
 });
 
