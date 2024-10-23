@@ -57,9 +57,7 @@ export default async function saveOrderStatus(userId, fileId) {
   } catch (err) {
     console.log(err);
   }
-}
-
-//export to formForSetOrderStatus.js
+}//export to formForSetOrderStatus.js
 
 let a = {
   userId: "7413876142",
@@ -84,5 +82,3 @@ let a = {
   ],
 };
 
-// let trueCheckedId = arr.filter((elem) => elem.value === status)[0].id;
-// trueCheckedId++;
