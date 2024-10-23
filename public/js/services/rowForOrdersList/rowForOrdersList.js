@@ -14,5 +14,4 @@ export default function rowForOrders(data) {
     table.append(tbody);
     return table;
   });
-  return table;
 }

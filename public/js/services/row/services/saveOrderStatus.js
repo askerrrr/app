@@ -1,4 +1,4 @@
-function renderFirstStatus(array) {
+function renderUnmarkedCheckBoxForFirstStatus(array) {
   const arrWithoutFirstStatus = array.slice(1);
   console.log(arrWithoutFirstStatus);
   arrWithoutFirstStatus.forEach((item) => {
@@ -7,11 +7,12 @@ function renderFirstStatus(array) {
   });
 }
 
-function renderNextStatus(array, statusId) {
-  // const arr = array.filter((elem) => elem.id !== ++statusId);
+function renderNextUnmarkedPendingStatus(array, statusId) {
+  const arr = array.filter((elem) => elem.id !== statusId + 1);
   console.log(arr);
-  array.forEach((elem) => {
-    if (elem.id === ++statusId) document.getElementById(elem.id).checked = true;
+  arr.forEach((elem) => {
+    if (elem.id === statusId + 1)
+      document.getElementById(elem.id).checked = true;
     document.getElementById(elem.id).disabled = true;
   });
 }
@@ -28,7 +29,7 @@ export default async function saveOrderStatus(userId, fileId) {
 
     const status = await response.json();
     let statusValue = status.split(":")[0];
-    let statusId = ++status.split(":")[1] || null;
+    let statusId = +status.split(":")[1] || null;
 
     console.log(`ID : ${statusId}\nValue : ${statusValue}`);
 
@@ -39,7 +40,7 @@ export default async function saveOrderStatus(userId, fileId) {
     const arr = [];
 
     for (let i = 0; i < checkBoxCollection.length; i++) {
-      let id = ++checkBoxCollection[i].id;
+      let id = +checkBoxCollection[i].id;
       let value = checkBoxCollection[i].value;
       let checked = checkBoxCollection[i].checked;
 
@@ -49,9 +50,9 @@ export default async function saveOrderStatus(userId, fileId) {
     console.log(arr);
 
     if (!statusId) {
-      return renderFirstStatus(arr);
+      return renderUnmarkedCheckBoxForFirstStatus(arr);
     } else {
-      return renderNextStatus(arr, statusId);
+      return renderNextUnmarkedPendingStatus(arr, statusId);
     }
   } catch (err) {
     console.log(err);
@@ -60,28 +61,28 @@ export default async function saveOrderStatus(userId, fileId) {
 
 //export to formForSetOrderStatus.js
 
-// let a = {
-//   userId: "7413876142",
-//   firstName: "Test",
-//   userName: "",
-//   orders: [
-//     {
-//       orderContent: {
-//         phone: 89281748384,
-//         userId: "7413876142",
-//         date: "13:11:03 - 04.10.2024",
-//         file: {
-//           url: "https://api.telegram.org/file/bot7375008224:AAEctRRaK9XAinaQO838sWD9Ueu04NjTLGk/documents/file_161.xlsx",
-//           id: "911218c1abc543835d2c",
-//           pathToFile: "/var/www/userFiles/7413876142/911218c1abc543835d2c.xlsx",
-//           status: "no",
-//         },
-//         firstName: "Test",
-//         userName: "",
-//       },
-//     },
-//   ],
-// };
+let a = {
+  userId: "7413876142",
+  firstName: "Test",
+  userName: "",
+  orders: [
+    {
+      orderContent: {
+        phone: 89281748384,
+        userId: "7413876142",
+        date: "13:11:03 - 04.10.2024",
+        file: {
+          url: "https://api.telegram.org/file/bot7375008224:AAEctRRaK9XAinaQO838sWD9Ueu04NjTLGk/documents/file_161.xlsx",
+          id: "911218c1abc543835d2c",
+          pathToFile: "/var/www/userFiles/7413876142/911218c1abc543835d2c.xlsx",
+          status: "no",
+        },
+        firstName: "Test",
+        userName: "",
+      },
+    },
+  ],
+};
 
 // let trueCheckedId = arr.filter((elem) => elem.value === status)[0].id;
 // trueCheckedId++;
