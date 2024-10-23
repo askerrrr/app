@@ -2,8 +2,8 @@ import getDate from "./services/date.js";
 import getFile from "./services/file.js";
 import getPhone from "./services/phone.js";
 import buttonBack from "./services/buttonBack.js";
-import formForOpenPopUp from "./services/formForOpenPopUp.js";
-import formForDeleteOrder from "./services/formForDeleteOrder.js";
+import formForOpenPopUp from "../different/formForOpenPopUp.js";
+import formForDeleteOrder from "../different/formForDeleteOrder.js";
 import formForSetOrderStatus from "../different/formForSetOrderStatus.js";
 
 export default async function row(orders) {

@@ -1,4 +1,4 @@
-import deleteOrder from "../../../deleteOrder.js";
+import deleteOrder from "../../deleteOrder.js";
 
 export default async function formForDeleteOrder(userId, fileId, orders) {
   const button = document.createElement("button");
