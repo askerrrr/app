@@ -1,7 +1,10 @@
-const removeFieldsetAfterClosingPopUp = () => {
-  const fieldset = document.getElementsByTagName("fieldset");
-  return fieldset.remove();
-};
+async function removeFieldsetAfterChangeStatus() {
+  const fieldset = document.getElementById("fieldset");
+
+  if (fieldset) {
+    fieldset.remove();
+  }
+}
 
 export default async function formForSetOrderStatus(userId, fileId) {
   const button = document.getElementById("submit-order-status");
@@ -13,13 +16,37 @@ export default async function formForSetOrderStatus(userId, fileId) {
       "input[name=order-status]:checked"
     ).value;
 
-    const response = await fetch(`/status/${userId}/${fileId}/${orderStatus}`, {
-      method: "POST",
-      headers: { Accept: "application/json" },
-    });
-    removeFieldsetAfterClosingPopUp();
-    window.location.reload();
-    return response;
+    if (!orderStatus) {
+      console.log(typeof orderStatus);
+      await removeFieldsetAfterChangeStatus();
+    } else {
+      console.log(orderStatus);
+      const response = await fetch(
+        `/status/${userId}/${fileId}/${orderStatus}`,
+        {
+          method: "POST",
+          headers: { Accept: "application/json" },
+        }
+      );
+
+      if (!response.ok) {
+        console.log("Error when sending data...");
+        await removeFieldsetAfterChangeStatus();
+      } else {
+        await removeFieldsetAfterChangeStatus();
+        window.location.reload();
+      }
+    }
   });
   return button;
 }
+
+function closePopUp() {
+  const button = document.getElementById("close-dialog");
+  button.addEventListener("click", async (e) => {
+    e.preventDefault();
+    await removeFieldsetAfterChangeStatus();
+  });
+}
+
+closePopUp();

@@ -2,8 +2,7 @@ function renderUnmarkedCheckBoxForFirstStatus(array) {
   const arrWithoutFirstStatus = array.slice(1);
   console.log(arrWithoutFirstStatus);
   arrWithoutFirstStatus.forEach((item) => {
-    (document.getElementById(item.statusId).checked = true),
-      (document.getElementById(item.statusId).disabled = true);
+    document.getElementById(item.statusId).disabled = true;
   });
 }
 
@@ -12,8 +11,7 @@ function renderNextUnmarkedPendingStatus(array, statusId) {
   console.log(arr);
   arr.forEach((elem) => {
     if (elem.statusId === statusId + 1)
-      document.getElementById(elem.statusId).checked = true;
-    document.getElementById(elem.statusId).disabled = true;
+      document.getElementById(elem.statusId).disabled = true;
   });
 }
 
@@ -45,7 +43,7 @@ export default async function saveOrderStatus(userId, fileId) {
 
     console.log(arrayOfCheckBoxesID);
 
-    return !status
+    return statusValue === "no"
       ? renderUnmarkedCheckBoxForFirstStatus(arrayOfCheckBoxesID)
       : renderNextUnmarkedPendingStatus(arrayOfCheckBoxesID, statusId);
   } catch (err) {

@@ -6,7 +6,7 @@ function Status_In_Processing(id) {
   input.id = id;
   input.type = "checkbox";
   input.name = "order-status";
-  input.value = `in-processing:${id}`;
+  input.value = `in-processing`;
 
   const div = document.createElement("div");
   div.append("взят в обработку");
@@ -23,7 +23,7 @@ function Status_Purchased(id) {
   input.id = id;
   input.type = "checkbox";
   input.name = "order-status";
-  input.value = `purchased:${id}`;
+  input.value = `purchased`;
 
   const div = document.createElement("div");
   div.append("выкуплен");
@@ -40,7 +40,7 @@ function Status_China_Warehouse(id) {
   input.id = id;
   input.type = "checkbox";
   input.name = "order-status";
-  input.value = `china-warehouse:${id}`;
+  input.value = `china-warehouse}`;
 
   const div = document.createElement("div");
   div.append("доставлен на склад в китае");
@@ -57,7 +57,7 @@ function Status_On_The_Way(id) {
   input.id = id;
   input.type = "checkbox";
   input.name = "order-status";
-  input.value = `on-the-way:${id}`;
+  input.value = `on-the-way`;
 
   const div = document.createElement("div");
   div.append("товар в пути");
@@ -74,7 +74,7 @@ function Status_Awaiting_Receipt(id) {
   input.id = id;
   input.type = "checkbox";
   input.name = "order-status";
-  input.value = `awaiting-receipt:${id}`;
+  input.value = `awaiting-receipt`;
 
   const div = document.createElement("div");
   div.append("ожидает получения");
@@ -91,7 +91,7 @@ function Status_Order_Is_Completed(id) {
   input.id = id;
   input.type = "checkbox";
   input.name = "order-status";
-  input.value = `awaiting-receipt:${id}`;
+  input.value = `awaiting-receipt`;
 
   const div = document.createElement("div");
   div.append("заказ завершен");
@@ -104,6 +104,7 @@ export default async function createCheckBoxForOrderStatus(id) {
   const form = document.getElementById("set-order-status");
 
   const fieldset = document.createElement("fieldset");
+  fieldset.id = "fieldset";
 
   const legend = document.createElement("legend");
   legend.append("Статус заказа");
