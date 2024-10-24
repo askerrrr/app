@@ -1,3 +1,8 @@
+const removeFieldsetAfterClosingPopUp = () => {
+  const fieldset = document.getElementsByTagName("fieldset");
+  return fieldset.remove();
+};
+
 export default async function formForSetOrderStatus(userId, fileId) {
   const button = document.getElementById("submit-order-status");
 
@@ -12,6 +17,7 @@ export default async function formForSetOrderStatus(userId, fileId) {
       method: "POST",
       headers: { Accept: "application/json" },
     });
+    removeFieldsetAfterClosingPopUp();
     window.location.reload();
     return response;
   });
