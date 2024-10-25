@@ -1,4 +1,4 @@
-import saveOrderStatus from "./saveOrderStatus.js";
+import saveAndRenderCurrentOrderStatus from "./saveOrderStatus.js";
 import createCheckBoxForOrderStatus from "./checkBoxForOrderStatus.js";
 
 export default async function formForOpenPopUp(userId, fileId) {
@@ -13,7 +13,7 @@ export default async function formForOpenPopUp(userId, fileId) {
     const checkbox = await createCheckBoxForOrderStatus(fileId);
 
     if (checkbox) {
-      await saveOrderStatus(userId, fileId);
+      await saveAndRenderCurrentOrderStatus(userId, fileId);
 
       window.dialog.showModal();
     } else {

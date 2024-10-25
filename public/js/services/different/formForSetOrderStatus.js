@@ -16,7 +16,9 @@ export default async function formForSetOrderStatus(userId, fileId) {
       console.log(typeof orderStatus);
       alert("Вы ничего не выбрали");
     } else {
-      const orderStatus = checkBox.value + ":" + fileId;
+      const idOfMarkedCheckBox = checkBox.id;
+      const orderStatus = checkBox.value + ":" + idOfMarkedCheckBox;
+
       console.log(orderStatus);
       const response = await fetch(
         `/status/${userId}/${fileId}/${orderStatus}`,

@@ -10,12 +10,11 @@ function renderNextUnmarkedPendingStatus(array, statusId) {
   const arr = array.filter((elem) => elem.statusId !== statusId + 1);
   console.log("next", arr);
   arr.forEach((elem) => {
-    if (elem.statusId === statusId + 1)
-      return (document.getElementById(elem.statusId).disabled = true);
+    return (document.getElementById(elem.statusId).disabled = true);
   });
 }
 
-export default async function saveOrderStatus(userId, fileId) {
+export default async function saveAndRenderCurrentOrderStatus(userId, fileId) {
   try {
     const response = await fetch(`/status/api/${userId}/${fileId}`, {
       method: "GET",
