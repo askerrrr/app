@@ -8,10 +8,10 @@ function renderUnmarkedCheckBoxForFirstStatus(array) {
 
 function renderNextUnmarkedPendingStatus(array, statusId) {
   const arr = array.filter((elem) => elem.statusId !== statusId + 1);
-  console.log(arr);
+  console.log("next", arr);
   arr.forEach((elem) => {
     if (elem.statusId === statusId + 1)
-      document.getElementById(elem.statusId).disabled = true;
+      return (document.getElementById(elem.statusId).disabled = true);
   });
 }
 
