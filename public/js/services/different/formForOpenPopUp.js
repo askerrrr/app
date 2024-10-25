@@ -5,7 +5,7 @@ export default async function formForOpenPopUp(userId, fileId) {
   fileId = +fileId;
   const button = document.createElement("button");
   button.className = "change-order-status";
-  button.append("Изменить статут заказа");
+  button.textContent = "Изменить статут заказа";
 
   button.addEventListener("click", async (e) => {
     e.preventDefault();
@@ -14,7 +14,8 @@ export default async function formForOpenPopUp(userId, fileId) {
 
     if (checkbox) {
       await saveOrderStatus(userId, fileId);
-      button.onclick = window.dialog.showModal();
+
+      window.dialog.showModal();
     } else {
       throw new Error("CheckBox is not created");
     }

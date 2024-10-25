@@ -51,7 +51,7 @@ router.get("/api/:userId/:fileId", async (req, res) => {
 
     const result = user.orders.find((item) => item);
     const status = result.orderContent.file.status;
-
+    console.log(result, status);
     return user ? res.json(status) : res.sendStatus(404);
   } catch (err) {
     console.log(err);
