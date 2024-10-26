@@ -1,9 +1,9 @@
 export default function createId(order) {
   const orderLink = document.createElement("form");
-  orderLink.action = `/orderinfo/orders/order/${order.orderContent.file.id}`;
+  orderLink.action = `/orderinfo/orders/order/${order.order.file.id}`;
 
   const button = document.createElement("button");
-  button.append(`${order.orderContent.file.id}`);
+  button.append(`${order.order.file.id}`);
 
   orderLink.append(button);
 

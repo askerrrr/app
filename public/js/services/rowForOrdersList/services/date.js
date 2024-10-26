@@ -1,9 +1,9 @@
 export default function createDate(order) {
   const orderLink = document.createElement("a");
-  orderLink.href = `/orderinfo/orders/order/${order.orderContent.file.id}`;
+  orderLink.href = `/orderinfo/orders/order/${order.order.file.id}`;
 
   const button = document.createElement("button");
-  button.append(`${order.orderContent.date}`);
+  button.append(`${order.order.date}`);
 
   orderLink.append(button);
 

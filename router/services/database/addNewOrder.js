@@ -1,6 +1,6 @@
-export default async function addNewOrder(collection, orderContent) {
+export default async function addNewOrder(collection, order) {
   return await collection.updateOne(
-    { userId: orderContent.userId },
-    { $push: { orders: { orderContent } } }
+    { userId: order.userId },
+    { $push: { orders: { order } } }
   );
 }

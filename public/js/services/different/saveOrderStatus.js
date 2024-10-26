@@ -1,7 +1,7 @@
 function renderUnmarkedCheckBoxForFirstStatus(array) {
   return array
     .slice(1)
-    .map((item) => (document.getElementById(item.statusId).disabled = true));
+    .map((elem) => (document.getElementById(elem.statusId).disabled = true));
 }
 
 function renderNextUnmarkedPendingStatus(array, statusId) {
@@ -52,7 +52,7 @@ let a = {
   userName: "",
   orders: [
     {
-      orderContent: {
+      order: {
         phone: 89281748384,
         userId: "1111111111",
         date: "13:11:03 - 04.10.2024",
@@ -67,7 +67,7 @@ let a = {
       },
     },
     {
-      orderContent: {
+      order: {
         phone: 89281748384,
         userId: "1111111111",
         date: "13:11:03 - 04.10.2024",

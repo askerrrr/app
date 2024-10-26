@@ -16,10 +16,10 @@ router.post("/", async (req, res) => {
   try {
     const collection = req.app.locals.collection;
     const authHeader = req.headers.authorization;
-    const orderContent = req.body;
-    const userId = orderContent.userId;
-    const fileUrl = orderContent.file.url;
-    const fileId = orderContent.file.id;
+    const order = req.body;
+    const userId = order.userId;
+    const fileUrl = order.file.url;
+    const fileId = order.file.id;
 
     const validToken =
       authHeader && authHeader.split(" ")[1] === `${env.auth_token}`;
@@ -30,15 +30,15 @@ router.post("/", async (req, res) => {
 
     if (validToken) {
       if (existingDocument) {
-        await db.addNewOrder(collection, orderContent);
+        await db.addNewOrder(collection, order);
         await downloadAndSaveFile(userId, fileId, fileUrl);
 
         return res.sendStatus(201);
       } else {
-        const newUser = await db.createNewUser(collection, orderContent);
+        const newUser = await db.createNewUser(collection, order);
 
         if (newUser) {
-          await db.addNewOrder(collection, orderContent);
+          await db.addNewOrder(collection, order);
 
           return res.sendStatus(201);
         }
@@ -70,11 +70,11 @@ router.get("/api/order/:orderId", async (req, res) => {
     const collection = req.app.locals.collection;
 
     const user = await collection.findOne({
-      "orders.orderContent.file.id": orderId,
+      "orders.order.file.id": orderId,
     });
 
     const order = user.orders.find(
-      (order) => order.orderContent.file.id === orderId
+      (order) => order.order.file.id === orderId
     );
 
     return order ? res.json(order) : res.sendStatus(404);
@@ -128,7 +128,7 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
 
     const existingDocument = await collection.findOne({
       userId,
-      "orders.orderContent.file.id": orderId,
+      "orders.order.file.id": orderId,
     });
 
     if (existingDocument) {

@@ -9,8 +9,8 @@ import renderCurrentOrderStatus from "./services/currentOrdeStatus.js";
 import formForSetOrderStatus from "../different/formForSetOrderStatus.js";
 
 export default async function row(orders) {
-  const userId = orders.orderContent.userId;
-  const fileId = orders.orderContent.file.id;
+  const userId = orders.order.userId;
+  const fileId = orders.order.file.id;
 
   const openPopUp = await formForOpenPopUp(userId, fileId);
   await formForSetOrderStatus(userId, fileId);

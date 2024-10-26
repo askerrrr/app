@@ -1,6 +1,6 @@
 export default function renderCurrentOrderStatus(orders) {
   const td = document.createElement("td");
-  let currentStatus = orders.orderContent.file.status.split(":")[0];
+  let currentStatus = orders.order.file.status.split(":")[0];
 
   switch (currentStatus) {
     case "not-accepted-for-processing":

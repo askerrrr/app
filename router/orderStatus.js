@@ -18,16 +18,16 @@ router.post("/:userId/:fileId/:status", async (req, res) => {
 
     const existingDocument = await collection.findOne({
       userId,
-      "orders.orderContent.file.id": fileId,
+      "orders.order.file.id": fileId,
     });
 
     if (existingDocument) {
       await collection.updateOne(
         {
           userId,
-          "orders.orderContent.file.id": fileId,
+          "orders.order.file.id": fileId,
         },
-        { $set: { "orders.$.orderContent.file.status": status } }
+        { $set: { "orders.$.order.file.status": status } }
       );
 
       return res.sendStatus(200);
@@ -46,13 +46,13 @@ router.get("/api/:userId/:fileId", async (req, res) => {
 
     const user = await collection.findOne({
       userId,
-      "orders.orderContent.file.id": fileId,
+      "orders.order.file.id": fileId,
     });
 
     const result = user.orders.find(
-      (item) => item.orderContent.file.id === fileId
+      (item) => item.order.file.id === fileId
     );
-    const status = result.orderContent.file.status;
+    const status = result.order.file.status;
     console.log(result, status);
     return user ? res.json(status) : res.sendStatus(404);
   } catch (err) {
