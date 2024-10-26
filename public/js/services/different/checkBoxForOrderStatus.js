@@ -40,7 +40,7 @@ function Status_China_Warehouse(id) {
   input.id = id;
   input.type = "checkbox";
   input.name = "order-status";
-  input.value = `china-warehouse}`;
+  input.value = `china-warehouse`;
 
   const div = document.createElement("div");
   div.append("доставлен на склад в китае");
@@ -91,7 +91,7 @@ function Status_Order_Is_Completed(id) {
   input.id = id;
   input.type = "checkbox";
   input.name = "order-status";
-  input.value = `awaiting-receipt`;
+  input.value = `order-is-completed`;
 
   const div = document.createElement("div");
   div.append("заказ завершен");

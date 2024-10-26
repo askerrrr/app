@@ -1,17 +1,13 @@
 function renderUnmarkedCheckBoxForFirstStatus(array) {
-  const arrWithoutFirstStatus = array.slice(1);
-  console.log(arrWithoutFirstStatus);
-  arrWithoutFirstStatus.forEach((item) => {
-    document.getElementById(item.statusId).disabled = true;
-  });
+  return array
+    .slice(1)
+    .map((item) => (document.getElementById(item.statusId).disabled = true));
 }
 
 function renderNextUnmarkedPendingStatus(array, statusId) {
-  const arr = array.filter((elem) => elem.statusId !== statusId + 1);
-  console.log("next", arr);
-  arr.forEach((elem) => {
-    return (document.getElementById(elem.statusId).disabled = true);
-  });
+  return array
+    .filter((elem) => elem.statusId !== +statusId + 1)
+    .map((elem) => (document.getElementById(elem.statusId).disabled = true));
 }
 
 export default async function saveAndRenderCurrentOrderStatus(userId, fileId) {
@@ -25,8 +21,8 @@ export default async function saveAndRenderCurrentOrderStatus(userId, fileId) {
     }
 
     const status = await response.json();
-    let statusValue = status.split(":")[0];
-    let statusId = +status.split(":")[1] || null;
+
+    let [statusValue, statusId] = status.split(":");
 
     console.log(`ID : ${statusId}\nValue : ${statusValue}`);
 
@@ -42,7 +38,7 @@ export default async function saveAndRenderCurrentOrderStatus(userId, fileId) {
 
     console.log(arrayOfCheckBoxesID);
 
-    return statusValue === "no"
+    return statusValue === "not-accepted-for-processing"
       ? renderUnmarkedCheckBoxForFirstStatus(arrayOfCheckBoxesID)
       : renderNextUnmarkedPendingStatus(arrayOfCheckBoxesID, statusId);
   } catch (err) {
@@ -64,7 +60,7 @@ let a = {
           url: "https://api.telegram.org/file/bot7375008224:AAEctRRaK9XAinaQO838sWD9Ueu04NjTLGk/documents/file_160.xlsx",
           id: "22222222222220",
           pathToFile: "/var/www/userFiles/7413876142/911218c1abc543835d2c.xlsx",
-          status: "no",
+          status: "not-accepted-for-processing:",
         },
         firstName: "Test",
         userName: "",
@@ -79,7 +75,7 @@ let a = {
           url: "https://api.telegram.org/file/bot7375008224:AAEctRRaK9XAinaQO838sWD9Ueu04NjTLGk/documents/file_161.xlsx",
           id: "111111111110",
           pathToFile: "/var/www/userFiles/7413876142/911218c1abc543835d2c.xlsx",
-          status: "no",
+          status: "not-accepted-for-processing:",
         },
         firstName: "Test",
         userName: "",

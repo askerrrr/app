@@ -1,4 +1,4 @@
-export default function getFile(orders) {
+export default function renderFile(orders) {
   const fileId = orders.orderContent.file.id;
   const filePath = orders.orderContent.file.pathToFile;
 

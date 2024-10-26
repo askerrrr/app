@@ -1,10 +1,11 @@
-import getDate from "./services/date.js";
-import getFile from "./services/file.js";
-import getPhone from "./services/phone.js";
-import getOrderId from "./services/orderId.js";
+import renderDate from "./services/date.js";
+import renderFile from "./services/file.js";
+import renderPhone from "./services/phone.js";
+import renderOrderId from "./services/orderId.js";
 import buttonBack from "./services/buttonBack.js";
 import formForOpenPopUp from "../different/formForOpenPopUp.js";
 import formForDeleteOrder from "../different/formForDeleteOrder.js";
+import renderCurrentOrderStatus from "./services/currentOrdeStatus.js";
 import formForSetOrderStatus from "../different/formForSetOrderStatus.js";
 
 export default async function row(orders) {
@@ -17,10 +18,11 @@ export default async function row(orders) {
 
   const tr = document.createElement("tr");
   tr.append(
-    getOrderId(orders),
-    getDate(orders),
-    getFile(orders),
-    getPhone(orders)
+    renderOrderId(orders),
+    renderDate(orders),
+    renderFile(orders),
+    renderPhone(orders),
+    renderCurrentOrderStatus(orders)
   );
 
   const tbody = document.createElement("tbody");
