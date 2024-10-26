@@ -68,7 +68,7 @@ router.get("/current/:userId/:fileId", async (req, res) => {
     const authHeader = req.headers.authorization;
 
     const validToken =
-      authHeader && authHeader.split("")[1] === `${env.auth_token}`;
+      authHeader && authHeader.split(" ")[1] === `${env.auth_token}`;
 
     if (validToken) {
       const user = await collection.findOne({
