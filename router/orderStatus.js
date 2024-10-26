@@ -79,7 +79,7 @@ router.get("/current/:userId/:fileId", async (req, res) => {
       const result = user.orders.find((item) => item.order.file.id === fileId);
       const status = result.order.file.status;
 
-      return user ? res.json({ status }) : res.sendStatus(404);
+      return user ? res.json({ status: status }) : res.sendStatus(404);
     }
 
     return res.sendStatus(401);
