@@ -47,34 +47,19 @@ export default async function saveAndRenderCurrentOrderStatus(userId, fileId) {
 } //export to formForSetOrderStatus.js
 
 let a = {
-  userId: "1111111111",
+  userId: "7413876142",
   firstName: "Test",
   userName: "",
   orders: [
     {
       order: {
-        phone: 23333333333,
-        userId: "1111111111",
-        date: "13:11:03 - 04.10.2024",
+        phone: 88888888888,
+        userId: "7413876142",
+        date: "18:11:03 - 00.10.2024",
         file: {
-          url: "https://api.telegram.org/file/bot7375008224:AAEctRRaK9XAinaQO838sWD9Ueu04NjTLGk/documents/file_160.xlsx",
-          id: "253453453453450",
-          pathToFile: "/var/www/userFiles/7413876142/911218c1abc543835d2c.xlsx",
-          status: "not-accepted-for-processing:",
-        },
-        firstName: "Test",
-        userName: "",
-      },
-    },
-    {
-      order: {
-        phone: 11111111111111,
-        userId: "1111111111",
-        date: "13:11:03 - 04.10.2024",
-        file: {
-          url: "https://api.telegram.org/file/bot7375008224:AAEctRRaK9XAinaQO838sWD9Ueu04NjTLGk/documents/file_161.xlsx",
-          id: "353534330",
-          pathToFile: "/var/www/userFiles/7413876142/911218c1abc543835d2c.xlsx",
+          url: "https://api.telegram.org/file/bot7375008224:AAEctRRaK9XAinaQO838sWD9Ueu04NjTLGk/documents/file_188.xlsx",
+          id: "470653276440",
+          pathToFile: "/var/www/userFiles/7413876142/470653276440.xlsx",
           status: "not-accepted-for-processing:",
         },
         firstName: "Test",

@@ -33,6 +33,7 @@ router.get("/api/users", async (req, res) => {
   try {
     const collection = req.app.locals.collection;
     const users = await collection.find({}).toArray();
+    console.log(users);
     return res.json(users);
   } catch {
     return res.status(500);
