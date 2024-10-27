@@ -16,7 +16,7 @@ const app = express();
       console.log("The server is running...")
     );
 
-    const db = mongodb.db("TelegramUsers");
+    const db = mongodb.db("test");
     const collection = db.collection("users");
     app.locals.collection = collection;
   } catch (err) {
