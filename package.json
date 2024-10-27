@@ -2,9 +2,9 @@
   "name": "express_app",
   "version": "1.0.0",
   "description": "",
-  "main": "test_app.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node --watch test_app.js"
+    "start": "node --watch app.js"
   },
   "keywords": [],
   "author": "",
