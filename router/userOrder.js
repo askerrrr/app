@@ -14,7 +14,6 @@ router.use(json());
 
 router.post("/", async (req, res) => {
   try {
-    res.setHeader("Content-Type", "application/json");
     const collection = req.app.locals.collection;
     const authHeader = req.headers.authorization;
     const order = req.body;
