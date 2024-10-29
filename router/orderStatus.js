@@ -10,6 +10,7 @@ router.use(json());
 
 router.post("/:userId/:fileId/:status", async (req, res) => {
   try {
+    res.setHeader("Content-Type", "application/json");
     const collection = req.app.locals.collection;
     const userId = req.params.userId;
     const fileId = req.params.fileId;

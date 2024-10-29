@@ -14,6 +14,7 @@ router.use(json());
 
 router.post("/", async (req, res) => {
   try {
+    res.setHeader("Content-Type", "application/json");
     const collection = req.app.locals.collection;
     const authHeader = req.headers.authorization;
     const order = req.body;
@@ -73,9 +74,7 @@ router.get("/api/order/:orderId", async (req, res) => {
       "orders.order.file.id": orderId,
     });
 
-    const order = user.orders.find(
-      (order) => order.order.file.id === orderId
-    );
+    const order = user.orders.find((order) => order.order.file.id === orderId);
 
     return order ? res.json(order) : res.sendStatus(404);
   } catch {

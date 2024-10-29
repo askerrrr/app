@@ -3,6 +3,7 @@ import { Router } from "express";
 
 const router = Router({ caseSensitive: true, strict: true });
 router.post("/", async (req, res) => {
+  res.setHeader("Content-Type", "application/json");
   const collection = req.app.locals.collection;
   const authHeader = req.headers.authorization;
   const user = req.body;
