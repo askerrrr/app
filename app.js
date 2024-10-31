@@ -16,7 +16,7 @@ const app = express();
       console.log("The server is running...")
     );
 
-    const db = mongodb.db("test");
+    const db = mongodb.db("database");
     const collection = db.collection("users");
     app.locals.collection = collection;
 

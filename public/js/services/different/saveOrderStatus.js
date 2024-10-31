@@ -21,7 +21,7 @@ export default async function saveAndRenderCurrentOrderStatus(userId, fileId) {
     }
 
     const status = await response.json();
-
+    console.log("status", status);
     let [statusValue, statusId] = status.split(":");
 
     console.log(`ID : ${statusId}\nValue : ${statusValue}`);
@@ -36,35 +36,12 @@ export default async function saveAndRenderCurrentOrderStatus(userId, fileId) {
       arrayOfCheckBoxesID.push({ statusId: +checkBoxCollection[i].id });
     }
 
-    console.log(arrayOfCheckBoxesID);
+    console.log("arrayOfCheckBoxesID", arrayOfCheckBoxesID);
 
-    return statusValue === "not-accepted-for-processing:0"
+    return status == "not-accepted-for-processing:0"
       ? renderUnmarkedCheckBoxForFirstStatus(arrayOfCheckBoxesID)
       : renderNextUnmarkedPendingStatus(arrayOfCheckBoxesID, statusId);
   } catch (err) {
     console.log(err);
   }
 } //export to formForSetOrderStatus.js
-
-let a = {
-  userId: "7413876142",
-  firstName: "Test",
-  userName: "",
-  orders: [
-    {
-      order: {
-        phone: 88888888888,
-        userId: "7413876142",
-        date: "18:11:03 - 00.10.2024",
-        file: {
-          url: "https://api.telegram.org/file/bot7375008224:AAEctRRaK9XAinaQO838sWD9Ueu04NjTLGk/documents/file_188.xlsx",
-          id: "470653276440",
-          pathToFile: "/var/www/userFiles/7413876142/470653276440.xlsx",
-          status: "not-accepted-for-processing:",
-        },
-        firstName: "Test",
-        userName: "",
-      },
-    },
-  ],
-};
