@@ -38,7 +38,7 @@ export default async function saveAndRenderCurrentOrderStatus(userId, fileId) {
 
     console.log(arrayOfCheckBoxesID);
 
-    return statusValue === "not-accepted-for-processing"
+    return statusValue === "not-accepted-for-processing:0"
       ? renderUnmarkedCheckBoxForFirstStatus(arrayOfCheckBoxesID)
       : renderNextUnmarkedPendingStatus(arrayOfCheckBoxesID, statusId);
   } catch (err) {

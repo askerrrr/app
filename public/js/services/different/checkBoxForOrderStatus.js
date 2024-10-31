@@ -24,37 +24,37 @@ class CheckBox {
 
 export default async function createCheckBoxForOrderStatus(id) {
   const Status_In_Processing = new CheckBox(
-    id,
+    id + 1,
     "in-processing",
     "взят в обработку"
   ).newCheckBox();
 
   const Status_Purchased = new CheckBox(
-    id + 1,
+    id + 2,
     "purchased",
     "выкуплен"
   ).newCheckBox();
 
   const Status_China_Warehouse = new CheckBox(
-    id + 2,
+    id + 3,
     "china-warehouse",
     'доставлен на склад в китае"'
   ).newCheckBox();
 
   const Status_On_The_Way = new CheckBox(
-    id + 3,
+    id + 4,
     "on-the-way",
     "товар в пути"
   ).newCheckBox();
 
   const Status_Awaiting_Receipt = new CheckBox(
-    id + 4,
+    id + 5,
     "awaiting-receipt",
     "ожидает получения"
   ).newCheckBox();
 
   const Status_Order_Is_Completed = new CheckBox(
-    id + 5,
+    id + 6,
     "order-is-completed",
     "заказ завершен"
   ).newCheckBox();
@@ -82,4 +82,4 @@ export default async function createCheckBoxForOrderStatus(id) {
   form.insertBefore(fieldset, childTeg);
 
   return form;
-}//export to public/js/services/different/formForOpenPopUp.js
+} //export to public/js/services/different/formForOpenPopUp.js
