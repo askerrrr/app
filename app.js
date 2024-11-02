@@ -29,6 +29,7 @@ const app = express();
 })();
 
 import { home } from "./router/home.js";
+import { auth } from "./router/auth.js";
 import { userPath } from "./router/userOrder.js";
 import { download } from "./router/downloadFile.js";
 import { orderStatus } from "./router/orderStatus.js";
@@ -38,6 +39,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", home);
-app.use("/orderinfo", userPath);
+app.use("/auth", auth);
 app.use("/download", download);
+app.use("/orderinfo", userPath);
 app.use("/status", orderStatus);
