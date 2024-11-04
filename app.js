@@ -21,8 +21,12 @@ const app = express();
     app.locals.collection = collection;
 
     const adminDB = mongodb.db("admin");
-    const adminCollection = adminDB.collection("admin");
+    const adminCollection = adminDB.collection("system.users");
     app.locals.adminCollection = adminCollection;
+
+    const userDB = mongodb.db("users");
+    const userCollection = userDB.collection("users");
+    app.locals.userCollection = userCollection;
   } catch (err) {
     console.log(err);
   }

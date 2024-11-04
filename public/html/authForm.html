@@ -8,13 +8,24 @@
   <body>
     <form action="/auth/login/check" method="post" id="auth">
       <label for="login"
-        ><input type="text" name="login" id="login" required
+        ><input
+          type="text"
+          name="login"
+          id="login"
+          required
+          autofocus
+          placeholder="login"
       /></label>
       <label for="passswd"
-        ><input type="text" name="passswd" id="passswd" required
+        ><input
+          type="text"
+          name="passwd"
+          id="passwd"
+          required
+          placeholder="passwd"
       /></label>
       <button type="submit">Отправить</button>
     </form>
-    <script src="authForm.js" type="module"></script>
+    <script src="/js/authForm.js" type="module"></script>
   </body>
 </html>

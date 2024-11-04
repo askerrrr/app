@@ -1,17 +1,37 @@
+import getProtectedData from "./getProtectedData.js";
+
 async function formHandler() {
   const form = document.getElementById("auth");
 
   return form.addEventListener("submit", async (e) => {
-    const formData = new FormData(form);
+    e.preventDefault();
 
-    const response = await fetch("/auth/login/check", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
+    const formDataObj = {};
+
+    new FormData(form).forEach((value, key) => {
+      formDataObj[key] = value;
     });
 
-    return response;
+    console.log(formDataObj);
+    const response = await fetch("/auth/login/check", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formDataObj),
+    });
+
+    if (!response.ok) {
+      throw new Error("Ошибка авторизации");
+    }
+
+    const result = await response.json();
+
+    if (result.token) {
+      localStorage.setItem("authToken", result.token);
+    }
   });
 }
 
 formHandler();
+//getProtectedData();

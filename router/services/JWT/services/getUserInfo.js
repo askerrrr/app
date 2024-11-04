@@ -1,0 +1,3 @@
+async function getUserInfo(token) {
+    
+}
