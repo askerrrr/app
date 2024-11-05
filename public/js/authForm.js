@@ -34,4 +34,4 @@ async function formHandler() {
 }
 
 formHandler();
-//getProtectedData();
+getProtectedData();

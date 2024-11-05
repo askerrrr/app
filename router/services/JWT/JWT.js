@@ -1,35 +1,43 @@
 import crypto from "crypto";
 import env from "../../../env_var.js";
-
-import base64Encoding from "./services/base64Encoding.js";
-import base64Decoding from "./services/base64Decoding.js";
+import createNewJWT from "./services/createNewJWT.js";
+import base64UrlEncoding from "./services/base64UrlEncoding.js";
+import base64UrlDecoding from "./services/base64UrlDecoding.js";
 
 export default async function JWT(authToken, login) {
-  if (!authToken) {
-    const headers = {
+  if (!authToken || authToken.split(".").length !== 3) {
+    const header = {
       alg: "HS256",
       typ: "JWT",
     };
 
     const payload = { login };
 
-    const newToken = crypto
+    const sigrature = crypto
       .createHmac("SHA256", env.secretKey)
-      .update(`${base64Encoding(headers)}.${base64Encoding(payload)}`)
+      .update(`${base64UrlEncoding(header)}.${base64UrlEncoding(payload)}`)
       .digest("base64");
 
-    return res.status(200).json({ login, newToken });
+    const token = `${header}.${payload}.${sigrature}`;
+    console.log("token", token);
+    return res.status(200).json({ token });
   }
 
-  const [headers, payload, sigrature] = authToken.split(".");
+  const [header, payload, sigrature] = authToken.split(".");
+
+  const decodedHeaders = await base64UrlDecoding(header);
+  const decodedPayload = await base64UrlDecoding(payload);
+
+  const alg = decodedHeaders.alg;
 
   const expectedSignature = crypto
-    .createHmac("SHA256", env.secretKey)
-    .update(`${base64Encoding(headers)}.${base64Encoding(payload)}`)
+    .createHmac(`${alg}`, env.secretKey)
+    .update(`${header}.${payload}`)
     .digest("base64");
 
   if (expectedSignature === sigrature) {
-    return res.status(200).json({ login, token });
+    console.log(authToken);
+    return res.status(200).json({ token: authToken });
   }
-  return res.status(403);
+  return res.status(403).json("Ты кто такой блять...");
 }

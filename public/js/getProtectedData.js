@@ -4,8 +4,11 @@ export default async function getProtectedData() {
     console.error("Пользователь не авторизован");
     return;
   }
+
+  console.log(token);
+
   const response = await fetch("/auth/login", {
-    method: "GET",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,

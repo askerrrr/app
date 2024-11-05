@@ -1,6 +1,8 @@
-export default async function findUser(userId, passwd, userCollection) {
+export default async function findUser(user, adminCollection) {
   try {
-    return await userCollection.findOne({ userId, passwd });
+    const existingUser = await adminCollection.findOne({ user: user });
+
+    if (existingUser) return existingUser.user;
   } catch (err) {
     console.log(err);
   }
