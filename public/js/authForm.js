@@ -1,7 +1,5 @@
-import getProtectedData from "./getProtectedData.js";
-
 async function formHandler() {
-  const form = document.getElementById("auth");
+  const form = document.getElementById("auth-form");
 
   return form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -12,7 +10,6 @@ async function formHandler() {
       formDataObj[key] = value;
     });
 
-    console.log(formDataObj);
     const response = await fetch("/auth/login/check", {
       method: "POST",
       headers: {
@@ -25,17 +22,10 @@ async function formHandler() {
       throw new Error("Ошибка авторизации");
     }
 
-    const result = await response.json();
-    return result;
-    // if (result.token) {
-    //   localStorage.setItem("authToken", result.token);
-    // }
+    const json = await response.json();
+
+    if (json.redirect) window.location.href = "/";
   });
 }
 
-formHandler().then((response) => {
-  if (response.redirect) {
-    window.location.href = "/";
-  }
-});
-//getProtectedData();
+formHandler();

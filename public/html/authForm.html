@@ -4,9 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
+    <link rel="stylesheet" href="/css/auth.css" type="text/css" />
   </head>
   <body>
-    <form action="/auth/login/check" method="post" id="auth">
+    <form action="/auth/login/check" method="post" id="auth-form">
       <label for="login"
         ><input
           type="text"
@@ -16,9 +17,9 @@
           autofocus
           placeholder="login"
       /></label>
-      <label for="passswd"
+      <label for="passwd"
         ><input
-          type="text"
+          type="password"
           name="passwd"
           id="passwd"
           required
