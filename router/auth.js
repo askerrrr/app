@@ -1,61 +1,37 @@
+import JWT from "jsonwebtoken";
 import env from "../env_var.js";
 import { Router } from "express";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import JWT from "./services/JWT/JWT.js";
 import db from "./services/database/db.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-
 const router = Router({ caseSensitive: true, strict: true });
 
-// router.use(async (req, res, next) => {
-//   if (req.headers.authorization) {
-//     const token = req.headers.authorization.split(" ")[1];
-//     console.log(token);
-//     const user = req.body;
-//     console.log("log in middleware", user);
-//     const adminCollection = req.app.locals.adminCollection;
-//     const existingUser = await db.findUser(token, adminCollection);
-//     if (existingUser) {
-//       await JWT(token);
-//     }
-//   }
-//   next();
-// });
-
 router.post("/login/check", async (req, res) => {
-  const userData = req.body;
-  const login = userData.login;
-  const adminCollection = req.app.locals.adminCollection;
-  const result = await db.findUser(login, adminCollection);
+  const user = req.body;
+  const login = user.login;
+  const passwd = user.passwd;
 
-  if (result) {
-    if (req.headers.authorization) {
-      const token = req.headers.authorization.split(" ")[1];
-      const result = await JWT(token, result);
-      if (result) {
-        return res.redirect(200, "/");
-      }
-    }
-  } else {
-    return res.status(404).json("Not Found");
+  const [adminLogin, adminPasswd] = env.admin.split(" ");
+
+  if (login === adminLogin && passwd === adminPasswd) {
+    console.log("data is true");
+
+    const token = JWT.sign(user, env.secretKey, { expiresIn: "15m" });
+
+    res.cookie("token", token, {
+      httpOnly: true,
+    });
+
+    return res.json({ redirect: true });
   }
 
-  try {
-  } catch (err) {
-    console.log(err);
-    return res.sendStatus(500);
-  }
+  return res.status(403).json({ error: "invalid data" });
 });
 
-router.get("/login", async (req, res) => {
-  try {
-    res.sendFile(join(__dirname, "../public", "html", "authForm.html"));
-  } catch (err) {
-    console.log(err);
-    return res.sendStatus(500);
-  }
+router.get("/login", async (_, res) => {
+  return res.sendFile(join(__dirname, "../public", "html", "authForm.html"));
 });
 
 export { router as auth };

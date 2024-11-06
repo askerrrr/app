@@ -7,8 +7,8 @@ export default async function getProtectedData() {
 
   console.log(token);
 
-  const response = await fetch("/auth/login", {
-    method: "POST",
+  const response = await fetch("/auth/token", {
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,

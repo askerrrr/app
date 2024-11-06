@@ -26,12 +26,16 @@ async function formHandler() {
     }
 
     const result = await response.json();
-
-    if (result.token) {
-      localStorage.setItem("authToken", result.token);
-    }
+    return result;
+    // if (result.token) {
+    //   localStorage.setItem("authToken", result.token);
+    // }
   });
 }
 
-formHandler();
-getProtectedData();
+formHandler().then((response) => {
+  if (response.redirect) {
+    window.location.href = "/";
+  }
+});
+//getProtectedData();
