@@ -1,12 +1,6 @@
-import env from "../env_var.js";
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
-import { Router, json } from "express";
+import { Router } from "express";
 
 const router = Router({ caseSensitive: true, strict: true });
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-router.use(json());
 
 router.post("/:userId/:fileId/:status", async (req, res) => {
   try {
@@ -54,35 +48,6 @@ router.get("/api/:userId/:fileId", async (req, res) => {
     const status = result.order.file.status;
     console.log(result, status);
     return user ? res.json(status) : res.sendStatus(404);
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(500);
-  }
-});
-
-router.get("/current/:userId/:fileId", async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const fileId = req.params.fileId;
-    const collection = req.app.locals.collection;
-    const authHeader = req.headers.authorization;
-
-    const validToken =
-      authHeader && authHeader.split(" ")[1] === `${env.auth_token}`;
-
-    if (validToken) {
-      const user = await collection.findOne({
-        userId,
-        "orders.order.file.id": fileId,
-      });
-
-      const result = user.orders.find((item) => item.order.file.id === fileId);
-      const status = result.order.file.status;
-
-      return user ? res.json({ status }) : res.sendStatus(404);
-    }
-
-    return res.sendStatus(401);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);

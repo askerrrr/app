@@ -1,3 +1,4 @@
+import JWT from "jsonwebtoken";
 import env from "../env_var.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
@@ -11,46 +12,6 @@ const router = Router({ caseSensitive: true, strict: true });
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 router.use(json());
-
-router.post("/", async (req, res) => {
-  try {
-    const collection = req.app.locals.collection;
-    const authHeader = req.headers.authorization;
-    const order = req.body;
-    const userId = order.userId;
-    const fileUrl = order.file.url;
-    const fileId = order.file.id;
-
-    const validToken =
-      authHeader && authHeader.split(" ")[1] === `${env.auth_token}`;
-
-    const existingDocument = await collection.findOne({
-      userId,
-    });
-
-    if (validToken) {
-      if (existingDocument) {
-        await db.addNewOrder(collection, order);
-        await downloadAndSaveFile(userId, fileId, fileUrl);
-
-        return res.sendStatus(201);
-      } else {
-        const newUser = await db.createNewUser(collection, order);
-
-        if (newUser) {
-          await db.addNewOrder(collection, order);
-
-          return res.sendStatus(201);
-        }
-      }
-    } else {
-      return res.sendStatus(401);
-    }
-  } catch (err) {
-    res.sendStatus(500);
-    console.log(err);
-  }
-});
 
 router.get("/api/:userId", async (req, res) => {
   try {

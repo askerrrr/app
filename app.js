@@ -37,17 +37,20 @@ const app = express();
 
 import { home } from "./router/home.js";
 import { auth } from "./router/auth.js";
+import { botApi } from "./router/botApi.js";
 import { userPath } from "./router/userOrder.js";
 import { download } from "./router/downloadFile.js";
 import { orderStatus } from "./router/orderStatus.js";
 
-app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(helmet());
 
+app.use("/bot", botApi);
 app.use("/auth", auth);
+
+app.use(cookieParser());
 
 app.use("/", verifyToken, home);
 app.use("/download", verifyToken, download);

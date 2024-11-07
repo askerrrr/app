@@ -1,33 +1,8 @@
+import JWT from "jsonwebtoken";
 import env from "../env_var.js";
 import { Router } from "express";
 
 const router = Router({ caseSensitive: true, strict: true });
-router.post("/", async (req, res) => {
-  const collection = req.app.locals.collection;
-  const authHeader = req.headers.authorization;
-  const user = req.body;
-  const existingDocument = await collection.findOne({
-    userId: user.userId,
-  });
-
-  try {
-    const validToken =
-      authHeader && authHeader.split(" ")[1] === `${env.auth_token}`;
-
-    if (validToken) {
-      if (!existingDocument) {
-        await collection.insertOne(user);
-        return res.sendStatus(201);
-      } else if (existingDocument) {
-        return res.sendStatus(409);
-      }
-    } else {
-      return res.sendStatus(401);
-    }
-  } catch (err) {
-    return res.sendStatus(500);
-  }
-});
 
 router.get("/api/users", async (req, res) => {
   try {
