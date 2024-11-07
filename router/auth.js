@@ -3,7 +3,6 @@ import env from "../env_var.js";
 import { Router } from "express";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import db from "./services/database/db.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const router = Router({ caseSensitive: true, strict: true });
@@ -17,13 +16,14 @@ router.post("/login/check", async (req, res) => {
     const [adminLogin, adminPasswd] = env.admin.split(" ");
 
     if (login === adminLogin && passwd === adminPasswd) {
-      const token = JWT.sign(user, env.secretKey, { expiresIn: "1m" });
+      const token = JWT.sign(user, env.secretKey, { expiresIn: "30m" });
 
       return res
         .cookie("token", token, {
           httpOnly: true,
+          maxAge: 1000 * 60 * 60,
         })
-        .json({ redirect: true }); //.status(200);
+        .json({ redirect: true });
     }
 
     return res.status(403).json({ error: "invalid data" });
