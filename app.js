@@ -1,10 +1,11 @@
 import path from "path";
+import helmet from "helmet";
 import express from "express";
-import JWT from "jsonwebtoken";
-import { dirname } from "path";
 import env from "./env_var.js";
+import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { MongoClient } from "mongodb";
+import cookieParser from "cookie-parser";
 import verifyToken from "./router/services/different/verifyToken.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -40,12 +41,15 @@ import { userPath } from "./router/userOrder.js";
 import { download } from "./router/downloadFile.js";
 import { orderStatus } from "./router/orderStatus.js";
 
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(helmet());
 
-app.use("/", home);
 app.use("/auth", auth);
-app.use("/download", download);
-app.use("/orderinfo", userPath);
-app.use("/status", orderStatus);
+
+app.use("/", verifyToken, home);
+app.use("/download", verifyToken, download);
+app.use("/orderinfo", verifyToken, userPath);
+app.use("/status", verifyToken, orderStatus);

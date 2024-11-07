@@ -17,7 +17,7 @@ router.post("/login/check", async (req, res) => {
     const [adminLogin, adminPasswd] = env.admin.split(" ");
 
     if (login === adminLogin && passwd === adminPasswd) {
-      const token = JWT.sign(user, env.secretKey, { expiresIn: "15m" });
+      const token = JWT.sign(user, env.secretKey, { expiresIn: "1m" });
 
       return res
         .cookie("token", token, {
