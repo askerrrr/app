@@ -26,7 +26,7 @@ router.post("/api/users", async (req, res) => {
       if (!existingDocument) {
         await collection.insertOne(user);
 
-        return res.sendStatus(201);
+        return res.status(200).json({ status: "ok" });
       } else if (existingDocument) {
         return res.sendStatus(409);
       }
@@ -77,7 +77,7 @@ router.post("/api/order", async (req, res) => {
         if (newUser) {
           await db.addNewOrder(collection, order);
 
-          return res.sendStatus(201);
+          return res.status(200).json({ status: "ok" });
         }
       }
     } else {
