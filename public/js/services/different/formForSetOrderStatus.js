@@ -19,16 +19,27 @@ export default async function formForSetOrderStatus(userId, fileId) {
       const idOfMarkedCheckBox = checkBox.id;
       const orderStatus = checkBox.value + ":" + idOfMarkedCheckBox;
 
-      console.log(orderStatus);
       const response = await fetch(
         `/status/${userId}/${fileId}/${orderStatus}`,
         {
           method: "POST",
-          headers: { Accept: "application/json" },
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
         }
       );
 
-      if (!response.ok) {
+      const botResponse = await fetch("https://62.109.30.45", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, fileId, orderStatus }),
+      });
+
+      if (!response.ok && !botResponse.ok) {
         console.log("Error when sending data...");
         await removeFieldset();
       } else {

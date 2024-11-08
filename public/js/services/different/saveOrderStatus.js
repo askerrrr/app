@@ -22,7 +22,7 @@ export default async function saveAndRenderCurrentOrderStatus(userId, fileId) {
 
     const status = await response.json();
 
-    let [statusValue, statusId] = status.split(":");
+    let statusId = status.split(":")[1];
 
     const checkBoxCollection = document.querySelectorAll(
       `input[name=order-status]`
