@@ -21,10 +21,8 @@ export default async function saveAndRenderCurrentOrderStatus(userId, fileId) {
     }
 
     const status = await response.json();
-    console.log("status", status);
-    let [statusValue, statusId] = status.split(":");
 
-    console.log(`ID : ${statusId}\nValue : ${statusValue}`);
+    let [statusValue, statusId] = status.split(":");
 
     const checkBoxCollection = document.querySelectorAll(
       `input[name=order-status]`
@@ -35,8 +33,6 @@ export default async function saveAndRenderCurrentOrderStatus(userId, fileId) {
     for (let i = 0; i < checkBoxCollection.length; i++) {
       arrayOfCheckBoxesID.push({ statusId: +checkBoxCollection[i].id });
     }
-
-    console.log("arrayOfCheckBoxesID", arrayOfCheckBoxesID);
 
     return status == "not-accepted-for-processing:0"
       ? renderUnmarkedCheckBoxForFirstStatus(arrayOfCheckBoxesID)

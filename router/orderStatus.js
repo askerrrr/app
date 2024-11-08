@@ -2,14 +2,12 @@ import { Router } from "express";
 
 const router = Router({ caseSensitive: true, strict: true });
 
-router.post("/:userId/:fileId/:status", async (req, res) => {
+router.put("/:userId/:fileId/:status", async (req, res) => {
   try {
     const collection = req.app.locals.collection;
     const userId = req.params.userId;
     const fileId = req.params.fileId;
     const status = req.params.status;
-
-    console.log(status);
 
     const existingDocument = await collection.findOne({
       userId,
