@@ -2,7 +2,7 @@ import { Router } from "express";
 
 const router = Router({ caseSensitive: true, strict: true });
 
-router.put("/:userId/:fileId/:status", async (req, res) => {
+router.post("/:userId/:fileId/:status", async (req, res) => {
   try {
     const collection = req.app.locals.collection;
     const userId = req.params.userId;
