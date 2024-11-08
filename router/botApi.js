@@ -72,7 +72,7 @@ router.post("/api/order", async (req, res) => {
         await db.addNewOrder(collection, order);
         await downloadAndSaveFile(userId, fileId, fileUrl);
 
-        return res.sendStatus(200); //.json({ status: "Заказ успешно создан" });
+        return res.sendStatus(200);
       } else {
         const newUser = await db.createNewUser(collection, order);
 
