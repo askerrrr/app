@@ -27,7 +27,7 @@ router.post("/api/users", async (req, res) => {
       if (!existingDocument) {
         await collection.insertOne(user);
 
-        return res.status(201).json({ status: "Пользователь успешно создан" });
+        return res.sendStatus(201);
       } else if (existingDocument) {
         return res.sendStatus(409);
       }
@@ -71,14 +71,14 @@ router.post("/api/order", async (req, res) => {
         await db.addNewOrder(collection, order);
         await downloadAndSaveFile(userId, fileId, fileUrl);
 
-        return res.sendStatus(201).json({ status: "Заказ успешно создан" });
+        return res.sendStatus(201); //.json({ status: "Заказ успешно создан" });
       } else {
         const newUser = await db.createNewUser(collection, order);
 
         if (newUser) {
           await db.addNewOrder(collection, order);
 
-          return res.status(200).json({ status: "ok" });
+          return res.sendStatus(201);
         }
       }
     } else {
