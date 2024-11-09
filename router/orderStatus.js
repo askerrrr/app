@@ -32,9 +32,15 @@ router.post("/:userId/:fileId/:status", async (req, res) => {
         body: JSON.stringify({ userId, fileId, status }),
       });
 
+      if (!botResponse.ok) {
+        return res.status(500).json({ error: "Ошибка при запросе к боту" });
+      }
+
       const json = await botResponse.json();
 
-      return res.sendStatus(200);
+      return res
+        .status(200)
+        .json({ message: "Статус успешно обновлен", botResponse: json });
     }
   } catch (err) {
     console.log(err);
