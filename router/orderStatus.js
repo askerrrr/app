@@ -23,6 +23,18 @@ router.post("/:userId/:fileId/:status", async (req, res) => {
         { $set: { "orders.$.order.file.status": status } }
       );
 
+      const botResponse = await fetch("https://62.109.30.45", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, fileId, orderStatus }),
+      });
+
+      const json = await botResponse.json()
+      
+      ;
       return res.sendStatus(200);
     }
   } catch (err) {

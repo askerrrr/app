@@ -30,16 +30,7 @@ export default async function formForSetOrderStatus(userId, fileId) {
         }
       );
 
-      const botResponse = await fetch("https://62.109.30.45", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId, fileId, orderStatus }),
-      });
-
-      if (!response.ok && !botResponse.ok) {
+      if (!response.ok) {
         console.log("Error when sending data...");
         await removeFieldset();
       } else {
