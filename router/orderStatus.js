@@ -29,7 +29,7 @@ router.post("/:userId/:fileId/:status", async (req, res) => {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userId, fileId, status`` }),
+        body: JSON.stringify({ userId, fileId, status }),
       });
 
       const json = await botResponse.json();
