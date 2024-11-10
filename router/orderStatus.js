@@ -70,9 +70,7 @@ router.post("/:userId/:fileId/:status", async (req, res) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${JWT.sign(env.payload, env.secretKey, {
-          expiresIn: "5m",
-        })}`,
+        Authorization: `Bearer ${secretKey}`,
       },
       body: JSON.stringify({
         userId,

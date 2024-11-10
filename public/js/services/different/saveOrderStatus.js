@@ -16,7 +16,10 @@ export default async function saveAndRenderCurrentOrderStatus(userId, fileId) {
       method: "GET",
     });
 
-    if (!response.ok) console.log("response err", response.error);
+    if (!response.ok) {
+      const err = await response.text();
+      console.log("response err", err);
+    }
 
     const status = await response.json();
     let statusId = status.split(":")[1];
