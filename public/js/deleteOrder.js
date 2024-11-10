@@ -4,9 +4,9 @@ export default async function deleteOrder(userId, orderId) {
       method: "DELETE",
       headers: { Accept: "application/json" },
     });
-    if (!response.ok) {
-      console.log("!res.ok");
-    }
+
+    if (!response.ok) console.log(response.error);
+
     return response;
   } catch (err) {
     console.log(err);

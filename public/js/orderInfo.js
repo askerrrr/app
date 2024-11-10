@@ -10,6 +10,8 @@ async function getOrderInfo() {
       headers: { Accept: "application/json" },
     });
 
+    if (!response.ok) console.log(response.error);
+
     const order = await response.json();
 
     return await row(order);

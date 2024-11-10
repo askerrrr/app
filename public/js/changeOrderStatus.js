@@ -5,6 +5,8 @@ export default async function changeOrderStatus(userId, fileId, status) {
       headers: { Accept: "application/json" },
     });
 
+    if (!response.ok) console.log(response.error);
+
     return response;
   } catch (err) {
     console.log(err);

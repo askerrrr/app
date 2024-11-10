@@ -16,12 +16,9 @@ export default async function saveAndRenderCurrentOrderStatus(userId, fileId) {
       method: "GET",
     });
 
-    if (!response.ok) {
-      console.log("response err");
-    }
+    if (!response.ok) console.log("response err", response.error);
 
     const status = await response.json();
-
     let statusId = status.split(":")[1];
 
     const checkBoxCollection = document.querySelectorAll(

@@ -6,17 +6,20 @@ import getUserDir from "./getUserDir.js";
 export default async function downloadAndSaveFile(id, fileId, fileUrl) {
   try {
     const buffer = await getBuffer(fileUrl);
-    if (buffer) {
-      const orderDir = await getUserDir(id);
 
-      if (orderDir) {
-        const filePath = path.join(orderDir, `${fileId}.xlsx`);
+    if (!buffer) console.log("Ошибка при конвертации в buffer");
 
-        await fs.promises.writeFile(filePath, buffer);
+    const orderDir = await getUserDir(id);
 
-        console.log(`Файл ${fileId} успешно сохранён по пути: ${orderDir}`);
-      }
-    }
+    if (!orderDir) console.log("Ошибка при получении папки пользователя");
+
+    const filePath = path.join(orderDir, `${fileId}.xlsx`);
+
+    await fs.promises
+      .writeFile(filePath, buffer)
+      .catch((err) => console.error(err));
+
+    console.log(`Файл ${fileId} успешно сохранён по пути: ${orderDir}`);
   } catch (err) {
     console.log(
       `Ошибка при загрузке и сохранении файла ${fileId}. Ошибка : ${err}`

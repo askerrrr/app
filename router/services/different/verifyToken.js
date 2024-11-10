@@ -9,6 +9,7 @@ export default async function verifyToken(req, res, next) {
     }
 
     const user = JWT.verify(token, env.secretKey);
+
     req.user = user;
     next();
   } catch (err) {

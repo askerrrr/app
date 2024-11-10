@@ -7,6 +7,8 @@ async function GetUsers() {
       headers: { Accept: "application/json" },
     });
 
+    if (!response.ok) console.log(response.error);
+
     const users = await response.json();
 
     users.forEach((user) => row(user));

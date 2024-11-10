@@ -8,9 +8,10 @@ export default async function getUserDir(id) {
     if (!fs.existsSync(userDir)) {
       await fs.promises.mkdir(userDir, { recursive: true });
       console.log(`Папка ${id} успешно создана...`);
-    } else {
-      console.log(`Папка ${id} уже существует...`);
     }
+
+    console.log(`Папка ${id} уже существует...`);
+
     return userDir;
   } catch (err) {
     console.log(`Ошибка при создании папки ${id}`, err);
