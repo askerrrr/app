@@ -70,7 +70,7 @@ router.post("/:userId/:fileId/:status", async (req, res) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${env.secretKey}`,
       },
       body: JSON.stringify({
         userId,
