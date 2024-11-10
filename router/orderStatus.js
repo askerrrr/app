@@ -82,7 +82,8 @@ router.post("/:userId/:fileId/:status", async (req, res) => {
     });
 
     if (!botResponse.ok) {
-      console.log("botResponse.error", botResponse.error);
+      const err = await botResponse.text();
+      console.log("botResponse.error", err);
       return res.status(500).json({ error: "Ошибка при запросе к боту" });
     }
 

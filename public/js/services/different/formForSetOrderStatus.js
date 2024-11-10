@@ -24,7 +24,8 @@ export default async function formForSetOrderStatus(userId, fileId) {
     });
 
     if (!response.ok) {
-      console.log("Error when sending data...");
+      const err = await response.text();
+      console.log("Error when sending data...", err);
       fieldset?.remove();
       window.dialog.close();
       window.location.reload();
