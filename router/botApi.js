@@ -61,7 +61,7 @@ router.post("/api/order", async (req, res) => {
     const fileUrl = order.file.url;
     const fileId = order.file.id;
 
-    const validToken = JWT.verify(token, env.secret);
+    const validToken = JWT.verify(token, env.bot_secret_key);
 
     const existingDocument = await collection.findOne({
       userId,
@@ -107,7 +107,7 @@ router.get("/api/status/:userId/:fileId", async (req, res) => {
   if (!token) return res.status(401);
 
   try {
-    const validToken = JWT.verify(token, env.secret);
+    const validToken = JWT.verify(token, env.bot_secret_key);
 
     if (validToken) {
       const user = await collection.findOne({
