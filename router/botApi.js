@@ -79,7 +79,9 @@ router.post("/api/order", async (req, res) => {
         if (newUser) {
           await db.addNewOrder(collection, order);
 
-          return res.sendStatus(200);
+          return res
+            .status(200)
+            .json({ msg: "the order was created successfully" });
         }
       }
     } else {
