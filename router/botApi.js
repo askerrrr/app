@@ -28,7 +28,7 @@ router.post("/api/users", async (req, res) => {
       if (!existingDocument) {
         await collection.insertOne(user);
 
-        return res.sendStatus(200);
+        return res.status(200).json({ msg: "successfully" });
       } else if (existingDocument) {
         return res.sendStatus(409);
       }
