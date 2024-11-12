@@ -70,7 +70,7 @@ router.post("/api/order", async (req, res) => {
     if (validToken) {
       if (existingDocument) {
         await db.addNewOrder(collection, order);
-        await downloadAndSaveFile(userId, fileId, fileUrl);
+        await downloadAndSaveFile(userId, fileId, fileUrl, order);
 
         return res.sendStatus(200);
       } else {
