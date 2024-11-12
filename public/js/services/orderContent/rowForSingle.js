@@ -8,7 +8,7 @@ import formForDeleteOrder from "../different/formForDeleteOrder.js";
 import renderCurrentOrderStatus from "./services/currentOrdeStatus.js";
 import formForSetOrderStatus from "../different/formForSetOrderStatus.js";
 
-export default async function row(orders) {
+export default async function rowForSingle(orders) {
   const userId = orders.order.userId;
   const fileId = orders.order.file.id;
 

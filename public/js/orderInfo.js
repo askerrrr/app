@@ -1,20 +1,28 @@
-import row from "./services/row/row.js";
+import rowForMultiple from "./services/orderContent/multiple/rowForMultiple.js";
 
 async function getOrderInfo() {
   try {
     const pathParts = window.location.pathname.split("/");
-    const orderId = pathParts[pathParts.length - 1];
+    const userId = pathParts[pathParts.length - 1];
 
-    const response = await fetch(`/orderinfo/api/order/${orderId}`, {
+    const response = await fetch(`/orderinfo/api/order/${userId}`, {
       method: "GET",
       headers: { Accept: "application/json" },
     });
 
-    if (!response.ok) console.log(response.error);
+    if (!response.ok) {
+      const err = await response.text();
+      console.log(err);
+      return;
+    }
 
-    const order = await response.json();
+    const orders = await response.json();
 
-    return await row(order);
+    if (orders.order?.type) {
+      return await rowForSingle(orders);
+    }
+
+    return await rowForMultiple(orders);
   } catch (err) {
     console.log(err);
   }

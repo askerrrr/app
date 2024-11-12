@@ -24,7 +24,7 @@ router.post("/api/users", async (req, res) => {
   try {
     const validToken = JWT.verify(token, env.bot_secret_key);
 
-    if (validToken) {z
+    if (validToken) {
       if (!existingDocument) {
         await collection.insertOne(user);
 

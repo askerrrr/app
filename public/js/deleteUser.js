@@ -5,7 +5,11 @@ export default async function deleteUser(userId) {
       headers: { Accept: "application/json" },
     });
 
-    if (!response.ok) console.log(response.error);
+    if (!response.ok) {
+      const err = await response.text();
+      console.log(err);
+      return;
+    }
 
     return response;
   } catch (err) {

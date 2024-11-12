@@ -10,7 +10,11 @@ async function getOrderList() {
       headers: { Accept: "application/json" },
     });
 
-    if (!response.ok) console.log(response.error);
+    if (!response.ok) {
+      const err = await response.text();
+      console.log(err);
+      return;
+    }
 
     const orders = await response.json();
 
