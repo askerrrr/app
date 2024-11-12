@@ -13,7 +13,15 @@ export default async function downloadAndSaveFile(id, fileId, fileUrl) {
 
     if (!orderDir) console.log("Ошибка при получении папки пользователя");
 
-    const filePath = path.join(orderDir, `${fileId}.xlsx`);
+    if (order?.type) {
+      const filePath = path.join(orderDir, images, `${fileId}.jpg`);
+
+      await fs.promises
+        .writeFile(filePath, buffer)
+        .catch((err) => console.error(err));
+    }
+
+    const filePath = path.join(orderDir, doc, `${fileId}.xlsx`);
 
     await fs.promises
       .writeFile(filePath, buffer)

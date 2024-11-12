@@ -1,4 +1,3 @@
-import JWT from "jsonwebtoken";
 import env from "../env_var.js";
 import { Router } from "express";
 
