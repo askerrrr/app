@@ -3,6 +3,7 @@ import renderFile from "./services/file.js";
 import renderPhone from "./services/phone.js";
 import renderOrderId from "./services/orderId.js";
 import buttonBack from "./services/buttonBack.js";
+import renderTableHead from "./services/tableHead.js";
 import formForOpenPopUp from "../different/formForOpenPopUp.js";
 import formForDeleteOrder from "../different/formForDeleteOrder.js";
 import renderCurrentOrderStatus from "./services/currentOrdeStatus.js";
@@ -29,10 +30,13 @@ export default async function rowForMultiple(orders) {
 
   const tbody = document.createElement("tbody");
   tbody.append(tr);
+
+  const thead = await renderTableHead(orders);
+
   tbody.id = fileId;
 
   const table = document.getElementById("table");
-  table.append(tbody);
+  table.append(thead, tbody);
 
   const body = document.getElementById("orderInfo");
   body.append(buttonBack(orders), openPopUp, table, form);
