@@ -6,28 +6,21 @@ export default async function getUserDir(id) {
   const userDir = path.join("/var", "www", "userFiles", `${id}`);
   const dirNames = ["docs", "images"];
 
-  try {
-    if (!fs.existsSync(userDir)) {
-      await Promise.all(
-        dirNames.map((dirName) => mkdir(`${userDir}/${dirName}`))
-      ).catch((err) => console.log(err));
-    }
-  } catch (err) {
-    console.log(err);
-  }
-
   if (!fs.existsSync(userDir)) {
-    await fs.promises.mkdir(userDir, { recursive: true }, (err) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
+    const result = await fs.promises.mkdir(userDir, { recursive: true });
 
-      console.log(`Папка ${id} успешно создана...`);
-    });
+    if (!result) {
+      console.log(`Ошибка при создании папки ${userDir}`);
+    }
+
+    await Promise.all(
+      dirNames.map((dirName) =>
+        fs.promises.mkdir(`${userDir}/${dirName}`, { recursive: true }, (err) =>
+          console.log(`Ошибка при создании папок docs и images`, err)
+        )
+      )
+    );
   }
 
   console.log(`Папка ${id} уже существует...`);
-
-  return userDir;
 }
