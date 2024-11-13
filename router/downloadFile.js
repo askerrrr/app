@@ -3,23 +3,20 @@ import db from "./services/database/db.js";
 
 const router = Router({ caseSensitive: true, strict: true });
 
-router.get("/var/www/userFiles/:id/:fileid", async (req, res) => {
+router.get("/:userId/:fileid", async (req, res) => {
   try {
-    const userId = req.params.id;
+    const userId = req.params.userId;
     const fileId = req.params.fileid;
 
     const collection = req.app.locals.collection;
-    const dirType = await db.findOrderType(userId, fileId, collection);
+    const filePath = await db.findFilePath(userId, fileId, collection);
 
-    return res.download(
-      `/var/www/userFiles/${userId}/${dirType}/${fileId}`,
-      (err) => {
-        if (err) {
-          console.log("Ошибка при скачивании файла", err);
-        }
-        console.log("Файл успешно скачан");
+    return res.download(filePath, (err) => {
+      if (err) {
+        console.log("Ошибка при скачивании файла", err);
       }
-    );
+      console.log("Файл успешно скачан");
+    });
   } catch (err) {
     console.log(err);
   }

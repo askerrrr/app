@@ -2,7 +2,7 @@ import findUser from "./findUser.js";
 import deleteUser from "./deleteUser.js";
 import addNewOrder from "./addNewOrder.js";
 import deleteOrder from "./deleteOrder.js";
-import findOrderType from "./findOrderType.js";
+import findFilePath from "./findFilePath.js";
 import createNewUser from "./createNewUser.js";
 
 const db = {
@@ -12,8 +12,8 @@ const db = {
   addNewOrder,
   deleteOrder,
   deleteOrder,
+  findFilePath,
   createNewUser,
-  findOrderType,
 };
 
 export default db;
