@@ -18,6 +18,8 @@ export default async function downloadAndSaveFile(id, fileId, fileUrl, order) {
       await fs.promises
         .writeFile(imagesPath, buffer)
         .catch((err) => console.error(err));
+
+      console.log(`Файл ${fileId} успешно сохранён по пути: ${imagesPath}`);
     }
 
     const docsPath = path.join(orderDir[0], `${fileId}.xlsx`);
@@ -26,7 +28,7 @@ export default async function downloadAndSaveFile(id, fileId, fileUrl, order) {
       .writeFile(docsPath, buffer)
       .catch((err) => console.error(err));
 
-    console.log(`Файл ${fileId} успешно сохранён по пути: ${orderDir}`);
+    console.log(`Файл ${fileId} успешно сохранён по пути: ${docsPath}`);
   } catch (err) {
     console.log(
       `Ошибка при загрузке и сохранении файла ${fileId}. Ошибка : ${err}`
