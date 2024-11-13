@@ -37,6 +37,7 @@ const app = express();
 
 import { home } from "./router/home.js";
 import { auth } from "./router/auth.js";
+import { image } from "./router/image.js";
 import { botApi } from "./router/botApi.js";
 import { userPath } from "./router/userOrder.js";
 import { download } from "./router/downloadFile.js";
@@ -53,6 +54,7 @@ app.use("/auth", auth);
 app.use(cookieParser());
 
 app.use("/", verifyToken, home);
+app.use("/image", image);
 app.use("/download", verifyToken, download);
 app.use("/orderinfo", verifyToken, userPath);
 app.use("/status", verifyToken, orderStatus);

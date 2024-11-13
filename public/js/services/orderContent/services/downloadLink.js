@@ -1,4 +1,4 @@
-export default function renderFile(orders) {
+export default function renderDownloadLink(orders) {
   const fileId = orders.order.file.id;
   const userId = orders.order.userId;
 

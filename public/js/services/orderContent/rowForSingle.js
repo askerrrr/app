@@ -1,11 +1,11 @@
 import renderDate from "./services/date.js";
-import renderFile from "./services/file.js";
 import renderPhone from "./services/phone.js";
 import renderOrderId from "./services/orderId.js";
 import buttonBack from "./services/buttonBack.js";
 import renderItemUrl from "./services/itemUrl.js";
 import renderTableHead from "./services/tableHead.js";
 import renderDescription from "./services/description.js";
+import renderDownloadLink from "./services/downloadLink.js";
 import formForOpenPopUp from "../different/formForOpenPopUp.js";
 import formForDeleteOrder from "../different/formForDeleteOrder.js";
 import renderCurrentOrderStatus from "./services/currentOrdeStatus.js";
@@ -25,7 +25,7 @@ export default async function rowForSingle(orders) {
   tr.append(
     renderOrderId(orders),
     renderDate(orders),
-    renderFile(orders),
+    renderDownloadLink(orders),
     renderPhone(orders),
     renderItemUrl(orders),
     renderDescription(orders),
