@@ -14,17 +14,16 @@ export default async function downloadAndSaveFile(id, fileId, fileUrl, order) {
     if (!orderDir) console.log("Ошибка при получении папки пользователя");
 
     if (order?.type) {
-      const filePath = path.join(orderDir, images, `${fileId}.jpg`);
-
+      const imagesPath = path.join(orderDir[1], `${fileId}.jpg`);
       await fs.promises
-        .writeFile(filePath, buffer)
+        .writeFile(imagesPath, buffer)
         .catch((err) => console.error(err));
     }
 
-    const filePath = path.join(orderDir, doc, `${fileId}.xlsx`);
+    const docsPath = path.join(orderDir[0], `${fileId}.xlsx`);
 
     await fs.promises
-      .writeFile(filePath, buffer)
+      .writeFile(docsPath, buffer)
       .catch((err) => console.error(err));
 
     console.log(`Файл ${fileId} успешно сохранён по пути: ${orderDir}`);
