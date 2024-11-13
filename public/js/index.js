@@ -1,4 +1,4 @@
-import row from "./services/rowForIndex/row.js";
+import rowForUserList from "./services/rowForUserList/rowForUserList.js";
 
 async function GetUsers() {
   try {
@@ -15,7 +15,7 @@ async function GetUsers() {
 
     const users = await response.json();
 
-    users.forEach((user) => row(user));
+    users.forEach((user) => rowForUserList(user));
   } catch (err) {
     console.log(err);
   }

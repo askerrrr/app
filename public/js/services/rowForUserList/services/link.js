@@ -1,9 +1,9 @@
-export default function getUserId(user) {
+export default function getUserId(order) {
   const userIdLink = document.createElement("form");
-  userIdLink.action = `/orderinfo/orders/${user.userId}`;
+  userIdLink.action = `/orderinfo/orders/${order.userId}`;
 
   const buttontoId = document.createElement("button");
-  buttontoId.append(`${user.userId}`);
+  buttontoId.append(`${order.userId}`);
 
   userIdLink.append(buttontoId);
 

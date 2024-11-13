@@ -3,14 +3,14 @@ import getUserName from "./services/userName.js";
 import getFirstName from "./services/firstName.js";
 //import buttonForDeleteUser from "./services/buttonForDeleteUser.js";
 
-export default async function row(user) {
-  const userId = user.userId;
+export default async function rowForUserList(order) {
+  const userId = order.userId;
 
   const tr = document.createElement("tr");
 
   //const tdButton = await buttonForDeleteUser(userId);
 
-  tr.append(getFirstName(user), getUserName(user), getUserId(user));
+  tr.append(getFirstName(order), getUserName(order), getUserId(order));
 
   // tr.append(tdButton);
 
