@@ -1,6 +1,6 @@
 import renderDate from "./services/date.js";
 import renderPhone from "./services/phone.js";
-import openPhoto from "./services/openPhoto.js";
+import openPhoto from "./services/openImage.js";
 import renderOrderId from "./services/orderId.js";
 import buttonBack from "./services/buttonBack.js";
 import renderItemUrl from "./services/itemUrl.js";

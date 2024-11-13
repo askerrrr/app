@@ -1,4 +1,4 @@
-export default function openPhoto(orders) {
+export default function openImage(orders) {
   const fileId = orders.order.file.id;
   const userId = orders.order.userId;
 
@@ -8,6 +8,7 @@ export default function openPhoto(orders) {
   const form = document.createElement("form");
   form.action = `/image/${userId}/${fileId}`;
   form.id = fileId;
+  form.target = '_blank'
   form.append(buttonForOpenPhoto);
 
   const td = document.createElement("td");
