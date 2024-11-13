@@ -1,13 +1,21 @@
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
 import { Router } from "express";
+import db from "./services/database/db.js";
 
 const router = Router({ caseSensitive: true, strict: true });
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
-router.get("/", async (req, res) => {
+router.get("/:userId/:fileId", async (req, res) => {
   try {
-    res.sendFile(join(__dirname, "../public", "html", "image.html"));
+    const userId = req.params.userId;
+    const fileId = req.params.fileId;
+    const collection = req.app.locals.collection;
+
+    const filePath = await db.findFilePath(userId, fileId, collection);
+
+    res.sendFile(filePath, (err) => {
+      if (err) {
+        res.status(404).send("Изображение не найдено");
+      }
+    });
   } catch (err) {
     console.log(err);
   }

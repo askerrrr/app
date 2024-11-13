@@ -1,5 +1,6 @@
 import renderDate from "./services/date.js";
 import renderPhone from "./services/phone.js";
+import openPhoto from "./services/openPhoto.js";
 import renderOrderId from "./services/orderId.js";
 import buttonBack from "./services/buttonBack.js";
 import renderItemUrl from "./services/itemUrl.js";
@@ -25,11 +26,12 @@ export default async function rowForSingle(orders) {
   tr.append(
     renderOrderId(orders),
     renderDate(orders),
-    renderDownloadLink(orders),
     renderPhone(orders),
+    openPhoto(orders),
     renderItemUrl(orders),
     renderDescription(orders),
-    renderCurrentOrderStatus(orders)
+    renderCurrentOrderStatus(orders),
+    renderDownloadLink(orders)
   );
 
   const tbody = document.createElement("tbody");

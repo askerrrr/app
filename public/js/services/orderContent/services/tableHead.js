@@ -2,6 +2,9 @@ export default async function renderTableHead(orders) {
   const phone = document.createElement("th");
   phone.append("Телефон");
 
+  const photo = document.createElement("th");
+  photo.append("Изображение");
+
   const orderFile = document.createElement("th");
   orderFile.append("Файл");
 
@@ -27,12 +30,14 @@ export default async function renderTableHead(orders) {
     tr.append(
       orderId,
       orderDate,
-      orderFile,
       phone,
+      photo,
       itemUrl,
       description,
-      status
+      status,
+      orderFile
     );
+
     thead.append(tr);
     return thead;
   }
