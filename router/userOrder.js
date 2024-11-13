@@ -90,7 +90,7 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
     if (existingDocument) {
       await db.deleteOrder(userId, orderId, collection);
 
-      await deleteOrderFile(userId, orderId);
+      await deleteOrderFile(userId, orderId, collection);
 
       return res.sendStatus(200);
     }

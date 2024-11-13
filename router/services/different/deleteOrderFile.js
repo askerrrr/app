@@ -1,8 +1,9 @@
 import fs from "fs";
+import db from "../database/db.js";
 
-export default async function deleteOrderFile(userId, fileId) {
+export default async function deleteOrderFile(userId, fileId, collection) {
   try {
-    const filePath = `/var/www/userFiles/${userId}/${fileId}.xlsx`;
+    const filePath = await db.findFilePath(userId, fileId, collection);
 
     return fs.rm(filePath, (err) => {
       if (err) {
