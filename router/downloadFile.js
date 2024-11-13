@@ -1,5 +1,5 @@
 import { Router } from "express";
-import db from "./services/database/db";
+import db from "./services/database/db.js";
 
 const router = Router({ caseSensitive: true, strict: true });
 
