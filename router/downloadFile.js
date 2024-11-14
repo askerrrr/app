@@ -14,7 +14,7 @@ router.get("/:userId/:fileid", async (req, res) => {
 
     await access(filePath, constants.F_OK)
       .then(() => res.download(filePath))
-      .catch((err) => {
+      .catch(() => {
         console.log(
           ` ${filePath} the file does not exist` ),
 res.status(404).send('File not found')}

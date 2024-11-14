@@ -79,9 +79,7 @@ router.post("/api/order", async (req, res) => {
         ).catch((err) => console.log(err));
 
         if (!addedNewOrder && !downloadedAndSavedFile) {
-          throw new Error(
-            "Ошибка при скачивании и сохранении или при добавлении нового заказа"
-          );
+          throw new Error('Error when downloading and saving or when adding a new order');
         }
 
         return res.sendStatus(200);
