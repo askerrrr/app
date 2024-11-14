@@ -1,7 +1,7 @@
 import { Router } from "express";
 import db from "./services/database/db.js";
 import fs from "fs";
-import { access, constants } from "fs";
+import { access, constants } from "fs/promises";
 
 const router = Router({ caseSensitive: true, strict: true });
 
