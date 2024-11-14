@@ -15,12 +15,12 @@ router.get("/:userId/:fileid", async (req, res) => {
     await access(filePath, constants.F_OK)
       .then(() => res.download(filePath))
       .catch(() => {
-        console.log(
-          ` ${filePath} the file does not exist` ),
-res.status(404).send('File not found')}
-      );
+        console.log(`${filePath} the file does not exist`);
+        res.status(404).send("File not found");
+      });
   } catch (err) {
     console.log(err);
+    res.status(500).send("Internal Server Error");
   }
 });
 

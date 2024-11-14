@@ -20,7 +20,7 @@ router.get("/api/:userId/:fileId", async (req, res) => {
     return user ? res.json(status) : res.sendStatus(404);
   } catch (err) {
     console.log(err);
-    res.sendStatus(500);
+    res.status(500).send("Internal Server Error")
   }
 });
 
@@ -94,7 +94,7 @@ router.post("/:userId/:fileId/:status", async (req, res) => {
       });
   } catch (err) {
     console.log(err);
-    res.sendStatus(500);
+    res.status(500).send("Internal Server Error")
   }
 });
 

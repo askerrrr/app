@@ -9,7 +9,7 @@ router.get("/api/users", async (req, res) => {
 
     return res.json(users);
   } catch {
-    return res.status(500);
+    res.status(500).send("Internal Server Error");
   }
 });
 

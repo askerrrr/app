@@ -18,7 +18,7 @@ router.get("/api/:userId", async (req, res) => {
 
     return user ? res.json(user) : res.sendStatus(404);
   } catch {
-    return res.sendStatus(500);
+    res.status(500).send("Internal Server Error");
   }
 });
 
@@ -35,7 +35,7 @@ router.get("/api/order/:orderId", async (req, res) => {
 
     return order ? res.json(order) : res.sendStatus(404);
   } catch {
-    return res.sendStatus(500);
+    res.status(500).send("Internal Server Error");
   }
 });
 
@@ -44,7 +44,7 @@ router.get("/orders/order/:orderId", async (_, res) => {
     res.sendFile(join(__dirname, "../public", "html", "userOrder.html"));
   } catch (err) {
     console.log(err);
-    return res.sendStatus(500);
+    res.status(500).send("Internal Server Error");
   }
 });
 
@@ -53,7 +53,7 @@ router.get("/orders/:userId", async (_, res) => {
     res.sendFile(join(__dirname, "../public", "html", "ordersList.html"));
   } catch (err) {
     console.log(err);
-    res.sendStatus(500);
+    res.status(500).send("Internal Server Error");
   }
 });
 
@@ -72,7 +72,7 @@ router.delete("/api/delete/:userId", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.sendStatus(500);
+    res.status(500).send("Internal Server Error");
   }
 });
 
@@ -96,7 +96,7 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    return res.sendStatus(500);
+    res.status(500).send("Internal Server Error");
   }
 });
 
