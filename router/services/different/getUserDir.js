@@ -25,12 +25,9 @@ export default async function getUserDir(id) {
         })
       );
 
-      return result;
+      if (result);
+      return dirNames.map((dirName) => path.join(userDir, dirName));
     }
-
-    console.log(`Папка ${id} уже существует...`);
-
-    return dirNames.map((dirName) => path.join(userDir, dirName));
   } catch (err) {
     console.log(err);
   }
