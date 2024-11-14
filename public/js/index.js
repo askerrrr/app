@@ -1,4 +1,4 @@
-import rowForUserList from "./services/rowForUserList/rowForUserList.js";
+import rowForUserList from "./services/row/rowForUserList.js";
 
 async function GetUsers() {
   try {

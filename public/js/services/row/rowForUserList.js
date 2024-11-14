@@ -5,12 +5,14 @@ import getFirstName from "./services/firstName.js";
 
 export default async function rowForUserList(order) {
   const userId = order.userId;
+  const firstName = order.firstName;
+  const userName = order.userName;
 
   const tr = document.createElement("tr");
 
   //const tdButton = await buttonForDeleteUser(userId);
 
-  tr.append(getFirstName(order), getUserName(order), getUserId(order));
+  tr.append(getFirstName(firstName), getUserName(userName), getUserId(userId));
 
   // tr.append(tdButton);
 

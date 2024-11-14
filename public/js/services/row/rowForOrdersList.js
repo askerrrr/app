@@ -3,13 +3,16 @@ import createDate from "./services/date.js";
 import renderCurrentOrderStatus from "./services/currentOrdeStatus.js";
 
 export default function rowForOrders(data) {
-  data.orders.forEach((order) => {
+  data.orders.forEach((orders) => {
+    const fileId = orders.order.file.id;
+    const orderDate = orders.order.date;
+    const status = orders.order.file.status;
     const tr = document.createElement("tr");
 
     tr.append(
-      createDate(order),
-      createId(order),
-      renderCurrentOrderStatus(order)
+      createDate(orderDate),
+      createId(fileId),
+      renderCurrentOrderStatus(status)
     );
 
     const tbody = document.createElement("tbody");

@@ -1,7 +1,4 @@
-export default function renderDownloadLink(orders) {
-  const fileId = orders.order.file.id;
-  const userId = orders.order.userId;
-
+export default function renderDownloadLink(userId, fileId) {
   const buttonForDownload = document.createElement("button");
   buttonForDownload.append("Скачать файл");
 

@@ -1,6 +1,6 @@
 import renderDate from "./services/date.js";
 import renderPhone from "./services/phone.js";
-import openPhoto from "./services/openImage.js";
+import openImage from "./services/openImage.js";
 import renderOrderId from "./services/orderId.js";
 import buttonBack from "./services/buttonBack.js";
 import renderItemUrl from "./services/itemUrl.js";
@@ -15,6 +15,11 @@ import formForSetOrderStatus from "../different/formForSetOrderStatus.js";
 export default async function rowForSingle(orders) {
   const userId = orders.order.userId;
   const fileId = orders.order.file.id;
+  const description = orders.order.file.description;
+  const itemUrl = orders.order.file.itemUrl;
+  const orderDate = orders.order.date;
+  const phone = orders.order.phone;
+  const status = orders.order.file.status;
 
   const openPopUp = await formForOpenPopUp(userId, fileId);
 
@@ -24,14 +29,14 @@ export default async function rowForSingle(orders) {
 
   const tr = document.createElement("tr");
   tr.append(
-    renderOrderId(orders),
-    renderDate(orders),
-    renderPhone(orders),
-    openPhoto(orders),
-    renderItemUrl(orders),
-    renderDescription(orders),
-    renderCurrentOrderStatus(orders),
-    renderDownloadLink(orders)
+    renderOrderId(fileId),
+    renderDate(orderDate),
+    renderPhone(phone),
+    openImage(userId, fileId),
+    renderItemUrl(itemUrl),
+    renderDescription(description),
+    renderCurrentOrderStatus(status),
+    renderDownloadLink(userId, fileId)
   );
 
   const tbody = document.createElement("tbody");
@@ -47,6 +52,6 @@ export default async function rowForSingle(orders) {
   table.append(thead, tbody);
 
   const body = document.getElementById("orderInfo");
-  body.append(buttonBack(orders), openPopUp, table, form);
+  body.append(buttonBack(userId), openPopUp, table, form);
   return body;
 }

@@ -12,6 +12,9 @@ import formForSetOrderStatus from "../different/formForSetOrderStatus.js";
 export default async function rowForMultiple(orders) {
   const userId = orders.order.userId;
   const fileId = orders.order.file.id;
+  const status = orders.order.file.status;
+  const orderDate = orders.order.date;
+  const phone = orders.order.phone;
 
   const openPopUp = await formForOpenPopUp(userId, fileId);
 
@@ -21,11 +24,11 @@ export default async function rowForMultiple(orders) {
 
   const tr = document.createElement("tr");
   tr.append(
-    renderOrderId(orders),
-    renderDate(orders),
-    renderDownloadLink(orders),
-    renderPhone(orders),
-    renderCurrentOrderStatus(orders)
+    renderOrderId(fileId),
+    renderDate(orderDate),
+    renderDownloadLink(userId, fileId),
+    renderPhone(phone),
+    renderCurrentOrderStatus(status)
   );
 
   const tbody = document.createElement("tbody");
@@ -39,6 +42,6 @@ export default async function rowForMultiple(orders) {
   table.append(thead, tbody);
 
   const body = document.getElementById("orderInfo");
-  body.append(buttonBack(orders), openPopUp, table, form);
+  body.append(buttonBack(userId), openPopUp, table, form);
   return body;
 }

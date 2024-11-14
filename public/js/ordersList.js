@@ -1,4 +1,4 @@
-import rowForOrders from "./services/rowForOrdersList/rowForOrdersList.js";
+import rowForOrders from "./services/row/rowForOrdersList.js";
 
 async function getOrderList() {
   try {

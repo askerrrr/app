@@ -1,6 +1,6 @@
-export default function renderCurrentOrderStatus(orders) {
+export default function renderCurrentOrderStatus(status) {
   const td = document.createElement("td");
-  let currentStatus = orders.order.file.status.split(":")[0];
+  let currentStatus = status.split(":")[0];
 
   switch (currentStatus) {
     case "not-accepted-for-processing":
@@ -32,6 +32,5 @@ export default function renderCurrentOrderStatus(orders) {
       td.append("Завершен");
       break;
   }
-
   return td;
 }

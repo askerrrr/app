@@ -1,9 +1,9 @@
-export default function renderItemUrl(orders) {
+export default function renderItemUrl(itemUrl) {
   const button = document.createElement("button");
   button.textContent = "Ссылка";
 
   const a = document.createElement("a");
-  a.href = orders.order.file.itemUrl;
+  a.href = itemUrl;
   a.target = "_blank";
 
   a.append(button);

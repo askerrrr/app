@@ -1,5 +1,5 @@
-import rowForSingle from "./services/orderContent/rowForSingle.js";
-import rowForMultiple from "./services/orderContent/rowForMultiple.js";
+import rowForSingle from "./services/row/rowForSingle.js";
+import rowForMultiple from "./services/row/rowForMultiple.js";
 
 async function getOrderInfo() {
   try {
