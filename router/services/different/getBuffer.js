@@ -2,7 +2,7 @@ export default async function getBuffer(url) {
   try {
     const response = await fetch(url);
 
-    if (response.ok) {
+    if (!response.ok) {
       const err = await response.text();
       console.log(err);
       return;
