@@ -7,7 +7,6 @@ import downloadAndSaveFile from "./services/different/downloadAndSaveFile.js";
 const router = Router({ caseSensitive: true, strict: true });
 
 router.post("/api/users", async (req, res) => {
-  const collection = req.app.locals.collection;
   const authHeader = req.headers.authorization;
 
   if (!authHeader) return res.status(401);
@@ -16,15 +15,17 @@ router.post("/api/users", async (req, res) => {
 
   if (!token) return res.status(401);
 
-  const user = req.body;
-  const existingDocument = await collection.findOne({
-    userId: user.userId,
-  });
-
   try {
     const validToken = JWT.verify(token, env.bot_secret_key);
 
     if (validToken) {
+      const user = req.body;
+      const collection = req.app.locals.collection;
+
+      const existingDocument = await collection.findOne({
+        userId: user.userId,
+      });
+
       if (!existingDocument) {
         await collection.insertOne(user);
 
@@ -47,7 +48,6 @@ router.post("/api/users", async (req, res) => {
 
 router.post("/api/order", async (req, res) => {
   try {
-    const collection = req.app.locals.collection;
     const authHeader = req.headers.authorization;
 
     if (!authHeader) return res.status(401);
@@ -56,21 +56,33 @@ router.post("/api/order", async (req, res) => {
 
     if (!token) return res.status(401);
 
-    const order = req.body;
-    const userId = order.userId;
-    const fileUrl = order.file.url;
-    const fileId = order.file.id;
-
     const validToken = JWT.verify(token, env.bot_secret_key);
 
-    const existingDocument = await collection.findOne({
-      userId,
-    });
-
     if (validToken) {
+      const order = req.body;
+      const userId = order.userId;
+      const fileUrl = order.file.url;
+      const fileId = order.file.id;
+      const collection = req.app.locals.collection;
+
+      const existingDocument = await collection.findOne({
+        userId,
+      });
+
       if (existingDocument) {
-        await db.addNewOrder(collection, order);
-        await downloadAndSaveFile(userId, fileId, fileUrl, order);
+        const addedNewOrder = await db.addNewOrder(collection, order);
+        const downloadedAndSavedFile = await downloadAndSaveFile(
+          userId,
+          fileId,
+          fileUrl,
+          order
+        ).catch((err) => console.log(err));
+
+        if (!addedNewOrder && !downloadedAndSavedFile) {
+          throw new Error(
+            "Ошибка при скачивании и сохранении или при добавлении нового заказа"
+          );
+        }
 
         return res.sendStatus(200);
       } else {
@@ -97,9 +109,6 @@ router.post("/api/order", async (req, res) => {
 });
 
 router.get("/api/status/:userId/:fileId", async (req, res) => {
-  const userId = req.params.userId;
-  const fileId = req.params.fileId;
-  const collection = req.app.locals.collection;
   const authHeader = req.headers.authorization;
 
   if (!authHeader) return res.status(401);
@@ -112,6 +121,10 @@ router.get("/api/status/:userId/:fileId", async (req, res) => {
     const validToken = JWT.verify(token, env.bot_secret_key);
 
     if (validToken) {
+      const userId = req.params.userId;
+      const fileId = req.params.fileId;
+      const collection = req.app.locals.collection;
+
       const user = await collection.findOne({
         userId,
         "orders.order.file.id": fileId,
