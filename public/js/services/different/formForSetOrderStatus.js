@@ -28,13 +28,11 @@ export default async function formForSetOrderStatus(userId, fileId) {
       console.log("Error when sending data...", err);
       fieldset?.remove();
       window.dialog.close();
-      window.location.reload();
       return;
     }
 
     fieldset?.remove();
     window.dialog.close();
-    window.location.reload();
   });
 
   return button;
@@ -46,7 +44,6 @@ function closePopUp() {
     e.preventDefault();
     fieldset?.remove();
     window.dialog.close();
-    window.location.reload();
   });
 }
 

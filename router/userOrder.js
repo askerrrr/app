@@ -62,14 +62,11 @@ router.delete("/api/delete/:userId", async (req, res) => {
     const userId = req.params.userId;
     const collection = req.app.locals.collection;
 
-    const existingDocument = await collection.findOne({ userId });
-
-    if (existingDocument) {
-      await deleteUserDir(userId);
-      await db.deleteUser(userId, collection);
-
-      return res.sendStatus(200);
-    }
+    await db
+      .deleteUser(userId, collection)
+      .then(() => deleteUserDir(userId))
+      .then(() => res.sendStatus(200))
+      .catch((err) => console.log(err));
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal Server Error");
@@ -82,18 +79,10 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
     const orderId = req.params.orderId;
     const collection = req.app.locals.collection;
 
-    const existingDocument = await collection.findOne({
-      userId,
-      "orders.order.file.id": orderId,
-    });
-
-    if (existingDocument) {
-      await db.deleteOrder(userId, orderId, collection);
-
-      await deleteOrderFile(userId, orderId, collection);
-
-      return res.sendStatus(200);
-    }
+    await deleteOrderFile(userId, orderId, collection)
+      .then(() => db.deleteOrder(userId, orderId, collection))
+      .then(() => res.sendStatus(200))
+      .catch((err) => console.log(err));
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal Server Error");

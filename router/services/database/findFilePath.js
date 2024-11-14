@@ -1,10 +1,10 @@
 export default async function findFilePath(userId, fileId, collection) {
-  const orders = await collection.findOne({
+  const data = await collection.findOne({
     userId,
     "orders.order.file.id": fileId,
   });
 
-  const filePath = orders.orders.filter(
+  const filePath = data.orders.filter(
     (orders) => orders.order.file.id === fileId
   )[0].order.file.pathToFile;
 
