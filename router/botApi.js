@@ -79,7 +79,9 @@ router.post("/api/order", async (req, res) => {
         ).catch((err) => console.log(err));
 
         if (!addedNewOrder && !downloadedAndSavedFile) {
-          throw new Error('Error when downloading and saving or when adding a new order');
+          throw new Error(
+            "Error when downloading and saving or when adding a new order"
+          );
         }
 
         return res.sendStatus(200);
@@ -87,7 +89,19 @@ router.post("/api/order", async (req, res) => {
         const newUser = await db.createNewUser(collection, order);
 
         if (newUser) {
-          await db.addNewOrder(collection, order);
+          const addedNewOrder = await db.addNewOrder(collection, order);
+          const downloadedAndSavedFile = await downloadAndSaveFile(
+            userId,
+            fileId,
+            fileUrl,
+            order
+          ).catch((err) => console.log(err));
+
+          if (!addedNewOrder && !downloadedAndSavedFile) {
+            throw new Error(
+              "Error when downloading and saving or when adding a new order"
+            );
+          }
 
           return res
             .status(200)
