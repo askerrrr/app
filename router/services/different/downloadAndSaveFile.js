@@ -7,11 +7,11 @@ export default async function downloadAndSaveFile(id, fileId, fileUrl, order) {
   try {
     const buffer = await getBuffer(fileUrl);
 
-    if (!buffer) console.log("Ошибка при конвертации в buffer");
+    if (!buffer) console.log("Error converting to buffer");
 
     const orderDir = await getUserDir(id);
 
-    if (!orderDir) console.log("Ошибка при получении папки пользователя");
+    if (!orderDir) console.log("Error receiving the user's folder");
 
     if (order?.type) {
       const imagesPath = path.join(orderDir[1], `${fileId}.jpg`);
@@ -19,7 +19,7 @@ export default async function downloadAndSaveFile(id, fileId, fileUrl, order) {
         .writeFile(imagesPath, buffer)
         .catch((err) => console.error(err));
 
-      console.log(`Файл ${fileId} успешно сохранён по пути: ${imagesPath}`);
+      console.log(`File ${fileId} was saved successfully: ${imagesPath}`);
     } else {
       const docsPath = path.join(orderDir[0], `${fileId}.xlsx`);
 
@@ -27,11 +27,9 @@ export default async function downloadAndSaveFile(id, fileId, fileUrl, order) {
         .writeFile(docsPath, buffer)
         .catch((err) => console.error(err));
 
-      console.log(`Файл ${fileId} успешно сохранён по пути: ${docsPath}`);
+      console.log(`File ${fileId} was saved successfully: ${docsPath}`);
     }
   } catch (err) {
-    console.log(
-      `Ошибка при загрузке и сохранении файла ${fileId}. Ошибка : ${err}`
-    );
+    console.log(`Error loading and saving the file ${fileId}. Error : ${err}`);
   }
 }

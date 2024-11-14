@@ -81,14 +81,17 @@ router.post("/:userId/:fileId/:status", async (req, res) => {
     if (!botResponse.ok) {
       const err = await botResponse.text();
       console.log("botResponse.error", err);
-      return res.status(500).json({ error: "Ошибка при запросе к боту" });
+      return res.status(500).json({ error: "Error when requesting the bot" });
     }
 
     const json = await botResponse.json();
 
     return res
       .status(200)
-      .json({ message: "Статус успешно обновлен", botResponse: json });
+      .json({
+        message: "The status has been successfully updated",
+        botResponse: json,
+      });
   } catch (err) {
     console.log(err);
     res.sendStatus(500);

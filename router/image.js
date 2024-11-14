@@ -13,7 +13,7 @@ router.get("/:userId/:fileId", async (req, res) => {
 
     res.sendFile(filePath, (err) => {
       if (err) {
-        res.status(404).send("Изображение не найдено");
+        res.status(404).send("Image not found");
       }
     });
   } catch (err) {

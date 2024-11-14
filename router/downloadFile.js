@@ -1,6 +1,5 @@
 import { Router } from "express";
 import db from "./services/database/db.js";
-import fs from "fs";
 import { access, constants } from "fs/promises";
 
 const router = Router({ caseSensitive: true, strict: true });
@@ -15,16 +14,7 @@ router.get("/:userId/:fileid", async (req, res) => {
 
     await access(filePath, constants.F_OK)
       .then(() => res.download(filePath))
-      .catch((err) =>
-        console.log(`Файл по пути ${filePath} не существует`, err)
-      );
-
-    // return res.download(filePath, (err) => {
-    //   if (err) {
-    //     console.log("Ошибка при скачивании файла", err);
-    //   }
-    //   console.log("Файл успешно скачан");
-    // });
+      .catch((err) => console.log(` ${filePath} the file does not exist`, err));
   } catch (err) {
     console.log(err);
   }
