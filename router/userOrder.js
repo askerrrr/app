@@ -1,3 +1,4 @@
+import env from "../env_var.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
@@ -79,6 +80,17 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
   await deleteOrderFile(userId, orderId, collection)
     .then(() => db.deleteOrder(userId, orderId, collection))
     .then(() => res.sendStatus(200))
+    .then(() =>
+      fetch(env.bot_server_ip, {
+        method: "DELETE",
+        body: JSON.stringify({ userId, orderId }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${env.bearer_token}`,
+        },
+      })
+    )
     .catch(
       (err) => console.log(err),
       res.status(500).send("Internal Server Error")

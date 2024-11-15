@@ -20,19 +20,8 @@ router.get("/api/:userId/:fileId", async (req, res) => {
     return user ? res.json(status) : res.sendStatus(404);
   } catch (err) {
     console.log(err);
-    res.status(500).send("Internal Server Error")
+    res.status(500).send("Internal Server Error");
   }
-});
-
-router.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", env.bot_server_ip);
-  res.setHeader("Access-Control-Allow-Methods", ["POST"].join(","));
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    ["Content-Type", "Authorization"].join(",")
-  );
-
-  next();
 });
 
 router.post("/:userId/:fileId/:status", async (req, res) => {
@@ -65,7 +54,7 @@ router.post("/:userId/:fileId/:status", async (req, res) => {
     );
 
     const botResponse = await fetch(env.bot_server_ip, {
-      method: "POST",
+      method: "PATCH",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -86,15 +75,13 @@ router.post("/:userId/:fileId/:status", async (req, res) => {
 
     const json = await botResponse.json();
 
-    return res
-      .status(200)
-      .json({
-        message: "The status has been successfully updated",
-        botResponse: json,
-      });
+    return res.status(200).json({
+      message: "The status has been successfully updated",
+      botResponse: json,
+    });
   } catch (err) {
     console.log(err);
-    res.status(500).send("Internal Server Error")
+    res.status(500).send("Internal Server Error");
   }
 });
 
