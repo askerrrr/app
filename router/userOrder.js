@@ -76,26 +76,19 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
 
   await deleteOrderFile(userId, orderId, collection)
     .then(() => db.deleteOrder(userId, orderId, collection))
+    .then(() =>
+      fetch(env.bot_server_ip, {
+        method: "DELETE",
+        body: JSON.stringify({ userId, orderId }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${env.bearer_token}`,
+        },
+      })
+    )
     .then(() => res.sendStatus(200))
     .catch((err) => console.log(err), res.sendStatus(500));
-
-  const botResponse = await fetch(env.bot_server_ip, {
-    method: "DELETE",
-    body: JSON.stringify({ userId, orderId }),
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${env.bearer_token}`,
-    },
-  });
-
-  if (!botResponse.ok) {
-    const err = await botResponse.text();
-    console.log("botResponse.error", err);
-    return res.sendStatus(500);
-  }
-
-  return res.sendStatus(200);
 });
 
 export { router as userPath };
