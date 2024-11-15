@@ -100,6 +100,13 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
     console.log("botResponse.error", err);
     return res.status(500).json({ error: "Error when requesting the bot" });
   }
+
+  const botResponseStatus = await botResponse.status();
+
+  return res.status(200).json({
+    message: "The order has been successfully deleted",
+    botResponseStatus,
+  });
 });
 
 export { router as userPath };
