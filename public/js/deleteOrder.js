@@ -11,6 +11,7 @@ export default async function deleteOrder(userId, orderId) {
       return;
     }
 
+    window.location.href = `/orderinfo/orders/${userId}`;
     return response;
   } catch (err) {
     console.log(err);

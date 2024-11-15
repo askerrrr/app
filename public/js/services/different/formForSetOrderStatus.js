@@ -33,6 +33,7 @@ export default async function formForSetOrderStatus(userId, fileId) {
 
     fieldset?.remove();
     window.dialog.close();
+    window.location.reload();
   });
 
   return button;
