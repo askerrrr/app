@@ -8,9 +8,9 @@ import { MongoClient } from "mongodb";
 import cookieParser from "cookie-parser";
 import verifyToken from "./router/services/different/verifyToken.js";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const mongodb = new MongoClient(env.mongo_url);
 const app = express();
+const mongodb = new MongoClient(env.mongo_url);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 (async () => {
   try {

@@ -4,6 +4,7 @@ import path from "path";
 export default async function getUserDir(id) {
   const userDir = path.join("/var", "www", "userFiles", `${id}`);
   const dirNames = ["docs", "images"];
+
   try {
     await fs.promises.mkdir(userDir, { recursive: true });
 

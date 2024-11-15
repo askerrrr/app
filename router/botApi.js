@@ -18,24 +18,23 @@ router.post("/api/users", async (req, res) => {
   try {
     const validToken = JWT.verify(token, env.bot_secret_key);
 
-    if (validToken) {
-      const user = req.body;
-      const collection = req.app.locals.collection;
-
-      const existingDocument = await collection.findOne({
-        userId: user.userId,
-      });
-
-      if (!existingDocument) {
-        await collection.insertOne(user);
-
-        return res.status(200).json({ msg: "successfully" });
-      } else if (existingDocument) {
-        return res.sendStatus(409);
-      }
-    } else {
+    if (!validToken)
       return res.sendStatus(401).json({ error: "Invalid Token" });
+
+    const user = req.body;
+    const collection = req.app.locals.collection;
+
+    const existingDocument = await collection.findOne({
+      userId: user.userId,
+    });
+
+    if (!existingDocument) {
+      await collection.insertOne(user);
+
+      return res.status(200).json({ msg: "successfully" });
     }
+
+    return res.sendStatus(409);
   } catch (err) {
     if (err.name === "JsonWebTokenError") {
       return res.status(401).json({ error: "Invalid token" });
@@ -58,58 +57,33 @@ router.post("/api/order", async (req, res) => {
 
     const validToken = JWT.verify(token, env.bot_secret_key);
 
-    if (validToken) {
-      const order = req.body;
-      const userId = order.userId;
-      const fileUrl = order.file.url;
-      const fileId = order.file.id;
-      const collection = req.app.locals.collection;
+    if (!validToken) return res.sendStatus(401);
 
-      const existingDocument = await collection.findOne({
-        userId,
-      });
+    const order = req.body;
+    const userId = order.userId;
+    const fileUrl = order.file.url;
+    const fileId = order.file.id;
+    const collection = req.app.locals.collection;
 
-      if (existingDocument) {
-        const addedNewOrder = await db.addNewOrder(collection, order);
-        const downloadedAndSavedFile = await downloadAndSaveFile(
-          userId,
-          fileId,
-          fileUrl,
-          order
-        ).catch((err) => console.log(err));
+    const existingDocument = await collection.findOne({
+      userId,
+    });
 
-        if (!addedNewOrder && !downloadedAndSavedFile) {
-          throw new Error(
-            "Error when downloading and saving or when adding a new order"
-          );
-        }
-
-        return res.sendStatus(200);
-      } else {
-        const newUser = await db.createNewUser(collection, order);
-
-        if (newUser) {
-          const addedNewOrder = await db.addNewOrder(collection, order);
-          const downloadedAndSavedFile = await downloadAndSaveFile(
-            userId,
-            fileId,
-            fileUrl,
-            order
-          ).catch((err) => console.log(err));
-
-          if (!addedNewOrder && !downloadedAndSavedFile) {
-            throw new Error(
-              "Error when downloading and saving or when adding a new order"
-            );
-          }
-
-          return res
-            .status(200)
-            .json({ msg: "the order was created successfully" });
-        }
-      }
+    if (existingDocument) {
+      await db
+        .addNewOrder(collection, order)
+        .then(() => downloadAndSaveFile(userId, fileId, fileUrl, order))
+        .then(() => res.sendStatus(200))
+        .catch((err) => console.log(err));
     } else {
-      return res.sendStatus(401);
+      return await db
+        .createNewUser(collection, order)
+        .then(() => db.addNewOrder(collection, order))
+        .then(() => downloadAndSaveFile(userId, fileId, fileUrl, order))
+        .then(() =>
+          res.status(200).json({ msg: "the order was created successfully" })
+        )
+        .catch((err) => console.log(err));
     }
   } catch (err) {
     if (err.name === "JsonWebTokenError")
@@ -132,23 +106,21 @@ router.get("/api/status/:userId/:fileId", async (req, res) => {
   try {
     const validToken = JWT.verify(token, env.bot_secret_key);
 
-    if (validToken) {
-      const userId = req.params.userId;
-      const fileId = req.params.fileId;
-      const collection = req.app.locals.collection;
+    if (!validToken) return res.sendStatus(401);
 
-      const user = await collection.findOne({
-        userId,
-        "orders.order.file.id": fileId,
-      });
+    const userId = req.params.userId;
+    const fileId = req.params.fileId;
+    const collection = req.app.locals.collection;
 
-      const result = user.orders.find((item) => item.order.file.id === fileId);
-      const status = result.order.file.status;
+    const user = await collection.findOne({
+      userId,
+      "orders.order.file.id": fileId,
+    });
 
-      return user ? res.json({ status }) : res.sendStatus(404);
-    }
+    const result = user.orders.find((item) => item.order.file.id === fileId);
+    const status = result.order.file.status;
 
-    return res.sendStatus(401);
+    return user ? res.json({ status }) : res.sendStatus(404);
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal Server Error");
