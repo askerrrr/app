@@ -73,7 +73,7 @@ router.post("/:userId/:fileId/:status", async (req, res) => {
       return res.status(500).json({ error: "Error when requesting the bot" });
     }
 
-    const botResponseStatus = await botResponse.status
+    const botResponseStatus = botResponse.status;
 
     return res.status(200).json({
       message: "The status has been successfully updated",

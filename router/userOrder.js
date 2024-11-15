@@ -101,7 +101,7 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
     return res.status(500).json({ error: "Error when requesting the bot" });
   }
 
-  const botResponseStatus = await botResponse.status;
+  const botResponseStatus =  botResponse.status;
 
   return res.status(200).json({
     message: "The order has been successfully deleted",
