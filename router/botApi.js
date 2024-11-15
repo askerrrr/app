@@ -9,13 +9,13 @@ const router = Router({ caseSensitive: true, strict: true });
 router.post("/api/users", async (req, res) => {
   const authHeader = req.headers.authorization;
 
-  if (!authHeader) return res.status(401);
-
-  const token = authHeader.split(" ")[1];
-
-  if (!token) return res.status(401);
-
   try {
+    if (!authHeader) return res.status(401);
+
+    const token = authHeader.split(" ")[1];
+
+    if (!token) return res.status(401);
+
     const validToken = JWT.verify(token, env.bot_secret_key);
 
     if (!validToken) return res.sendStatus(401);
@@ -29,7 +29,6 @@ router.post("/api/users", async (req, res) => {
 
     if (!existingDocument) {
       await collection.insertOne(user);
-
       return res.sendStatus(200);
     }
 
@@ -68,20 +67,12 @@ router.post("/api/order", async (req, res) => {
       userId,
     });
 
-    if (existingDocument) {
-      await db
-        .addNewOrder(collection, order)
-        .then(() => downloadAndSaveFile(userId, fileId, fileUrl, order))
-        .then(() => res.sendStatus(200))
-        .catch((err) => console.log(err));
-    } else {
-      return await db
-        .createNewUser(collection, order)
-        .then(() => db.addNewOrder(collection, order))
-        .then(() => downloadAndSaveFile(userId, fileId, fileUrl, order))
-        .then(() => res.sendStatus(200))
-        .catch((err) => console.log(err));
-    }
+    if (!existingDocument) await db.createNewUser(collection, order);
+
+    await db.addNewOrder(collection, order);
+    await downloadAndSaveFile(userId, fileId, fileUrl, order);
+
+    return res.sendStatus(200);
   } catch (err) {
     if (err.name === "JsonWebTokenError") return res.sendStatus(401);
 

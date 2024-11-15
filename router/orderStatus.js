@@ -1,5 +1,6 @@
 import env from "../env_var.js";
 import { Router } from "express";
+import db from "./services/database/db.js";
 
 const router = Router({ caseSensitive: true, strict: true });
 
@@ -39,19 +40,11 @@ router.post("/:userId/:fileId/:status", async (req, res) => {
       userId,
       "orders.order.file.id": fileId,
     });
-    console.log(
-      JSON.stringify({ userId, fileId, status: `${statusValue}:${statusId}` })
-    );
+
     if (!existingDocument)
       return res.status(404).json({ err: `user ${userId} not found` });
 
-    await collection.updateOne(
-      {
-        userId,
-        "orders.order.file.id": fileId,
-      },
-      { $set: { "orders.$.order.file.status": status } }
-    );
+    await db.updateOrderStatus(userId, fileId, status, collection);
 
     const botResponse = await fetch(env.bot_server_ip, {
       method: "PATCH",

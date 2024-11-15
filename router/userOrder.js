@@ -62,11 +62,15 @@ router.delete("/api/delete/:userId", async (req, res) => {
   const userId = req.params.userId;
   const collection = req.app.locals.collection;
 
-  await db
-    .deleteUser(userId, collection)
-    .then(() => deleteUserDir(userId))
-    .then(() => res.sendStatus(200))
-    .catch((err) => console.log(err), res.sendStatus(500));
+  try {
+    await db.deleteUser(userId, collection);
+    await deleteUserDir(userId);
+
+    return res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    return res.sendStatus(500);
+  }
 });
 
 router.delete("/api/delete/:userId/:orderId", async (req, res) => {
@@ -74,21 +78,27 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
   const orderId = req.params.orderId;
   const collection = req.app.locals.collection;
 
-  await deleteOrderFile(userId, orderId, collection)
-    .then(() => db.deleteOrder(userId, orderId, collection))
-    .then(() =>
-      fetch(env.bot_server_ip, {
-        method: "DELETE",
-        body: JSON.stringify({ userId, orderId }),
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${env.bearer_token}`,
-        },
-      })
-    )
-    .then(() => res.sendStatus(200))
-    .catch((err) => console.log(err), res.sendStatus(500));
+  try {
+    await deleteOrderFile(userId, orderId, collection);
+    await db.deleteOrder(userId, orderId, collection);
+
+    const botResponse = await fetch(env.bot_server_ip, {
+      method: "DELETE",
+      body: JSON.stringify({ userId, orderId }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${env.bearer_token}`,
+      },
+    });
+
+    if (!botResponse.ok) throw new Error(`${botResponse.statusText}`);
+
+    return res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    return res.sendStatus(500);
+  }
 });
 
 export { router as userPath };

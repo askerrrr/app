@@ -4,6 +4,7 @@ import addNewOrder from "./addNewOrder.js";
 import deleteOrder from "./deleteOrder.js";
 import findFilePath from "./findFilePath.js";
 import createNewUser from "./createNewUser.js";
+import updateOrderStatus from "./updateOrderStatus.js";
 
 const db = {
   findUser,
@@ -14,6 +15,7 @@ const db = {
   deleteOrder,
   findFilePath,
   createNewUser,
+  updateOrderStatus,
 };
 
 export default db;
