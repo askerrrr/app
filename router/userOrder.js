@@ -19,7 +19,7 @@ router.get("/api/:userId", async (req, res) => {
 
     return user ? res.json(user) : res.sendStatus(404);
   } catch {
-    return res.status(500).send("Internal Server Error");
+    return res.sendStatus(500);
   }
 });
 
@@ -36,7 +36,7 @@ router.get("/api/order/:orderId", async (req, res) => {
 
     return order ? res.json(order) : res.sendStatus(404);
   } catch {
-    return res.status(500).send("Internal Server Error");
+    return res.sendStatus(500);
   }
 });
 
@@ -45,7 +45,7 @@ router.get("/orders/order/:orderId", async (_, res) => {
     res.sendFile(join(__dirname, "../public", "html", "userOrder.html"));
   } catch (err) {
     console.log(err);
-    res.status(500).send("Internal Server Error");
+    res.sendStatus(500);
   }
 });
 
@@ -54,7 +54,7 @@ router.get("/orders/:userId", async (_, res) => {
     res.sendFile(join(__dirname, "../public", "html", "ordersList.html"));
   } catch (err) {
     console.log(err);
-    return res.status(500).send("Internal Server Error");
+    return res.sendStatus(500);
   }
 });
 
@@ -66,10 +66,7 @@ router.delete("/api/delete/:userId", async (req, res) => {
     .deleteUser(userId, collection)
     .then(() => deleteUserDir(userId))
     .then(() => res.sendStatus(200))
-    .catch(
-      (err) => console.log(err),
-      res.status(500).send("Internal Server Error")
-    );
+    .catch((err) => console.log(err), res.sendStatus(500));
 });
 
 router.delete("/api/delete/:userId/:orderId", async (req, res) => {
@@ -79,11 +76,8 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
 
   await deleteOrderFile(userId, orderId, collection)
     .then(() => db.deleteOrder(userId, orderId, collection))
-    .then(() => res.status(200))
-    .catch(
-      (err) => console.log(err),
-      res.status(500).send("Internal Server Error")
-    );
+    .then(() => res.sendStatus(200))
+    .catch((err) => console.log(err), res.sendStatus(500));
 
   const botResponse = await fetch(env.bot_server_ip, {
     method: "DELETE",
@@ -98,15 +92,10 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
   if (!botResponse.ok) {
     const err = await botResponse.text();
     console.log("botResponse.error", err);
-    return res.status(500).json({ error: "Error when requesting the bot" });
+    return res.sendStatus(500);
   }
 
-  const botResponseStatus =  botResponse.status;
-
-  return res.status(200).json({
-    message: "The order has been successfully deleted",
-    botResponseStatus,
-  });
+  return res.sendStatus(200);
 });
 
 export { router as userPath };

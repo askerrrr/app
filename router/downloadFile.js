@@ -20,7 +20,7 @@ router.get("/:userId/:fileid", async (req, res) => {
       });
   } catch (err) {
     console.log(err);
-    return res.status(500).send("Internal Server Error");
+    return res.sendStatus(500)
   }
 });
 

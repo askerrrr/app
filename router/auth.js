@@ -26,10 +26,10 @@ router.post("/login/check", async (req, res) => {
         .json({ redirect: true });
     }
 
-    return res.status(403).json({ error: "invalid data" });
+    return res.sendStatus(403);
   } catch (err) {
     console.log(err);
-    return res.status(500).send("Internal Server Error");
+    return res.sendStatus(500);
   }
 });
 

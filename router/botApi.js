@@ -18,8 +18,7 @@ router.post("/api/users", async (req, res) => {
   try {
     const validToken = JWT.verify(token, env.bot_secret_key);
 
-    if (!validToken)
-      return res.sendStatus(401).json({ error: "Invalid Token" });
+    if (!validToken) return res.sendStatus(401);
 
     const user = req.body;
     const collection = req.app.locals.collection;
@@ -31,17 +30,17 @@ router.post("/api/users", async (req, res) => {
     if (!existingDocument) {
       await collection.insertOne(user);
 
-      return res.status(200).json({ msg: "successfully" });
+      return res.sendStatus(200);
     }
 
     return res.sendStatus(409);
   } catch (err) {
     if (err.name === "JsonWebTokenError") {
-      return res.status(401).json({ error: "Invalid token" });
+      return res.sendStatus(401);
     }
 
     console.log(err);
-    return res.status(500).send("Internal Server Error");
+    return res.sendStatus(500);
   }
 });
 
@@ -49,11 +48,11 @@ router.post("/api/order", async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
 
-    if (!authHeader) return res.status(401);
+    if (!authHeader) return res.sendStatus(401);
 
     const token = authHeader.split(" ")[1];
 
-    if (!token) return res.status(401);
+    if (!token) return res.sendStatus(401);
 
     const validToken = JWT.verify(token, env.bot_secret_key);
 
@@ -80,28 +79,25 @@ router.post("/api/order", async (req, res) => {
         .createNewUser(collection, order)
         .then(() => db.addNewOrder(collection, order))
         .then(() => downloadAndSaveFile(userId, fileId, fileUrl, order))
-        .then(() =>
-          res.status(200).json({ msg: "the order was created successfully" })
-        )
+        .then(() => res.sendStatus(200))
         .catch((err) => console.log(err));
     }
   } catch (err) {
-    if (err.name === "JsonWebTokenError")
-      return res.status(401).json({ error: "Invalid token" });
+    if (err.name === "JsonWebTokenError") return res.sendStatus(401);
 
     console.log(err);
-    return res.status(500).send("Internal Server Error");
+    return res.sendStatus(500);
   }
 });
 
 router.get("/api/status/:userId/:fileId", async (req, res) => {
   const authHeader = req.headers.authorization;
 
-  if (!authHeader) return res.status(401);
+  if (!authHeader) return res.sendStatus(401);
 
   const token = authHeader.split(" ")[1];
 
-  if (!token) return res.status(401);
+  if (!token) return res.sendStatus(401);
 
   try {
     const validToken = JWT.verify(token, env.bot_secret_key);
@@ -123,7 +119,7 @@ router.get("/api/status/:userId/:fileId", async (req, res) => {
     return user ? res.json({ status }) : res.sendStatus(404);
   } catch (err) {
     console.log(err);
-    return res.status(500).send("Internal Server Error");
+    return res.sendStatus(500);
   }
 });
 
