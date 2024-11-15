@@ -41,7 +41,7 @@ router.post("/api/users", async (req, res) => {
     }
 
     console.log(err);
-    res.status(500).send("Internal Server Error");
+    return res.status(500).send("Internal Server Error");
   }
 });
 
@@ -90,7 +90,7 @@ router.post("/api/order", async (req, res) => {
       return res.status(401).json({ error: "Invalid token" });
 
     console.log(err);
-    res.status(500).send("Internal Server Error");
+    return res.status(500).send("Internal Server Error");
   }
 });
 
@@ -123,7 +123,7 @@ router.get("/api/status/:userId/:fileId", async (req, res) => {
     return user ? res.json({ status }) : res.sendStatus(404);
   } catch (err) {
     console.log(err);
-    res.status(500).send("Internal Server Error");
+    return res.status(500).send("Internal Server Error");
   }
 });
 

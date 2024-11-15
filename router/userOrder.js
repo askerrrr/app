@@ -19,7 +19,7 @@ router.get("/api/:userId", async (req, res) => {
 
     return user ? res.json(user) : res.sendStatus(404);
   } catch {
-    res.status(500).send("Internal Server Error");
+    return res.status(500).send("Internal Server Error");
   }
 });
 
@@ -36,7 +36,7 @@ router.get("/api/order/:orderId", async (req, res) => {
 
     return order ? res.json(order) : res.sendStatus(404);
   } catch {
-    res.status(500).send("Internal Server Error");
+    return res.status(500).send("Internal Server Error");
   }
 });
 
@@ -54,7 +54,7 @@ router.get("/orders/:userId", async (_, res) => {
     res.sendFile(join(__dirname, "../public", "html", "ordersList.html"));
   } catch (err) {
     console.log(err);
-    res.status(500).send("Internal Server Error");
+    return res.status(500).send("Internal Server Error");
   }
 });
 
@@ -79,22 +79,27 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
 
   await deleteOrderFile(userId, orderId, collection)
     .then(() => db.deleteOrder(userId, orderId, collection))
-    .then(() => res.sendStatus(200))
-    .then(() =>
-      fetch(env.bot_server_ip, {
-        method: "DELETE",
-        body: JSON.stringify({ userId, orderId }),
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${env.bearer_token}`,
-        },
-      })
-    )
+    .then(() => res.status(200))
     .catch(
       (err) => console.log(err),
       res.status(500).send("Internal Server Error")
     );
+
+  const botResponse = await fetch(env.bot_server_ip, {
+    method: "DELETE",
+    body: JSON.stringify({ userId, orderId }),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${env.bearer_token}`,
+    },
+  });
+
+  if (!botResponse.ok) {
+    const err = await botResponse.text();
+    console.log("botResponse.error", err);
+    return res.status(500).json({ error: "Error when requesting the bot" });
+  }
 });
 
 export { router as userPath };

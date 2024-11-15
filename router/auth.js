@@ -29,6 +29,7 @@ router.post("/login/check", async (req, res) => {
     return res.status(403).json({ error: "invalid data" });
   } catch (err) {
     console.log(err);
+    return res.status(500).send("Internal Server Error");
   }
 });
 
