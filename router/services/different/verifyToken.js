@@ -4,9 +4,8 @@ import env from "../../../env_var.js";
 export default async function verifyToken(req, res, next) {
   try {
     const token = req.cookies?.token;
-    if (!token) {
-      return res.redirect("/auth/login");
-    }
+
+    if (!token) return res.redirect("/auth/login");
 
     const user = JWT.verify(token, env.secretKey);
 

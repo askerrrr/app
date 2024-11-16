@@ -43,18 +43,21 @@ import { userPath } from "./router/userOrder.js";
 import { download } from "./router/downloadFile.js";
 import { orderStatus } from "./router/orderStatus.js";
 
+app.use(helmet());
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
-app.use(helmet());
 
 app.use("/bot", botApi);
 app.use("/auth", auth);
 
 app.use(cookieParser());
+app.use(verifyToken);
 
-app.use("/", verifyToken, home);
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use("/", home);
 app.use("/image", image);
-app.use("/download", verifyToken, download);
-app.use("/orderinfo", verifyToken, userPath);
-app.use("/status", verifyToken, orderStatus);
+app.use("/download", download);
+app.use("/orderinfo", userPath);
+app.use("/status", orderStatus);

@@ -63,9 +63,7 @@ router.post("/api/order", async (req, res) => {
     const fileUrl = order.file.telegramApiFileUrl;
     const collection = req.app.locals.collection;
 
-    const existingDocument = await collection.findOne({
-      userId,
-    });
+    const existingDocument = await collection.findOne({ userId });
 
     if (!existingDocument) await db.createNewUser(collection, order);
 
@@ -99,10 +97,7 @@ router.get("/api/status/:userId/:orderId", async (req, res) => {
     const orderId = req.params.orderId;
     const collection = req.app.locals.collection;
 
-    const user = await collection.findOne({
-      userId,
-      "orders.order.id": orderId,
-    });
+    const user = await collection.findOne({ userId });
 
     const result = user.orders.find((item) => item.order.id === orderId);
     const status = result.order.orderStatus;

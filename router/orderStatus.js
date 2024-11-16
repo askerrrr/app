@@ -10,10 +10,7 @@ router.get("/api/:userId/:orderId", async (req, res) => {
     const orderId = req.params.orderId;
     const collection = req.app.locals.collection;
 
-    const user = await collection.findOne({
-      userId,
-      "orders.order.id": orderId,
-    });
+    const user = await collection.findOne({ userId });
 
     const result = user.orders.find((item) => item.order.id === orderId);
     const status = result.order.orderStatus;
@@ -36,10 +33,7 @@ router.post("/:userId/:orderId/:status", async (req, res) => {
 
     statusId = statusId.split("").reverse()[0];
 
-    const existingDocument = await collection.findOne({
-      userId,
-      "orders.order.id": orderId,
-    });
+    const existingDocument = await collection.findOne({ userId });
 
     if (!existingDocument)
       return res.status(404).json({ err: `user ${userId} not found` });
