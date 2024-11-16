@@ -4,9 +4,7 @@ export default async function findFilePath(userId, fileId, collection) {
     "orders.order.file.id": fileId,
   });
 
-  const filePath = data.orders.filter(
-    (orders) => orders.order.file.id === fileId
-  )[0].order.file.pathToFile;
-
-  return filePath;
+  return data?.orders
+    .map((item) => item.order.file.id === fileId)[0]
+    .order.file.pathToFile
 }
