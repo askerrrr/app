@@ -1,4 +1,4 @@
-export default async function formForSetOrderStatus(userId, fileId) {
+export default async function formForSetOrderStatus(userId, orderId) {
   const button = document.getElementById("submit-order-status");
   const fieldset = document.getElementById("fieldset");
 
@@ -15,7 +15,7 @@ export default async function formForSetOrderStatus(userId, fileId) {
     const idOfMarkedCheckBox = checkBox.id;
     const orderStatus = checkBox.value + ":" + idOfMarkedCheckBox;
 
-    const response = await fetch(`/status/${userId}/${fileId}/${orderStatus}`, {
+    const response = await fetch(`/status/${userId}/${orderId}/${orderStatus}`, {
       method: "POST",
       headers: {
         Accept: "application/json",

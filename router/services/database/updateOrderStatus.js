@@ -1,14 +1,13 @@
 export default async function updateOrderStatus(
   userId,
-  fileId,
+  orderId,
   status,
   collection
 ) {
   return await collection.updateOne(
+    { userId, "orders.order.id": orderId },
     {
-      userId,
-      "orders.order.file.id": fileId,
-    },
-    { $set: { "orders.$.order.file.status": status } }
+      $set: { "orders.$.order.orderStatus": status },
+    }
   );
 }

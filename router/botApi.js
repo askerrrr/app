@@ -59,8 +59,8 @@ router.post("/api/order", async (req, res) => {
 
     const order = req.body;
     const userId = order.userId;
-    const fileUrl = order.file.url;
-    const fileId = order.file.id;
+    const fileUrl = order.file.telegramUrl;
+    const orderId = order.id;
     const collection = req.app.locals.collection;
 
     const existingDocument = await collection.findOne({
@@ -70,7 +70,7 @@ router.post("/api/order", async (req, res) => {
     if (!existingDocument) await db.createNewUser(collection, order);
 
     await db.addNewOrder(collection, order);
-    await downloadAndSaveFile(userId, fileId, fileUrl, order);
+    await downloadAndSaveFile(userId, orderId, fileUrl, order);
 
     return res.sendStatus(200);
   } catch (err) {
@@ -81,7 +81,7 @@ router.post("/api/order", async (req, res) => {
   }
 });
 
-router.get("/api/status/:userId/:fileId", async (req, res) => {
+router.get("/api/status/:userId/:orderId", async (req, res) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) return res.sendStatus(401);
@@ -96,16 +96,16 @@ router.get("/api/status/:userId/:fileId", async (req, res) => {
     if (!validToken) return res.sendStatus(401);
 
     const userId = req.params.userId;
-    const fileId = req.params.fileId;
+    const orderId = req.params.orderId;
     const collection = req.app.locals.collection;
 
     const user = await collection.findOne({
       userId,
-      "orders.order.file.id": fileId,
+      "orders.order.id": orderId,
     });
 
-    const result = user.orders.find((item) => item.order.file.id === fileId);
-    const status = result.order.file.status;
+    const result = user.orders.find((item) => item.order.id === orderId);
+    const status = result.order.orderStatus;
 
     return user ? res.json({ status }) : res.sendStatus(404);
   } catch (err) {

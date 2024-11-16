@@ -10,9 +10,9 @@ function renderNextUnmarkedPendingStatus(array, statusId) {
     .map((elem) => (document.getElementById(elem.statusId).disabled = true));
 }
 
-export default async function saveAndRenderCurrentOrderStatus(userId, fileId) {
+export default async function saveAndRenderCurrentOrderStatus(userId, orderId) {
   try {
-    const response = await fetch(`/status/api/${userId}/${fileId}`, {
+    const response = await fetch(`/status/api/${userId}/${orderId}`, {
       method: "GET",
     });
 

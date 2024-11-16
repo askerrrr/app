@@ -1,8 +1,8 @@
 import saveAndRenderCurrentOrderStatus from "./saveOrderStatus.js";
 import createCheckBoxForOrderStatus from "./checkBoxForOrderStatus.js";
 
-export default async function formForOpenPopUp(userId, fileId) {
-  fileId = +fileId;
+export default async function formForOpenPopUp(userId, orderId) {
+  orderId = +orderId;
   const button = document.createElement("button");
   button.className = "change-order-status";
   button.textContent = "Изменить статут заказа";
@@ -10,10 +10,10 @@ export default async function formForOpenPopUp(userId, fileId) {
   button.addEventListener("click", async (e) => {
     e.preventDefault();
 
-    const checkbox = await createCheckBoxForOrderStatus(fileId);
+    const checkbox = await createCheckBoxForOrderStatus(orderId);
 
     if (checkbox) {
-      await saveAndRenderCurrentOrderStatus(userId, fileId);
+      await saveAndRenderCurrentOrderStatus(userId, orderId);
 
       window.dialog.showModal();
     } else {

@@ -1,6 +1,6 @@
-export default async function changeOrderStatus(userId, fileId, status) {
+export default async function changeOrderStatus(userId, orderId, status) {
   try {
-    const response = await fetch(`/status/${userId}/${fileId}/${status}`, {
+    const response = await fetch(`/status/${userId}/${orderId}/${status}`, {
       method: "POST",
       headers: { Accept: "application/json" },
     });

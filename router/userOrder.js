@@ -15,7 +15,7 @@ router.get("/api/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
     const collection = req.app.locals.collection;
-    const user = await collection.findOne({ userId: userId });
+    const user = await collection.findOne({ userId });
 
     return user ? res.json(user) : res.sendStatus(404);
   } catch {
@@ -29,10 +29,10 @@ router.get("/api/order/:orderId", async (req, res) => {
     const collection = req.app.locals.collection;
 
     const user = await collection.findOne({
-      "orders.order.file.id": orderId,
+      "orders.order.id": orderId,
     });
 
-    const order = user.orders.find((order) => order.order.file.id === orderId);
+    const order = user.orders.find((item) => item.order.id === orderId);
 
     return order ? res.json(order) : res.sendStatus(404);
   } catch {
@@ -40,7 +40,7 @@ router.get("/api/order/:orderId", async (req, res) => {
   }
 });
 
-router.get("/orders/order/:orderId", async (_, res) => {
+router.get("/orders/order/:orderId", async (req, res) => {
   try {
     return res.sendFile(join(__dirname, "../public", "html", "userOrder.html"));
   } catch (err) {

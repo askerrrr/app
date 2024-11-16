@@ -4,14 +4,14 @@ import renderCurrentOrderStatus from "./services/currentOrdeStatus.js";
 
 export default function rowForOrders(data) {
   data.orders.forEach((orders) => {
-    const fileId = orders.order.file.id;
+    const orderId = orders.order.id;
     const orderDate = orders.order.date;
-    const status = orders.order.file.status;
+    const status = orders.order.orderStatus;
     const tr = document.createElement("tr");
 
     tr.append(
       createDate(orderDate),
-      createId(fileId),
+      createId(orderId),
       renderCurrentOrderStatus(status)
     );
 

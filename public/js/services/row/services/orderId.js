@@ -1,6 +1,6 @@
-export default function renderOrderId(fileId) {
+export default function renderOrderId(orderId) {
   const td = document.createElement("td");
-  td.append(fileId);
+  td.append(orderId);
 
   return td;
 }

@@ -14,34 +14,34 @@ import formForSetOrderStatus from "../different/formForSetOrderStatus.js";
 
 export default async function rowForSingle(orders) {
   const userId = orders.order.userId;
-  const fileId = orders.order.file.id;
-  const description = orders.order.file.description;
-  const itemUrl = orders.order.file.itemUrl;
+  const orderId = orders.order.id;
+  const description = orders.order.description;
+  const itemUrl = orders.order.itemUrl;
   const orderDate = orders.order.date;
   const phone = orders.order.phone;
-  const status = orders.order.file.status;
+  const status = orders.order.orderStatus;
 
-  const openPopUp = await formForOpenPopUp(userId, fileId);
+  const openPopUp = await formForOpenPopUp(userId, orderId);
 
-  await formForSetOrderStatus(userId, fileId);
+  await formForSetOrderStatus(userId, orderId);
 
-  const form = await formForDeleteOrder(userId, fileId, orders);
+  const form = await formForDeleteOrder(userId, orderId, orders);
 
   const tr = document.createElement("tr");
   tr.append(
-    renderOrderId(fileId),
+    renderOrderId(orderId),
     renderDate(orderDate),
     renderPhone(phone),
-    openImage(userId, fileId),
+    openImage(userId, orderId),
     renderItemUrl(itemUrl),
     renderDescription(description),
     renderCurrentOrderStatus(status),
-    renderDownloadLink(userId, fileId)
+    renderDownloadLink(userId, orderId)
   );
 
   const tbody = document.createElement("tbody");
   tbody.append(tr);
-  tbody.id = fileId;
+  tbody.id = orderId;
 
   const thead = await renderTableHead(orders);
 

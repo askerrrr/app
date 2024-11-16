@@ -1,6 +1,6 @@
 import deleteOrder from "../../deleteOrder.js";
 
-export default async function formForDeleteOrder(userId, fileId, orders) {
+export default async function formForDeleteOrder(userId, orderId, orders) {
   const button = document.createElement("button");
   button.type = "submit";
   button.append("Удалить");
@@ -8,7 +8,7 @@ export default async function formForDeleteOrder(userId, fileId, orders) {
   button.addEventListener("click", async (e) => {
     e.preventDefault();
 
-    const tbody = document.getElementById(fileId);
+    const tbody = document.getElementById(orderId);
 
     const table = document.getElementById("table");
     table.removeChild(tbody);
@@ -20,11 +20,11 @@ export default async function formForDeleteOrder(userId, fileId, orders) {
     }
     window.location.href = `/orderinfo/users`;
 
-    return deleteOrder(userId, fileId);
+    return deleteOrder(userId, orderId);
   });
 
   const form = document.createElement("form");
-  form.action = `/orderinfo/delete/${userId}/${fileId}`;
+  form.action = `/orderinfo/delete/${userId}/${orderId}`;
   form.className = "form-for-delete-order";
   form.append(button);
 
