@@ -59,8 +59,8 @@ router.post("/api/order", async (req, res) => {
 
     const order = req.body;
     const userId = order.userId;
-    const fileUrl = order.file.telegramUrl;
     const orderId = order.id;
+    const fileUrl = order.file.telegramApiFileUrl;
     const collection = req.app.locals.collection;
 
     const existingDocument = await collection.findOne({
