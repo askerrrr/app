@@ -4,6 +4,7 @@ class CheckBox {
     this.checkBoxValue = checkBoxValue;
     this.divContent = divContent;
   }
+
   newCheckBox() {
     const label = document.createElement("label");
     label.for = this.checkBoxId;
@@ -23,6 +24,12 @@ class CheckBox {
 }
 
 export default async function createCheckBoxForOrderStatus(id) {
+  const form = document.getElementById("set-order-status");
+
+  const fieldset = document.createElement("fieldset");
+  fieldset.id = "fieldset";
+  const legend = document.createElement("legend");
+
   const Status_In_Processing = new CheckBox(
     id + 1,
     "in-processing",
@@ -58,12 +65,6 @@ export default async function createCheckBoxForOrderStatus(id) {
     "order-is-completed",
     "заказ завершен"
   ).newCheckBox();
-
-  const form = document.getElementById("set-order-status");
-
-  const fieldset = document.createElement("fieldset");
-  fieldset.id = "fieldset";
-  const legend = document.createElement("legend");
 
   fieldset.append(
     legend,
