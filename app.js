@@ -47,14 +47,14 @@ app.use(helmet());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(express.static(path.join(__dirname, "public")));
 app.use("/bot", botApi);
 app.use("/auth", auth);
 
 app.use(cookieParser());
 app.use(verifyToken);
 
-app.use(express.static(path.join(__dirname, "public")));
+
 
 app.use("/", home);
 app.use("/image", image);
