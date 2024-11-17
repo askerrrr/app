@@ -8,17 +8,16 @@ export default async function formForDeleteOrder(userId, orderId, orders) {
   button.addEventListener("click", async (e) => {
     e.preventDefault();
 
+    const confirmDeletion = confirm("Удалить?");
+
+    if (!confirmDeletion) return;
+
     const tbody = document.getElementById(orderId);
 
     const table = document.getElementById("table");
     table.removeChild(tbody);
 
     alert("Заказ был удален!");
-
-    if (orders.length >= 2) {
-      window.location.href = `/orderinfo/orders/${userId}`;
-    }
-    window.location.href = `/orderinfo/users`;
 
     return deleteOrder(userId, orderId);
   });

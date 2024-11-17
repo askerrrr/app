@@ -13,19 +13,19 @@ import renderCurrentOrderStatus from "./services/currentOrdeStatus.js";
 import formForSetOrderStatus from "../different/formForSetOrderStatus.js";
 
 export default async function rowForSingle(orders) {
-  const userId = orders.order.userId;
   const orderId = orders.order.id;
-  const description = orders.order.description;
-  const itemUrl = orders.order.itemUrl;
-  const orderDate = orders.order.date;
   const phone = orders.order.phone;
+  const userId = orders.order.userId;
+  const orderDate = orders.order.date;
+  const itemUrl = orders.order.itemUrl;
   const status = orders.order.orderStatus;
+  const description = orders.order.description;
 
   const openPopUp = await formForOpenPopUp(userId, orderId);
 
   await formForSetOrderStatus(userId, orderId);
 
-  const form = await formForDeleteOrder(userId, orderId, orders);
+  const form = await formForDeleteOrder(userId, orderId);
 
   const tr = document.createElement("tr");
   tr.append(
