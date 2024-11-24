@@ -24,8 +24,9 @@ async function formHandler() {
 
     const json = await response.json();
 
-    if (json.redirect) window.location.href = "/";
-    else window.location.href = "auth/login";
+    return json.redirect
+      ? (window.location.href = "/")
+      : (window.location.href = "auth/login");
   });
 }
 

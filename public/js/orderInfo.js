@@ -19,11 +19,9 @@ async function getOrderInfo() {
 
     const orders = await response.json();
 
-    if (orders.order?.type) {
-      return await rowForSingle(orders);
-    }
-
-    return await rowForMultiple(orders);
+    return orders.order?.type
+      ? await rowForSingle(orders)
+      : await rowForMultiple(orders);
   } catch (err) {
     console.log(err);
   }
