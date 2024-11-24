@@ -1,6 +1,6 @@
 import deleteOrder from "../../deleteOrder.js";
 
-export default async function formForDeleteOrder(userId, orderId, orders) {
+export default async function createDeleteOrderForm(userId, orderId, orders) {
   const button = document.createElement("button");
   button.type = "submit";
   button.append("Удалить");

@@ -8,7 +8,7 @@ import renderTableHead from "./services/tableHead.js";
 import renderDescription from "./services/description.js";
 import renderDownloadLink from "./services/downloadLink.js";
 import formForOpenPopUp from "../different/formForOpenPopUp.js";
-import formForDeleteOrder from "../different/formForDeleteOrder.js";
+import createDeleteOrderForm from "../different/formForDeleteOrder.js";
 import renderCurrentOrderStatus from "./services/currentOrdeStatus.js";
 import formForSetOrderStatus from "../different/formForSetOrderStatus.js";
 
@@ -25,7 +25,7 @@ export default async function rowForSingle(orders) {
 
   await formForSetOrderStatus(userId, orderId);
 
-  const form = await formForDeleteOrder(userId, orderId);
+  const formForDeleteOrder = await createDeleteOrderForm(userId, orderId);
 
   const tr = document.createElement("tr");
   tr.append(
@@ -52,6 +52,6 @@ export default async function rowForSingle(orders) {
   table.append(thead, tbody);
 
   const body = document.getElementById("orderInfo");
-  body.append(buttonBack(userId), openPopUp, table, form);
+  body.append(buttonBack(userId), openPopUp, table, formForDeleteOrder);
   return body;
 }
