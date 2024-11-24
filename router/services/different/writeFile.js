@@ -1,4 +1,4 @@
-const { open } = require("fs/promises");
+import { open } from "fs/promises";
 
 export default async function writeFile(path, data) {
   let fileHandle;
