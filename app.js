@@ -1,8 +1,7 @@
-import path from "path";
 import helmet from "helmet";
 import express from "express";
 import env from "./env_var.js";
-import { dirname } from "path";
+import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { MongoClient } from "mongodb";
 import cookieParser from "cookie-parser";
@@ -47,14 +46,12 @@ app.use(helmet());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(join(__dirname, "public")));
 app.use("/bot", botApi);
 app.use("/auth", auth);
 
 app.use(cookieParser());
 app.use(verifyToken);
-
-
 
 app.use("/", home);
 app.use("/image", image);
