@@ -13,7 +13,7 @@ export default async function writeFile(path, data) {
       writableStream.write(chunk);
     }
 
-    writableStream.on("error", (err) => console.log(err));
+    writableStream.on("error", (err) => console.log(`${path}`, err));
     writableStream.on("finish", () => console.log("The file is written"));
 
     writableStream.end();
