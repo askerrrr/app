@@ -1,6 +1,7 @@
 import getUserId from "./services/link.js";
 import getUserName from "./services/userName.js";
 import getFirstName from "./services/firstName.js";
+import getOrderInfo from "./services/orderInfo.js";
 //import buttonForDeleteUser from "./services/buttonForDeleteUser.js";
 
 export default async function rowForUserList(order) {
@@ -12,7 +13,12 @@ export default async function rowForUserList(order) {
 
   //const tdButton = await buttonForDeleteUser(userId);
 
-  tr.append(getFirstName(firstName), getUserName(userName), getUserId(userId));
+  tr.append(
+    getFirstName(firstName),
+    getUserName(userName),
+    getUserId(userId),
+    getOrderInfo(order)
+  );
 
   // tr.append(tdButton);
 
