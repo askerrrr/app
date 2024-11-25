@@ -40,7 +40,7 @@ router.get("/api/order/:orderId", async (req, res) => {
   }
 });
 
-router.get("/orders/order/:orderId", async (req, res) => {
+router.get("/orders/order/:orderId", async (_, res) => {
   try {
     return res.sendFile(join(__dirname, "../public", "html", "userOrder.html"));
   } catch (err) {

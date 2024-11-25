@@ -47,8 +47,9 @@ app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(join(__dirname, "public")));
-app.use("/bot", botApi);
+
 app.use("/auth", auth);
+app.use("/bot", botApi);
 
 app.use(cookieParser());
 app.use(verifyToken);

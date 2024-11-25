@@ -38,5 +38,3 @@ router.get("/login", async (_, res) => {
 });
 
 export { router as auth };
-
-const verifyToken = async (req, res, next) => {};
