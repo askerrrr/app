@@ -23,12 +23,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
     app.locals.collection = collection;
 
     const adminDB = mongodb.db("admin");
-    const adminCollection = adminDB.collection("system.users");
+    const adminCollection = adminDB.collection("adminData");
     app.locals.adminCollection = adminCollection;
-
-    const userDB = mongodb.db("users");
-    const userCollection = userDB.collection("users");
-    app.locals.userCollection = userCollection;
   } catch (err) {
     console.log(err);
   }
