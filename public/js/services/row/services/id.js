@@ -3,7 +3,7 @@ export default function createId(orderId) {
   orderLink.action = `/orderinfo/orders/order/${orderId}`;
 
   const button = document.createElement("button");
-  button.append(`${orderId}`);
+  button.append(orderId);
 
   orderLink.append(button);
 

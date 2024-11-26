@@ -1,9 +1,10 @@
 export default function getUserId(userId) {
   const userIdLink = document.createElement("form");
+  userIdLink.method = "GET";
   userIdLink.action = `/orderinfo/orders/${userId}`;
 
   const buttontoId = document.createElement("button");
-  buttontoId.append(`${userId}`);
+  buttontoId.append(userId);
 
   userIdLink.append(buttontoId);
 
