@@ -8,6 +8,10 @@ import verifyFormData from "./services/different/verifyFormData.js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const router = Router({ caseSensitive: true, strict: true });
 
+router.get("/login", async (_, res) => {
+  return res.sendFile(join(__dirname, "../public", "html", "authForm.html"));
+});
+
 router.post("/login/check", async (req, res) => {
   try {
     const user = req.body;
@@ -33,10 +37,6 @@ router.post("/login/check", async (req, res) => {
     console.log(err);
     return res.sendStatus(500);
   }
-});
-
-router.get("/login", async (_, res) => {
-  return res.sendFile(join(__dirname, "../public", "html", "authForm.html"));
 });
 
 export { router as auth };
