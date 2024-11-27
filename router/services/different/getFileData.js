@@ -7,5 +7,5 @@ export default async function getFileData(url) {
     return;
   }
 
-  return response.body ?? null;
+  return response.body;
 }

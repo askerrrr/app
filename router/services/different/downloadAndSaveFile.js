@@ -1,11 +1,11 @@
 import { join } from "path";
 import writeFile from "./writeFile.js";
-import mkUserDir from "./mkUserDir.js";
+import makeUserDir from "./makeUserDir.js";
 import getFileData from "./getFileData.js";
 
 export default async function downloadAndSaveFile(userId, fileId, url, order) {
   try {
-    const userDir = await mkUserDir(userId);
+    const userDir = await makeUserDir(userId);
 
     const docsPath = join(userDir[0], `${fileId}.xlsx`);
     const imagesPath = join(userDir[1], `${fileId}.jpg`);

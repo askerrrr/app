@@ -1,7 +1,7 @@
 import { join } from "path";
 import { mkdir } from "fs/promises";
 
-export default async function mkUserDir(userId) {
+export default async function makeUserDir(userId) {
   const userDir = join("/var", "www", "userFiles", `${userId}`);
   const dirs = ["docs", "images"];
 
