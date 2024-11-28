@@ -10,6 +10,7 @@ export default async function changeOrderStatus(userId, orderId, status) {
       console.log(err);
       return;
     }
+
     return response;
   } catch (err) {
     console.log(err);

@@ -20,6 +20,7 @@ export default function rowForOrders(data) {
 
     const table = document.getElementById("orders");
     table.append(tbody);
+
     return table;
   });
 }
