@@ -7,6 +7,7 @@ export default function rowForOrders(data) {
     const orderId = orders.order.id;
     const orderDate = orders.order.date;
     const status = orders.order.orderStatus;
+
     const tr = document.createElement("tr");
 
     tr.append(

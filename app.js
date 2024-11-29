@@ -31,6 +31,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 })();
 
 import { home } from "./router/home.js";
+import { xlsx } from "./router/xlsx.js";
 import { auth } from "./router/auth.js";
 import { image } from "./router/image.js";
 import { botApi } from "./router/botApi.js";
@@ -51,6 +52,7 @@ app.use(cookieParser());
 app.use(verifyToken);
 
 app.use("/", home);
+app.use("/xlsx", xlsx);
 app.use("/image", image);
 app.use("/download", download);
 app.use("/orderinfo", userPath);
