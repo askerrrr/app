@@ -24,6 +24,7 @@ export default async function renderTableHead(orders) {
   itemUrl.append("Ссылка на товар");
 
   const thead = document.getElementById("thead");
+
   const tr = document.createElement("tr");
 
   if (orders.order?.type) {
@@ -44,5 +45,6 @@ export default async function renderTableHead(orders) {
 
   tr.append(orderId, orderDate, orderFile, phone, status);
   thead.append(tr);
+
   return thead;
 }

@@ -22,5 +22,6 @@ export default async function buttonForDeleteUser(userId) {
 
   const tdButton = document.createElement("td");
   tdButton.append(form);
+
   return tdButton;
 }

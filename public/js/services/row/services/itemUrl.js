@@ -7,6 +7,7 @@ export default function renderItemUrl(itemUrl) {
   a.target = "_blank";
 
   a.append(button);
+
   const td = document.createElement("td");
   td.append(a);
 

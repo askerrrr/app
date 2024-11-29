@@ -43,5 +43,6 @@ export default async function rowForMultiple(orders) {
 
   const body = document.getElementById("orderInfo");
   body.append(buttonBack(userId), openPopUp, table, formForDeleteOrder);
+
   return body;
 }

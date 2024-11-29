@@ -3,10 +3,11 @@ export default function openImage(userId, orderId) {
   buttonForOpenPhoto.append("Открыть");
 
   const form = document.createElement("form");
-  form.action = `/image/${userId}/${orderId}`;
+
   form.id = orderId;
   form.target = "_blank";
   form.append(buttonForOpenPhoto);
+  form.action = `/image/${userId}/${orderId}`;
 
   const td = document.createElement("td");
   td.append(form);
