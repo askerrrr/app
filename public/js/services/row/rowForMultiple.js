@@ -1,5 +1,6 @@
 import renderDate from "./services/date.js";
 import renderPhone from "./services/phone.js";
+import renderXLSX from "./services/renderXLSX.js";
 import renderOrderId from "./services/orderId.js";
 import buttonBack from "./services/buttonBack.js";
 import renderTableHead from "./services/tableHead.js";
@@ -16,30 +17,29 @@ export default async function rowForMultiple(orders) {
   const orderDate = orders.order.date;
   const status = orders.order.orderStatus;
 
-  const openPopUp = await formForOpenPopUp(userId, orderId);
-
-  await formForSetOrderStatus(userId, orderId);
-
-  const formForDeleteOrder = await createDeleteOrderForm(userId, orderId);
-
   const tr = document.createElement("tr");
+
   tr.append(
     renderOrderId(orderId),
     renderDate(orderDate),
-    renderDownloadLink(userId, orderId),
+    renderXLSX(userId, orderId),
     renderPhone(phone),
-    renderCurrentOrderStatus(status)
+    renderCurrentOrderStatus(status),
+    renderDownloadLink(userId, orderId)
   );
 
   const tbody = document.createElement("tbody");
   tbody.append(tr);
-
-  const thead = await renderTableHead(orders);
-
   tbody.id = orderId;
+
+  const thead = renderTableHead(orders);
 
   const table = document.getElementById("table");
   table.append(thead, tbody);
+
+  await formForSetOrderStatus(userId, orderId);
+  const openPopUp = await formForOpenPopUp(userId, orderId);
+  const formForDeleteOrder = await createDeleteOrderForm(userId, orderId);
 
   const body = document.getElementById("orderInfo");
   body.append(buttonBack(userId), openPopUp, table, formForDeleteOrder);

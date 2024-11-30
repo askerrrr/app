@@ -12,19 +12,19 @@ export default async function getDataFromXLSX(filePath) {
       const qty = [];
       const size = [];
 
-      ws.getColumn(2).eachCell((b) => url.push(b.text));
+      ws.getColumn(2).eachCell((b) => url.push(b.text || ""));
 
-      ws.getColumn(3).eachCell((c) => qty.push(c.text));
+      ws.getColumn(3).eachCell((c) => qty.push(c.text || ""));
 
-      ws.getColumn(4).eachCell((d) => size.push(d.text));
+      ws.getColumn(4).eachCell((d) => size.push(d.text || ""));
 
-      const arr = [];
+      const fileData = [];
 
       for (let i = 0; i < url.length; i++) {
-        arr.push({ url: url[i], qty: qty[i], size: size[i] });
+        fileData.push({ url: url[i], qty: qty[i], size: size[i] });
       }
 
-      return arr;
+      return fileData;
     })
     .catch((err) => console.log(err));
 

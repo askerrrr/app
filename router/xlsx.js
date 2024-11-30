@@ -8,19 +8,31 @@ const router = Router();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 router.get("/", async (_, res) => {
-  res.sendFile(join(__dirname, "../public", "html", "sheet.html"));
+  try {
+    res.sendFile(join(__dirname, "../public", "html", "sheet.html"));
+  } catch (err) {
+    console.log(err);
+
+    res.sendStatus(500);
+  }
 });
 
 router.get("/api", async (req, res) => {
-  const userId = req.params.userId;
-  const orderId = req.params.orderId;
-  const collection = req.app.locals.collection;
+  try {
+    const userId = req.params.userId;
+    const orderId = req.params.orderId;
+    const collection = req.app.locals.collection;
 
-  const filePath = await db.findFilePath(userId, orderId, collection);
+    const filePath = await db.findFilePath(userId, orderId, collection);
 
-  const data = await getDataFromXLSX(filePath);
+    const data = await getDataFromXLSX(filePath);
 
-  return res.json(data);
+    return res.json(data);
+  } catch (err) {
+    console.log(err);
+
+    res.sendStatus(500);
+  }
 });
 
 export { router as xlsx };

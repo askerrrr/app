@@ -1,4 +1,4 @@
-export default async function renderTableHead(orders) {
+export default function renderTableHead(orders) {
   const phone = document.createElement("th");
   phone.append("Телефон");
 
@@ -23,6 +23,9 @@ export default async function renderTableHead(orders) {
   const itemUrl = document.createElement("th");
   itemUrl.append("Ссылка на товар");
 
+  const xlsx = document.createElement("th");
+  xlsx.append("Файл");
+
   const thead = document.getElementById("thead");
 
   const tr = document.createElement("tr");
@@ -44,7 +47,7 @@ export default async function renderTableHead(orders) {
     return thead;
   }
 
-  tr.append(orderId, orderDate, orderFile, phone, status);
+  tr.append(orderId, orderDate, xlsx, phone, status, orderFile);
 
   thead.append(tr);
 
