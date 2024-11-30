@@ -17,7 +17,7 @@ router.get("/", async (_, res) => {
   }
 });
 
-router.get("/api", async (req, res) => {
+router.get("/api/:userId/:orderId", async (req, res) => {
   try {
     const userId = req.params.userId;
     const orderId = req.params.orderId;
