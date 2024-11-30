@@ -40,10 +40,12 @@ export default async function renderTableHead(orders) {
     );
 
     thead.append(tr);
+
     return thead;
   }
 
   tr.append(orderId, orderDate, orderFile, phone, status);
+
   thead.append(tr);
 
   return thead;

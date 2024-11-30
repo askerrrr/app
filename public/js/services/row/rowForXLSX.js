@@ -5,22 +5,15 @@ import getQuantityFromXLSX from "./services/getQuantityFromXLSX.js";
 
 export default async function rowForXLSX(data) {
   try {
-    [data].forEach((sheet) => {
-      const image = "sheet";
-      const url = getUrlFromXLSX(sheet);
-      const qty = sheet.C1.v;
-      const size = sheet.D1.v;
-
-      const tdForUrl = document.createElement("td");
+    data.forEach((sheet) => {
+      const image = getImageFromXLSX("img");
+      const url = getUrlFromXLSX(sheet.url);
+      const qty = getQuantityFromXLSX(sheet.qty);
+      const size = getSizeFromXLSX(sheet.size);
 
       const tr = document.createElement("tr");
 
-      tr.append(
-        getImageFromXLSX("Image"),
-        url,
-        getQuantityFromXLSX(qty),
-        getSizeFromXLSX(size)
-      );
+      tr.append(image, url, qty, size);
 
       const table = document.getElementById("table");
       table.append(tr);

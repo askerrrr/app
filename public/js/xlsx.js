@@ -15,7 +15,7 @@ async function createXLSX() {
 
     const json = await response.json();
 
-    return rowForXLSX(json.Лист1);
+    return rowForXLSX(json);
   } catch (err) {
     console.log(err);
   }

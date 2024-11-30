@@ -1,11 +1,14 @@
-export default function getUrlFromXLSX(data) {
-  const urlArr = [];
+export default function getUrlFromXLSX(url) {
+  const button = document.createElement("button");
+  button.textContent = "ссылка";
 
-  for (let key in data) {
-    urlArr.push(data[key].v);
-  }
+  const form = document.createElement("form");
+  form.append(button);
+  form.action = url;
+  form.target = "_blank";
 
   const td = document.createElement("td");
+  td.append(form);
 
-  return urlArr.filter((item) => String(item).startsWith("http"));
+  return td;
 }
