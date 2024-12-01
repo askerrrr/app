@@ -5,81 +5,47 @@ class CheckBox {
     this.divContent = divContent;
   }
 
-  newCheckBox() {
-    const label = document.createElement("label");
-    label.for = this.checkBoxId;
-
-    const input = document.createElement("input");
+  new() {
+    var input = document.createElement("input");
     input.id = this.checkBoxId;
     input.type = "checkbox";
     input.name = "order-status";
     input.value = this.checkBoxValue;
 
-    const div = document.createElement("div");
+    var div = document.createElement("div");
     div.append(this.divContent);
 
+    var label = document.createElement("label");
+    label.for = this.checkBoxId;
     label.append(input, div);
+
     return label;
   }
 }
 
-export default async function createCheckBoxForOrderStatus(id) {
-  const form = document.getElementById("set-order-status");
+var A = new CheckBox(1, "in-processing", "взят в обработку").new();
 
-  const fieldset = document.createElement("fieldset");
-  fieldset.id = "fieldset";
-  const legend = document.createElement("legend");
+var B = new CheckBox(2, "purchased", "выкуплен").new();
 
-  const Status_In_Processing = new CheckBox(
-    1,
-    "in-processing",
-    "взят в обработку"
-  ).newCheckBox();
+var C = new CheckBox(3, "china-warehouse", 'доставлен на склад в китае"').new();
 
-  const Status_Purchased = new CheckBox(
-    2,
-    "purchased",
-    "выкуплен"
-  ).newCheckBox();
+var D = new CheckBox(4, "on-the-way", "товар в пути").new();
 
-  const Status_China_Warehouse = new CheckBox(
-    3,
-    "china-warehouse",
-    'доставлен на склад в китае"'
-  ).newCheckBox();
+var E = new CheckBox(5, "awaiting-receipt", "ожидает получения").new();
 
-  const Status_On_The_Way = new CheckBox(
-    4,
-    "on-the-way",
-    "товар в пути"
-  ).newCheckBox();
+var F = new CheckBox(6, "order-is-completed", "заказ завершен").new();
 
-  const Status_Awaiting_Receipt = new CheckBox(
-    5,
-    "awaiting-receipt",
-    "ожидает получения"
-  ).newCheckBox();
-
-  const Status_Order_Is_Completed = new CheckBox(
-    6,
-    "order-is-completed",
-    "заказ завершен"
-  ).newCheckBox();
-
-  fieldset.append(
-    legend,
-    Status_In_Processing,
-    Status_Purchased,
-    Status_China_Warehouse,
-    Status_On_The_Way,
-    Status_Awaiting_Receipt,
-    Status_Order_Is_Completed
-  );
-
+export default async function createCheckBoxForOrderStatus() {
+  var legend = document.createElement("legend");
   legend.append("Статус заказа");
 
-  const childTeg = document.getElementById("submit-order-status");
+  var fieldset = document.createElement("fieldset");
+  fieldset.id = "fieldset";
+  fieldset.append(legend, A, B, C, D, E, F);
 
+  var childTeg = document.getElementById("submit-order-status");
+
+  var form = document.getElementById("set-order-status");
   form.insertBefore(fieldset, childTeg);
 
   return form;

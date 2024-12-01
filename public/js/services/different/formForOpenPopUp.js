@@ -10,7 +10,7 @@ export default async function formForOpenPopUp(userId, orderId) {
   button.addEventListener("click", async (e) => {
     e.preventDefault();
 
-    const checkbox = await createCheckBoxForOrderStatus(orderId);
+    const checkbox = await createCheckBoxForOrderStatus();
 
     if (checkbox) {
       await saveAndRenderCurrentOrderStatus(userId, orderId);
