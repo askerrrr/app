@@ -33,12 +33,14 @@ router.post("/:userId/:orderId/:status", async (req, res) => {
 
     statusId = statusId.split("").reverse()[0];
 
+    const updatedStatus = `${statusValue}:${statusId}`;
+
     const existingDocument = await collection.findOne({ userId });
 
     if (!existingDocument)
       return res.status(404).json({ err: `user ${userId} not found` });
 
-    await db.updateOrderStatus(userId, orderId, status, collection);
+    await db.updateOrderStatus(userId, orderId, updatedStatus, collection);
 
     const botResponse = await fetch(env.bot_server_ip, {
       method: "PATCH",
@@ -50,7 +52,7 @@ router.post("/:userId/:orderId/:status", async (req, res) => {
       body: JSON.stringify({
         userId,
         orderId,
-        status: `${statusValue}:${statusId}`,
+        updatedStatus,
       }),
     });
 
