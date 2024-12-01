@@ -102,7 +102,7 @@ router.get("/api/status/:userId/:orderId", async (req, res) => {
     const result = user.orders.find((item) => item.order.id === orderId);
     const status = result.order.orderStatus;
 
-    return user ? res.json({ status }) : res.sendStatus(404);
+    return user ? res.json({ userId, orderId, status }) : res.sendStatus(404);
   } catch (err) {
     console.log(err);
     return res.sendStatus(500);
