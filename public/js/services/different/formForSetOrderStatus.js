@@ -5,6 +5,7 @@ export default async function formForSetOrderStatus(userId, orderId) {
       e.preventDefault();
 
       var fieldset = document.getElementById(`fieldset-${orderId}`);
+      var btn = document.getElementById(`button-${orderId}`);
 
       var checkBox = document.querySelector("input[name=order-status]:checked");
 
@@ -36,7 +37,7 @@ export default async function formForSetOrderStatus(userId, orderId) {
         fieldset?.remove();
         window.dialog.close();
         document.getElementById("submit-order-status").disabled = false;
-        document.getElementById(`button-${id}`).disabled = false;
+        btn.disabled = false;
 
         return;
       }
@@ -45,7 +46,7 @@ export default async function formForSetOrderStatus(userId, orderId) {
       fieldset?.remove();
       window.dialog.close();
       document.getElementById("submit-order-status").disabled = false;
-      document.getElementById(`button-${orderId}`).disabled = false;
+      btn.disabled = false;
       window.location.reload();
     });
 }

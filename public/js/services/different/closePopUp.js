@@ -4,6 +4,7 @@ export default async (id) =>
     .addEventListener("click", async (e) => {
       e.preventDefault();
       document.getElementById(`fieldset-${id}`).remove();
-      document.getElementById(`button-${id}`).disabled = false;
+      var btn = document.getElementById(`button-${id}`);
+      btn.disabled = false;
       window.dialog.close();
     });
