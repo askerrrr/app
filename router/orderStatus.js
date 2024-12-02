@@ -31,7 +31,7 @@ router.patch("/:userId/:orderId/:status", async (req, res) => {
 
     let [statusValue, statusId] = status.split(":");
 
-    statusId = statusId.split("").reverse()[0];
+    statusId = statusId.split("").reverse()[0]
 
     const updatedStatus = `${statusValue}:${statusId}`;
 
