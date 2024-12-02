@@ -35,12 +35,12 @@ var E = new CheckBox(5, "awaiting-receipt", "ожидает получения")
 
 var F = new CheckBox(6, "order-is-completed", "заказ завершен").new();
 
-export default async function createCheckBoxForOrderStatus() {
+export default async function createCheckBoxForOrderStatus(id) {
   var legend = document.createElement("legend");
   legend.append("Статус заказа");
 
   var fieldset = document.createElement("fieldset");
-  fieldset.id = "fieldset";
+  fieldset.id = `fieldset-${id}`;
   fieldset.append(legend, A, B, C, D, E, F);
 
   var childTeg = document.getElementById("submit-order-status");

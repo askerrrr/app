@@ -3,6 +3,7 @@ import renderPhone from "./services/phone.js";
 import renderXLSX from "./services/renderXLSX.js";
 import renderOrderId from "./services/orderId.js";
 import buttonBack from "./services/buttonBack.js";
+import closePopUp from "../different/closePopUp.js";
 import renderTableHead from "./services/tableHead.js";
 import renderDownloadLink from "./services/downloadLink.js";
 import formForOpenPopUp from "../different/formForOpenPopUp.js";
@@ -37,6 +38,7 @@ export default async function rowForMultiple(orders) {
   const table = document.getElementById("table");
   table.append(thead, tbody);
 
+  await closePopUp(orderId);
   await formForSetOrderStatus(userId, orderId);
   const openPopUp = await formForOpenPopUp(userId, orderId);
   const formForDeleteOrder = await createDeleteOrderForm(userId, orderId);

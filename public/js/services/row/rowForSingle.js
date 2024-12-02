@@ -4,6 +4,7 @@ import openImage from "./services/openImage.js";
 import renderOrderId from "./services/orderId.js";
 import buttonBack from "./services/buttonBack.js";
 import renderItemUrl from "./services/itemUrl.js";
+import closePopUp from "../different/closePopUp.js";
 import renderTableHead from "./services/tableHead.js";
 import renderDescription from "./services/description.js";
 import renderDownloadLink from "./services/downloadLink.js";
@@ -21,12 +22,6 @@ export default async function rowForSingle(orders) {
   const status = orders.order.orderStatus;
   const description = orders.order.description;
 
-  const openPopUp = await formForOpenPopUp(userId, orderId);
-
-  await formForSetOrderStatus(userId, orderId);
-
-  const formForDeleteOrder = await createDeleteOrderForm(userId, orderId);
-
   const tr = document.createElement("tr");
   tr.append(
     renderOrderId(orderId),
@@ -43,13 +38,15 @@ export default async function rowForSingle(orders) {
   tbody.append(tr);
   tbody.id = orderId;
 
-  const thead = await renderTableHead(orders);
+  const thead = renderTableHead(orders);
 
-  if (!thead) {
-    console.log("thead not render");
-  }
   const table = document.getElementById("table");
   table.append(thead, tbody);
+
+  await closePopUp(orderId);
+  await formForSetOrderStatus(userId, orderId);
+  const openPopUp = await formForOpenPopUp(userId, orderId);
+  const formForDeleteOrder = await createDeleteOrderForm(userId, orderId);
 
   const body = document.getElementById("orderInfo");
   body.append(buttonBack(userId), openPopUp, table, formForDeleteOrder);
