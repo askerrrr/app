@@ -1,51 +1,60 @@
 export default async function formForSetOrderStatus(userId, orderId) {
-  const button = document.getElementById("submit-order-status");
-  const fieldset = document.getElementById("fieldset");
+  return document
+    .getElementById("submit-order-status")
+    .addEventListener("click", async (e) => {
+      e.preventDefault();
 
-  button.addEventListener("click", async (e) => {
-    e.preventDefault();
+      var fieldset = document.getElementById("fieldset");
 
-    let checkBox = document.querySelector("input[name=order-status]:checked");
+      var checkBox = document.querySelector("input[name=order-status]:checked");
 
-    if (!checkBox) {
-      alert("Вы ничего не выбрали");
-      return;
-    }
+      if (!checkBox) {
+        alert("Вы ничего не выбрали");
+        return;
+      }
 
-    const idOfMarkedCheckBox = checkBox.id;
-    const orderStatus = checkBox.value + ":" + idOfMarkedCheckBox;
+      var idOfMarkedCheckBox = checkBox.id;
+      var orderStatus = checkBox.value + ":" + idOfMarkedCheckBox;
 
-    const response = await fetch(`/status/${userId}/${orderId}/${orderStatus}`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
+      document.getElementById("submit-order-status").disabled = true;
 
-    if (!response.ok) {
-      const err = await response.text();
-      console.log("Error when sending data...", err);
+      var response = await fetch(
+        `/status/${userId}/${orderId}/${orderStatus}`,
+        {
+          method: "PATCH",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        var err = await response.text();
+        alert(`Ошибка при обновлении статуса: ${err}`);
+
+        fieldset?.remove();
+        window.dialog.close();
+        document.getElementById("submit-order-status").disabled = false;
+
+        return;
+      }
+
+      alert("Ствтус успешно обновлен");
       fieldset?.remove();
       window.dialog.close();
-      return;
-    }
-
-    fieldset?.remove();
-    window.dialog.close();
-    window.location.reload();
-  });
-
-  return button;
+      document.getElementById("submit-order-status").disabled = false;
+      window.location.reload();
+    });
 }
 
-function closePopUp() {
-  const button = document.getElementById("close-dialog");
-  button.addEventListener("click", async (e) => {
-    e.preventDefault();
-    fieldset?.remove();
-    window.dialog.close();
-  });
-}
+var closePopUp = () =>
+  document
+    .getElementById("close-dialog")
+    .addEventListener("click", async (e) => {
+      e.preventDefault();
+      fieldset?.remove();
+      window.dialog.close();
+    });
 
 closePopUp();

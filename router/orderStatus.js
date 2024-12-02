@@ -22,7 +22,7 @@ router.get("/api/:userId/:orderId", async (req, res) => {
   }
 });
 
-router.post("/:userId/:orderId/:status", async (req, res) => {
+router.patch("/:userId/:orderId/:status", async (req, res) => {
   try {
     const collection = req.app.locals.collection;
     const userId = req.params.userId;
@@ -39,8 +39,6 @@ router.post("/:userId/:orderId/:status", async (req, res) => {
 
     if (!existingDocument)
       return res.status(404).json({ err: `user ${userId} not found` });
-
-    await db.updateOrderStatus(userId, orderId, updatedStatus, collection);
 
     const botResponse = await fetch(env.bot_server_ip, {
       method: "PATCH",
@@ -62,12 +60,8 @@ router.post("/:userId/:orderId/:status", async (req, res) => {
       return res.sendStatus(500);
     }
 
-    const botResponseStatus = botResponse.status;
-
-    return res.status(200).json({
-      message: "The status has been successfully updated",
-      botResponseStatus,
-    });
+    await db.updateOrderStatus(userId, orderId, updatedStatus, collection);
+    return res.sendStatus(200);
   } catch (err) {
     console.log(err);
     return res.sendStatus(500);

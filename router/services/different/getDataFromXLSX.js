@@ -1,4 +1,4 @@
-import Exceljs from "exceljs";
+//import Exceljs from "exceljs";
 
 export default async function getDataFromXLSX(filePath) {
   const wb = new Exceljs.Workbook();
