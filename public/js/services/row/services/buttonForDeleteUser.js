@@ -8,11 +8,15 @@ export default async function buttonForDeleteUser(userId) {
   button.addEventListener("click", async (e) => {
     e.preventDefault();
 
-    var table = document.getElementById("homepage");
     var tbody = document.getElementById(userId);
+
+    var table = document.getElementById("homepage");
     table.removeChild(tbody);
+
     alert("Пользователь был удален");
+
     window.location.href = `/orderinfo/users`;
+
     return deleteUser(userId);
   });
 
@@ -20,8 +24,8 @@ export default async function buttonForDeleteUser(userId) {
   form.action = `/orderinfo/delete/${userId}`;
   form.append(button);
 
-  var tdButton = document.createElement("td");
-  tdButton.append(form);
+  var td = document.createElement("td");
+  td.append(form);
 
-  return tdButton;
+  return td;
 }
