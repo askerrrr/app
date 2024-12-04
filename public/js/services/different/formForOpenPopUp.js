@@ -3,7 +3,7 @@ import createCheckBoxForOrderStatus from "./checkBoxForOrderStatus.js";
 
 export default async function formForOpenPopUp(userId, orderId) {
   orderId = +orderId;
-  const button = document.createElement("button");
+  var button = document.createElement("button");
 
   button.id = `button-${orderId}`;
   button.className = "change-order-status";
@@ -20,7 +20,7 @@ export default async function formForOpenPopUp(userId, orderId) {
     window.dialog.showModal();
   });
 
-  const form = document.createElement("form");
+  var form = document.createElement("form");
   form.append(button);
 
   return form;

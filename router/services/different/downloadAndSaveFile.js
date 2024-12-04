@@ -5,12 +5,12 @@ import getFileData from "./getFileData.js";
 
 export default async function downloadAndSaveFile(userId, fileId, url, order) {
   try {
-    const userDir = await makeUserDir(userId);
+    var userDir = await makeUserDir(userId);
 
-    const docsPath = join(userDir[0], `${fileId}.xlsx`);
-    const imagesPath = join(userDir[1], `${fileId}.jpg`);
+    var docsPath = join(userDir[0], `${fileId}.xlsx`);
+    var imagesPath = join(userDir[1], `${fileId}.jpg`);
 
-    const dataStream = await getFileData(url);
+    var dataStream = await getFileData(url);
 
     return order?.type
       ? await writeFile(imagesPath, dataStream)

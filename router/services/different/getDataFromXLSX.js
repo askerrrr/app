@@ -2,18 +2,18 @@ import Exceljs from "exceljs";
 import getImageFromXLSX from "./getImageFromXLSX.js";
 
 export default async (filePath) => {
-  const wb = new Exceljs.Workbook();
+  var wb = new Exceljs.Workbook();
 
   var imgData = await getImageFromXLSX(filePath);
 
-  const result = await wb.xlsx
+  var result = await wb.xlsx
     .readFile(filePath)
     .then(() => {
-      const ws = wb.getWorksheet("Лист1");
+      var ws = wb.getWorksheet("Лист1");
 
-      const url = [];
-      const qty = [];
-      const size = [];
+      var url = [];
+      var qty = [];
+      var size = [];
 
       ws.getColumn(2).eachCell((b) => url.push(b.text || ""));
 
@@ -21,7 +21,7 @@ export default async (filePath) => {
 
       ws.getColumn(4).eachCell((d) => size.push(d.text || ""));
 
-      const fileData = [];
+      var fileData = [];
 
       for (let i = 0; i < url.length; i++) {
         fileData.push({

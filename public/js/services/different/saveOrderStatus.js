@@ -12,24 +12,24 @@ function renderNextUnmarkedPendingStatus(array, statusId) {
 
 export default async function saveAndRenderCurrentOrderStatus(userId, orderId) {
   try {
-    const response = await fetch(`/status/api/${userId}/${orderId}`, {
+    var response = await fetch(`/status/api/${userId}/${orderId}`, {
       method: "GET",
     });
 
     if (!response.ok) {
-      const err = await response.text();
+      var err = await response.text();
       console.log("response err", err);
     }
 
-    const status = await response.json();
+    var status = await response.json();
 
     let statusId = status.split(":")[1];
 
-    const checkBoxCollection = document.querySelectorAll(
+    var checkBoxCollection = document.querySelectorAll(
       `input[name=order-status]`
     );
 
-    const arrayOfCheckBoxesID = [];
+    var arrayOfCheckBoxesID = [];
 
     for (let i = 0; i < checkBoxCollection.length; i++) {
       arrayOfCheckBoxesID.push({ statusId: +checkBoxCollection[i].id });

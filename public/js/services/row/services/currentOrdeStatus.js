@@ -1,5 +1,5 @@
 export default function renderCurrentOrderStatus(status) {
-  const td = document.createElement("td");
+  var td = document.createElement("td");
   let currentStatus = status.split(":")[0];
 
   switch (currentStatus) {

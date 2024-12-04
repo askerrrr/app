@@ -1,16 +1,16 @@
 async function formHandler() {
-  const form = document.getElementById("auth-form");
+  var form = document.getElementById("auth-form");
 
   return form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const formDataObj = {};
+    var formDataObj = {};
 
     new FormData(form).forEach((value, key) => {
       formDataObj[key] = value;
     });
 
-    const response = await fetch("/auth/login/check", {
+    var response = await fetch("/auth/login/check", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -22,7 +22,7 @@ async function formHandler() {
       throw new Error("Ошибка авторизации");
     }
 
-    const json = await response.json();
+    var json = await response.json();
 
     return json.redirect
       ? (window.location.href = "/")

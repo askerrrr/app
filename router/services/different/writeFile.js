@@ -5,7 +5,7 @@ export default async function writeFile(path, data) {
 
   try {
     fileHandle = await open(path, "w");
-    const writableStream = fileHandle.createWriteStream();
+    var writableStream = fileHandle.createWriteStream();
 
     let chunk;
 

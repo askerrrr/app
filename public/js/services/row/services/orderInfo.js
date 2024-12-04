@@ -1,28 +1,28 @@
 export default function getOrderInfo(data) {
-  const numberOfOrders = data.orders.length || 0;
+  var numberOfOrders = data.orders.length || 0;
 
-  const numberOfActiveOrders =
+  var numberOfActiveOrders =
     data.orders.filter(
       (item) => !item.order.orderStatus.startsWith("order-is-completed")
     ).length || 0;
 
-  const numberOfcompletedOrders =
+  var numberOfcompletedOrders =
     data.orders.filter((item) =>
       item.order.orderStatus.startsWith("order-is-completed")
     ).length || 0;
 
-  const divForNumberOfOrders = document.createElement("div");
+  var divForNumberOfOrders = document.createElement("div");
   divForNumberOfOrders.append("Всего: ", numberOfOrders);
 
-  const divForNumberOfActiveOrders = document.createElement("div");
+  var divForNumberOfActiveOrders = document.createElement("div");
   divForNumberOfActiveOrders.append("Активно: ", numberOfActiveOrders);
   divForNumberOfActiveOrders.style.color = "green";
 
-  const divForNumberOfCompletedOrders = document.createElement("div");
+  var divForNumberOfCompletedOrders = document.createElement("div");
   divForNumberOfCompletedOrders.append("Завершено: ", numberOfcompletedOrders);
   divForNumberOfCompletedOrders.style.color = "red";
 
-  const td = document.createElement("td");
+  var td = document.createElement("td");
 
   td.append(
     divForNumberOfOrders,

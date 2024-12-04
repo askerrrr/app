@@ -1,7 +1,7 @@
 export default async (base64) => {
   var td = document.createElement("td");
 
-  if (!base64?.length) {
+  if (!base64) {
     td.append("Пусто");
 
     return td;

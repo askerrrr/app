@@ -2,8 +2,8 @@ import { join } from "path";
 import { mkdir } from "fs/promises";
 
 export default async function makeUserDir(userId) {
-  const userDir = join("/var", "www", "userFiles", `${userId}`);
-  const dirs = ["docs", "images"];
+  var userDir = join("/var", "www", "userFiles", `${userId}`);
+  var dirs = ["docs", "images"];
 
   try {
     await mkdir(userDir, { recursive: true });

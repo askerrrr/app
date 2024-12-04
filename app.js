@@ -7,9 +7,9 @@ import { MongoClient } from "mongodb";
 import cookieParser from "cookie-parser";
 import verifyToken from "./router/services/different/verifyToken.js";
 
-const app = express();
-const mongodb = new MongoClient(env.mongo_url);
-const __dirname = dirname(fileURLToPath(import.meta.url));
+var app = express();
+var mongodb = new MongoClient(env.mongo_url);
+var __dirname = dirname(fileURLToPath(import.meta.url));
 
 (async () => {
   try {
@@ -18,12 +18,12 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
       console.log("The server is running...")
     );
 
-    const db = mongodb.db("database");
-    const collection = db.collection("users");
+    var db = mongodb.db("database");
+    var collection = db.collection("users");
     app.locals.collection = collection;
 
-    const adminDB = mongodb.db("admin");
-    const adminCollection = adminDB.collection("adminData");
+    var adminDB = mongodb.db("admin");
+    var adminCollection = adminDB.collection("adminData");
     app.locals.adminCollection = adminCollection;
   } catch (err) {
     console.log(err);

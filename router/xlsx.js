@@ -4,8 +4,8 @@ import { dirname, join } from "path";
 import db from "./services/database/db.js";
 import getDataFromXLSX from "./services/different/getDataFromXLSX.js";
 
-const router = Router();
-const __dirname = dirname(fileURLToPath(import.meta.url));
+var router = Router();
+var __dirname = dirname(fileURLToPath(import.meta.url));
 
 router.get("/", async (_, res) => {
   try {
@@ -33,9 +33,9 @@ router.get("/api", async (req, res) => {
 });
 
 export { router as xlsx };
-// const userId = req.params.userId;
-// const orderId = req.params.orderId;
-// const collection = req.app.locals.collection;
+// var userId = req.params.userId;
+// var orderId = req.params.orderId;
+// var collection = req.app.locals.collection;
 
-// const filePath = await db.findFilePath(userId, orderId, collection);
+// var filePath = await db.findFilePath(userId, orderId, collection);
 //await getImageFromXLSX("file.xlsx");

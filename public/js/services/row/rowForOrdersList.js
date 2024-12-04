@@ -4,11 +4,11 @@ import renderCurrentOrderStatus from "./services/currentOrdeStatus.js";
 
 export default function rowForOrders(data) {
   data.orders.forEach((orders) => {
-    const orderId = orders.order.id;
-    const orderDate = orders.order.date;
-    const status = orders.order.orderStatus;
+    var orderId = orders.order.id;
+    var orderDate = orders.order.date;
+    var status = orders.order.orderStatus;
 
-    const tr = document.createElement("tr");
+    var tr = document.createElement("tr");
 
     tr.append(
       createDate(orderDate),
@@ -16,10 +16,10 @@ export default function rowForOrders(data) {
       renderCurrentOrderStatus(status)
     );
 
-    const tbody = document.createElement("tbody");
+    var tbody = document.createElement("tbody");
     tbody.append(tr);
 
-    const table = document.getElementById("orders");
+    var table = document.getElementById("orders");
     table.append(tbody);
 
     return table;

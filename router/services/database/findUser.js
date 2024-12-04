@@ -1,6 +1,6 @@
 export default async function findUser(user, adminCollection) {
   try {
-    const existingUser = await adminCollection.findOne({ user: user });
+    var existingUser = await adminCollection.findOne({ user: user });
 
     if (!existingUser) console.log("Admin info not found");
 

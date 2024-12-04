@@ -12,13 +12,13 @@ import renderCurrentOrderStatus from "./services/currentOrdeStatus.js";
 import formForSetOrderStatus from "../different/formForSetOrderStatus.js";
 
 export default async function rowForMultiple(orders) {
-  const orderId = orders.order.id;
-  const phone = orders.order.phone;
-  const userId = orders.order.userId;
-  const orderDate = orders.order.date;
-  const status = orders.order.orderStatus;
+  var orderId = orders.order.id;
+  var phone = orders.order.phone;
+  var userId = orders.order.userId;
+  var orderDate = orders.order.date;
+  var status = orders.order.orderStatus;
 
-  const tr = document.createElement("tr");
+  var tr = document.createElement("tr");
 
   tr.append(
     renderOrderId(orderId),
@@ -29,21 +29,21 @@ export default async function rowForMultiple(orders) {
     renderDownloadLink(userId, orderId)
   );
 
-  const tbody = document.createElement("tbody");
+  var tbody = document.createElement("tbody");
   tbody.append(tr);
   tbody.id = orderId;
 
-  const thead = renderTableHead(orders);
+  var thead = renderTableHead(orders);
 
-  const table = document.getElementById("table");
+  var table = document.getElementById("table");
   table.append(thead, tbody);
 
   await closePopUp(orderId);
   await formForSetOrderStatus(userId, orderId);
-  const openPopUp = await formForOpenPopUp(userId, orderId);
-  const formForDeleteOrder = await createDeleteOrderForm(userId, orderId);
+  var openPopUp = await formForOpenPopUp(userId, orderId);
+  var formForDeleteOrder = await createDeleteOrderForm(userId, orderId);
 
-  const body = document.getElementById("orderInfo");
+  var body = document.getElementById("orderInfo");
   body.append(buttonBack(userId), openPopUp, table, formForDeleteOrder);
 
   return body;

@@ -6,7 +6,7 @@ import findFilePath from "./findFilePath.js";
 import createNewUser from "./createNewUser.js";
 import updateOrderStatus from "./updateOrderStatus.js";
 
-const db = {
+var db = {
   findUser,
   findUser,
   deleteUser,
