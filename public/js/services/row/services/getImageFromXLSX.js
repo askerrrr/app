@@ -1,8 +1,8 @@
 export default async (base64) => {
   var img = document.createElement("img");
 
-  img.width = 250;
-  img.height = 250;
+  img.width = 200;
+  img.height = 200;
   img.alt = "image";
   img.src = `data:image/png=;base64,${base64}`;
 

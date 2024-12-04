@@ -1,14 +1,14 @@
-export default function getUrlFromXLSX(url) {
-  const button = document.createElement("button");
+export default async (url) => {
+  var button = document.createElement("button");
   button.textContent = "ссылка";
 
-  const form = document.createElement("form");
+  var form = document.createElement("form");
   form.append(button);
   form.action = url;
   form.target = "_blank";
 
-  const td = document.createElement("td");
+  var td = document.createElement("td");
   td.append(form);
 
   return td;
-}
+};

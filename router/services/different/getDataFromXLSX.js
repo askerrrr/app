@@ -1,75 +1,105 @@
-import JSZip from "jszip";
-import { readFile, writeFile } from "fs/promises";
+import Exceljs from "exceljs";
+import getImageFromXLSX from "./getImageFromXLSX.js";
 
 export default async (filePath) => {
-  try {
-    var fileData = await readFile(filePath);
+  const wb = new Exceljs.Workbook();
 
-    var zip = await JSZip.loadAsync(fileData);
+  var imgData = await getImageFromXLSX(filePath);
 
-    var data = Object.keys(zip.files).filter((fileName) =>
-      fileName.startsWith("xl/worksheets/sheet1.xml")
-    );
+  const result = await wb.xlsx
+    .readFile(filePath)
+    .then(() => {
+      const ws = wb.getWorksheet("Лист1");
 
-    var result = await Promise.all(
-      data.map((file) => zip.files[file].async("nodebuffer"))
-    );
+      const url = [];
+      const qty = [];
+      const size = [];
 
-    return result.toString().split(" ");
-  } catch (err) {
-    console.log(err);
-  }
+      ws.getColumn(2).eachCell((b) => url.push(b.text || ""));
+
+      ws.getColumn(3).eachCell((c) => qty.push(c.text || ""));
+
+      ws.getColumn(4).eachCell((d) => size.push(d.text || ""));
+
+      const fileData = [];
+
+      for (let i = 0; i < url.length; i++) {
+        fileData.push({
+          url: url[i],
+          qty: qty[i],
+          size: size[i],
+          img: imgData[i],
+        });
+      }
+
+      return fileData;
+    })
+    .catch((err) => console.log(err));
+
+  return result;
 };
 
-//data("file.xlsx").then((data) => writeFile("text.txt", data, { flag: "w" }));
+// import JSZip from "jszip";
+// import { XMLParser } from "fast-xml-parser";
+// import { readFile, writeFile } from "fs/promises";
 
-[
-  "[Content_Types].xml",
-  "_rels/.rels",
-  "xl/workbook.xml",
-  "xl/_rels/workbook.xml.rels",
-  "xl/worksheets/sheet1.xml",
-  "xl/theme/theme1.xml",
-  "xl/styles.xml",
-  "xl/sharedStrings.xml",
-  "xl/drawings/drawing1.xml",
-  "xl/media/image1.jpeg",
-  "xl/media/image2.jpeg",
-  "xl/media/image3.jpeg",
-  "xl/worksheets/_rels/sheet1.xml.rels",
-  "xl/drawings/_rels/drawing1.xml.rels",
-  "docProps/core.xml",
-  "docProps/app.xml",
-];
-//import Exceljs from "exceljs";
+// export default async (filePath) => {
+//   try {
+//     var fileData = await readFile(filePath);
 
-// export default async function getDataFromXLSX(filePath) {
-//   const wb = new Exceljs.Workbook();
+//     var zip = await JSZip.loadAsync(fileData);
 
-//   const result = await wb.xlsx
-//     .readFile(filePath)
-//     .then(() => {
-//       const ws = wb.getWorksheet("Лист1");
+//     var sheetXml = await zip.files["xl/worksheets/sheet1.xml"].async("string");
+//     var sheetReels = await zip.files[
+//       "xl/worksheets/_rels/sheet1.xml.rels"
+//     ].async("string");
 
-//       const url = [];
-//       const qty = [];
-//       const size = [];
+//     var parser = new XMLParser();
 
-//       ws.getColumn(2).eachCell((b) => url.push(b.text || ""));
+//     var sheetData = await parser.parse(sheetXml);
+//     var sheetReels = await parser.parse(sheetReels);
+//     //   '?xml': '',
+//     //   worksheet: {
+//     //     dimension: '',
+//     //     sheetViews: { sheetView: [Object] },
+//     //     sheetFormatPr: '',
+//     //     cols: { col: [Array] },
+//     //     sheetData: { row: [Array] },
+//     //     hyperlinks: { hyperlink: [Array] },
+//     //     pageMargins: '',
+//     //     drawing: ''
+//     //   }
+//     // }
 
-//       ws.getColumn(3).eachCell((c) => qty.push(c.text || ""));
+//     console.log("sheetReels", sheetReels);
+//     var rows = sheetData.worksheet.sheetData.row;
 
-//       ws.getColumn(4).eachCell((d) => size.push(d.text || ""));
+//     console.log(sheetData.worksheet.hyperlinks.heperlink);
+//     var cells = rows.map((row) => row);
 
-//       const fileData = [];
+//     console.log("cells", cells);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
-//       for (let i = 0; i < url.length; i++) {
-//         fileData.push({ url: url[i], qty: qty[i], size: size[i] });
-//       }
+// //data("file.xlsx").then((data) => writeFile("text.txt", data, { flag: "w" }));
 
-//       return fileData;
-//     })
-//     .catch((err) => console.log(err));
-
-//   return result;
-// }
+// [
+//   "[Content_Types].xml",
+//   "_rels/.rels",
+//   "xl/workbook.xml",
+//   "xl/_rels/workbook.xml.rels",
+//   "xl/worksheets/sheet1.xml",
+//   "xl/theme/theme1.xml",
+//   "xl/styles.xml",
+//   "xl/sharedStrings.xml",
+//   "xl/drawings/drawing1.xml",
+//   "xl/media/image1.jpeg",
+//   "xl/media/image2.jpeg",
+//   "xl/media/image3.jpeg",
+//   "xl/worksheets/_rels/sheet1.xml.rels",
+//   "xl/drawings/_rels/drawing1.xml.rels",
+//   "docProps/core.xml",
+//   "docProps/app.xml",
+// ];
