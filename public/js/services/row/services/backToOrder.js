@@ -4,7 +4,7 @@ export default function backToOrder(userId, orderId) {
 
   var form = document.createElement("form");
 
-  form.append(button);
+  form.append(btn);
   form.className = "backToOrders";
   form.action = `/orderinfo/orders/order/${userId}/${orderId}`;
 

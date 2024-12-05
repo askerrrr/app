@@ -22,6 +22,7 @@ export default async function rowForXLSX(sheetData, userId, orderId) {
     table.append(tbody);
 
     var body = document.getElementsByTagName("body");
+
     body.append(backToOrder(userId, orderId));
     return table;
   });
