@@ -1,4 +1,4 @@
-export default async function backToOrder(userId, orderId) {
+export default function backToOrder(userId, orderId) {
   var btn = document.createElement("button");
   btn.append("Назад");
 
