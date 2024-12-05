@@ -21,7 +21,10 @@ async function createXLSX() {
 
     return rowForXLSX(json, userId, orderId);
   } catch (err) {
-    console.log(err);
+    if (err.message === "Unexpected end of JSON input")
+      alert(`Не удалось прочитать файл: ${err.message}`);
+
+    window.location.href = `/orderinfo/orders/order/${orderId}`;
   }
 }
 
