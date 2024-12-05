@@ -6,7 +6,7 @@ export default function backToOrder(userId, orderId) {
 
   form.append(btn);
   form.className = "backToOrders";
-  form.action = `/orderinfo/orders/order/${userId}/${orderId}`;
+  form.action = `/orderinfo/orders/order/${orderId}`;
 
   return form;
 }
