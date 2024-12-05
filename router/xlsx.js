@@ -7,7 +7,7 @@ import getDataFromXLSX from "./services/different/getDataFromXLSX.js";
 var router = Router();
 var __dirname = dirname(fileURLToPath(import.meta.url));
 
-router.get("/", async (_, res) => {
+router.get("/:userid/:orderid", async (_, res) => {
   try {
     res.sendFile(join(__dirname, "../public", "html", "sheet.html"));
   } catch (err) {
@@ -17,10 +17,13 @@ router.get("/", async (_, res) => {
   }
 });
 
-router.get("/api", async (req, res) => {
-  //:userId/:orderId
+router.get("/api/:userId/:orderId", async (req, res) => {
   try {
-    var filePath = "file.xlsx";
+    var userId = req.params.userId;
+    var orderId = req.params.orderId;
+    var collection = req.app.locals.collection;
+
+    var filePath = await db.findFilePath(userId, orderId, collection);
 
     var data = await getDataFromXLSX(filePath);
 
@@ -33,9 +36,3 @@ router.get("/api", async (req, res) => {
 });
 
 export { router as xlsx };
-// var userId = req.params.userId;
-// var orderId = req.params.orderId;
-// var collection = req.app.locals.collection;
-
-// var filePath = await db.findFilePath(userId, orderId, collection);
-//await getImageFromXLSX("file.xlsx");

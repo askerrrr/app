@@ -2,8 +2,7 @@ import rowForXLSX from "./services/row/rowForXLSX.js";
 
 async function createXLSX() {
   try {
-    var response = await fetch(`/xlsx/api`, {
-      ///${userId}/${orderId}
+    var response = await fetch(`/xlsx/api/${userId}/${orderId}`, {
       method: "GET",
       headers: { Accept: "application/json" },
     });
