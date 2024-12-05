@@ -2,7 +2,7 @@ import renderDate from "./services/date.js";
 import renderPhone from "./services/phone.js";
 import renderXLSX from "./services/renderXLSX.js";
 import renderOrderId from "./services/orderId.js";
-import buttonBack from "./services/buttonBack.js";
+import backToOrders from "./services/backToOrders.js";
 import closePopUp from "../different/closePopUp.js";
 import renderTableHead from "./services/tableHead.js";
 import renderDownloadLink from "./services/downloadLink.js";
@@ -44,7 +44,7 @@ export default async function rowForMultiple(orders) {
   var formForDeleteOrder = await createDeleteOrderForm(userId, orderId);
 
   var body = document.getElementById("orderInfo");
-  body.append(buttonBack(userId), openPopUp, table, formForDeleteOrder);
+  body.append(backToOrders(userId), openPopUp, table, formForDeleteOrder);
 
   return body;
 }

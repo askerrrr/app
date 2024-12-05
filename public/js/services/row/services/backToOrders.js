@@ -1,4 +1,4 @@
-export default function buttonBack(userId) {
+export default function backToOrders(userId) {
   var button = document.createElement("button");
   button.append("Назад");
 

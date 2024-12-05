@@ -1,9 +1,10 @@
+import backToOrder from "./services/backToOrder.js";
 import getUrlFromXLSX from "./services/getUrlFromXLSX.js";
 import getSizeFromXLSX from "./services/getSizeFromXLSX.js";
 import getImageFromXLSX from "./services/getImageFromXLSX.js";
 import getQuantityFromXLSX from "./services/getQuantityFromXLSX.js";
 
-export default async function rowForXLSX(sheetData) {
+export default async function rowForXLSX(sheetData, userId, orderId) {
   sheetData.forEach(async (item) => {
     var table = document.getElementById("table");
     var tbody = document.createElement("tbody");
@@ -20,6 +21,8 @@ export default async function rowForXLSX(sheetData) {
 
     table.append(tbody);
 
+    var body = document.getElementsByTagName("body");
+    body.append(backToOrder(userId, orderId));
     return table;
   });
 }

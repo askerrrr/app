@@ -6,7 +6,6 @@ async function createXLSX() {
     var userId = pathParts[2];
     var orderId = pathParts[3];
 
-    console.log(pathParts);
     var response = await fetch(`/xlsx/api/${userId}/${orderId}`, {
       method: "GET",
       headers: { Accept: "application/json" },
@@ -20,7 +19,7 @@ async function createXLSX() {
 
     var json = await response.json();
 
-    return rowForXLSX(json);
+    return rowForXLSX(json, userId, orderId);
   } catch (err) {
     console.log(err);
   }
