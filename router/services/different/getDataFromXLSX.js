@@ -2,43 +2,41 @@ import Exceljs from "exceljs";
 import getImageFromXLSX from "./getImageFromXLSX.js";
 
 export default async (filePath) => {
-  var wb = new Exceljs.Workbook();
+  try {
+    var wb = new Exceljs.Workbook();
 
-  var imgData = await getImageFromXLSX(filePath);
+    var imgData = await getImageFromXLSX(filePath);
 
-  if (!imgData) return;
+    await wb.xlsx.readFile(filePath);
 
-  var result = await wb.xlsx
-    .readFile(filePath)
-    .then(() => {
-      var ws = wb.getWorksheet("Лист1");
+    var ws = wb.getWorksheet("Лист1");
 
-      var url = [];
-      var qty = [];
-      var size = [];
+    var url = [];
+    var qty = [];
+    var size = [];
 
-      ws.getColumn(2).eachCell((b) => url.push(b.text || ""));
+    ws.getColumn(2).eachCell((b) => url.push(b.text || ""));
 
-      ws.getColumn(3).eachCell((c) => qty.push(c.text || ""));
+    ws.getColumn(3).eachCell((c) => qty.push(c.text || ""));
 
-      ws.getColumn(4).eachCell((d) => size.push(d.text || ""));
+    ws.getColumn(4).eachCell((d) => size.push(d.text || ""));
 
-      var fileData = [];
+    var fileData = [];
 
-      for (let i = 0; i < url.length; i++) {
-        fileData.push({
-          url: url[i],
-          qty: qty[i],
-          size: size[i],
-          img: imgData[i],
-        });
-      }
+    for (let i = 0; i < url.length; i++) {
+      fileData.push({
+        url: url[i],
+        qty: qty[i],
+        size: size[i],
+        img: imgData[i],
+      });
+    }
 
-      return fileData;
-    })
-    .catch((err) => console.log(err));
-
-  return result;
+    return fileData;
+  } catch (err) {
+    if (err.message === "File not found") console.log(err.message);
+    return;
+  }
 };
 
 // import JSZip from "jszip";

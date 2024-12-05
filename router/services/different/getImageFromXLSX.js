@@ -25,6 +25,8 @@ export default async function getImageFromXLSX(filePath) {
 
     return base64;
   } catch (err) {
-    console.log(err);
+    if (err.messag === "ENOENT: no such file or directory")
+      console.log(err.message);
+    return;
   }
 }
