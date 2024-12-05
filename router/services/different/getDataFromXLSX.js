@@ -6,6 +6,8 @@ export default async (filePath) => {
 
   var imgData = await getImageFromXLSX(filePath);
 
+  if (!imgData) return;
+
   var result = await wb.xlsx
     .readFile(filePath)
     .then(() => {

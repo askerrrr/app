@@ -5,6 +5,8 @@ export default async function getImageFromXLSX(filePath) {
   try {
     var fileData = await readFile(filePath);
 
+    if (!fileData) return;
+
     var zip = await JSZip.loadAsync(fileData);
 
     var mediaFiles = Object.keys(zip.files).filter((fileName) =>
@@ -18,6 +20,7 @@ export default async function getImageFromXLSX(filePath) {
         async (fileName) => await zip.files[fileName].async("nodebuffer")
       )
     );
+
     var base64 = buffer.map((buf) => Buffer.from(buf).toString("base64"));
 
     return base64;
