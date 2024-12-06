@@ -2,18 +2,18 @@ import env from "../env_var.js";
 import { Router } from "express";
 import db from "./services/database/db.js";
 
-const router = Router({ caseSensitive: true, strict: true });
+var router = Router({ caseSensitive: true, strict: true });
 
 router.get("/api/:userId/:orderId", async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const orderId = req.params.orderId;
-    const collection = req.app.locals.collection;
+    var userId = req.params.userId;
+    var orderId = req.params.orderId;
+    var collection = req.app.locals.collection;
 
-    const user = await collection.findOne({ userId });
+    var user = await collection.findOne({ userId });
 
-    const result = user.orders.find((item) => item.order.id === orderId);
-    const status = result.order.orderStatus;
+    var result = user.orders.find((item) => item.order.id === orderId);
+    var status = result.order.orderStatus;
 
     return user ? res.json(status) : res.sendStatus(404);
   } catch (err) {
@@ -24,22 +24,22 @@ router.get("/api/:userId/:orderId", async (req, res) => {
 
 router.patch("/:userId/:orderId/:status", async (req, res) => {
   try {
-    const collection = req.app.locals.collection;
-    const userId = req.params.userId;
-    const orderId = req.params.orderId;
-    const status = req.params.status;
+    var collection = req.app.locals.collection;
+    var userId = req.params.userId;
+    var orderId = req.params.orderId;
+    var status = req.params.status;
 
     let [statusValue, statusId] = status.split(":");
 
     statusId = statusId.split("").reverse()[0];
 
-    const updatedStatus = `${statusValue}:${statusId}`;
+    var updatedStatus = `${statusValue}:${statusId}`;
 
-    const existingDocument = await collection.findOne({ userId });
+    var existingDocument = await collection.findOne({ userId });
 
     if (!existingDocument) return res.sendStatus(404);
 
-    const botResponse = await fetch(env.bot_server_ip, {
+    var botResponse = await fetch(env.bot_server_ip, {
       method: "PATCH",
       headers: {
         Accept: "application/json",

@@ -2,8 +2,8 @@ import { Router } from "express";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
-const router = Router({ caseSensitive: true, strict: true });
-const __dirname = dirname(fileURLToPath(import.meta.url));
+var router = Router({ caseSensitive: true, strict: true });
+var __dirname = dirname(fileURLToPath(import.meta.url));
 
 router.get("/", async (_, res) => {
   try {
@@ -15,8 +15,8 @@ router.get("/", async (_, res) => {
 
 router.get("/api/users", async (req, res) => {
   try {
-    const collection = req.app.locals.collection;
-    const users = await collection.find({}).toArray();
+    var collection = req.app.locals.collection;
+    var users = await collection.find({}).toArray();
 
     return res.json(users);
   } catch {

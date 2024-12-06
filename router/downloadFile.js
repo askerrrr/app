@@ -2,15 +2,15 @@ import { Router } from "express";
 import db from "./services/database/db.js";
 import { access, constants } from "fs/promises";
 
-const router = Router({ caseSensitive: true, strict: true });
+var router = Router({ caseSensitive: true, strict: true });
 
 router.get("/:userId/:orderId", async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const orderId = req.params.orderId;
+    var userId = req.params.userId;
+    var orderId = req.params.orderId;
 
-    const collection = req.app.locals.collection;
-    const filePath = await db.findFilePath(userId, orderId, collection);
+    var collection = req.app.locals.collection;
+    var filePath = await db.findFilePath(userId, orderId, collection);
 
     await access(filePath, constants.F_OK)
       .then(() => res.download(filePath))
@@ -20,7 +20,7 @@ router.get("/:userId/:orderId", async (req, res) => {
       });
   } catch (err) {
     console.log(err);
-    return res.sendStatus(500)
+    return res.sendStatus(500);
   }
 });
 

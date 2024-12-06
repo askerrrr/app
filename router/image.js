@@ -1,15 +1,15 @@
 import { Router } from "express";
 import db from "./services/database/db.js";
 
-const router = Router({ caseSensitive: true, strict: true });
+var router = Router({ caseSensitive: true, strict: true });
 
 router.get("/:userId/:orderId", async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const orderId = req.params.orderId;
-    const collection = req.app.locals.collection;
+    var userId = req.params.userId;
+    var orderId = req.params.orderId;
+    var collection = req.app.locals.collection;
 
-    const filePath = await db.findFilePath(userId, orderId, collection);
+    var filePath = await db.findFilePath(userId, orderId, collection);
 
     res.sendFile(filePath, (err) => {
       if (err) {

@@ -4,26 +4,26 @@ import { Router } from "express";
 import db from "./services/database/db.js";
 import downloadAndSaveFile from "./services/different/downloadAndSaveFile.js";
 
-const router = Router({ caseSensitive: true, strict: true });
+var router = Router({ caseSensitive: true, strict: true });
 
 router.post("/api/users", async (req, res) => {
-  const authHeader = req.headers.authorization;
+  var authHeader = req.headers.authorization;
 
   try {
     if (!authHeader) return res.status(401);
 
-    const token = authHeader.split(" ")[1];
+    var token = authHeader.split(" ")[1];
 
     if (!token) return res.status(401);
 
-    const validToken = JWT.verify(token, env.bot_secret_key);
+    var validToken = JWT.verify(token, env.bot_secret_key);
 
     if (!validToken) return res.sendStatus(401);
 
-    const user = req.body;
-    const collection = req.app.locals.collection;
+    var user = req.body;
+    var collection = req.app.locals.collection;
 
-    const existingDocument = await collection.findOne({
+    var existingDocument = await collection.findOne({
       userId: user.userId,
     });
 
@@ -45,25 +45,25 @@ router.post("/api/users", async (req, res) => {
 
 router.post("/api/order", async (req, res) => {
   try {
-    const authHeader = req.headers.authorization;
+    var authHeader = req.headers.authorization;
 
     if (!authHeader) return res.sendStatus(401);
 
-    const token = authHeader.split(" ")[1];
+    var token = authHeader.split(" ")[1];
 
     if (!token) return res.sendStatus(401);
 
-    const validToken = JWT.verify(token, env.bot_secret_key);
+    var validToken = JWT.verify(token, env.bot_secret_key);
 
     if (!validToken) return res.sendStatus(401);
 
-    const order = req.body;
-    const userId = order.userId;
-    const orderId = order.id;
-    const fileUrl = order.file.telegramApiFileUrl;
-    const collection = req.app.locals.collection;
+    var order = req.body;
+    var userId = order.userId;
+    var orderId = order.id;
+    var fileUrl = order.file.telegramApiFileUrl;
+    var collection = req.app.locals.collection;
 
-    const existingDocument = await collection.findOne({ userId });
+    var existingDocument = await collection.findOne({ userId });
 
     if (!existingDocument) await db.createNewUser(collection, order);
 
@@ -80,27 +80,27 @@ router.post("/api/order", async (req, res) => {
 });
 
 router.get("/api/status/:userId/:orderId", async (req, res) => {
-  const authHeader = req.headers.authorization;
+  var authHeader = req.headers.authorization;
 
   if (!authHeader) return res.sendStatus(401);
 
-  const token = authHeader.split(" ")[1];
+  var token = authHeader.split(" ")[1];
 
   if (!token) return res.sendStatus(401);
 
   try {
-    const validToken = JWT.verify(token, env.bot_secret_key);
+    var validToken = JWT.verify(token, env.bot_secret_key);
 
     if (!validToken) return res.sendStatus(401);
 
-    const userId = req.params.userId;
-    const orderId = req.params.orderId;
-    const collection = req.app.locals.collection;
+    var userId = req.params.userId;
+    var orderId = req.params.orderId;
+    var collection = req.app.locals.collection;
 
-    const user = await collection.findOne({ userId });
+    var user = await collection.findOne({ userId });
 
-    const result = user.orders.find((item) => item.order.id === orderId);
-    const status = result.order.orderStatus;
+    var result = user.orders.find((item) => item.order.id === orderId);
+    var status = result.order.orderStatus;
 
     return user ? res.json({ userId, orderId, status }) : res.sendStatus(404);
   } catch (err) {
