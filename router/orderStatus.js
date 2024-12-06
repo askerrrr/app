@@ -31,14 +31,13 @@ router.patch("/:userId/:orderId/:status", async (req, res) => {
 
     let [statusValue, statusId] = status.split(":");
 
-    statusId = statusId.split("").reverse()[0]
+    statusId = statusId.split("").reverse()[0];
 
     const updatedStatus = `${statusValue}:${statusId}`;
 
     const existingDocument = await collection.findOne({ userId });
 
-    if (!existingDocument)
-      return res.status(404).json({ err: `user ${userId} not found` });
+    if (!existingDocument) return res.sendStatus(404);
 
     const botResponse = await fetch(env.bot_server_ip, {
       method: "PATCH",
@@ -54,17 +53,12 @@ router.patch("/:userId/:orderId/:status", async (req, res) => {
       }),
     });
 
-    if (!botResponse.ok) {
-      const err = await botResponse.text();
-      console.log("botResponse.error", err);
-      return res.sendStatus(500);
-    }
+    if (!botResponse.ok) return res.sendStatus(500);
 
     await db.updateOrderStatus(userId, orderId, updatedStatus, collection);
     return res.sendStatus(200);
   } catch (err) {
-    console.log(err);
-    return res.sendStatus(500);
+    if (err.message === "fetch failed") return res.sendStatus(500);
   }
 });
 

@@ -4,8 +4,8 @@ export default async function formForSetOrderStatus(userId, orderId) {
     .addEventListener("click", async (e) => {
       e.preventDefault();
 
-      var fieldset = document.getElementById(`fieldset-${orderId}`);
       var btn = document.getElementById(`button-${orderId}`);
+      var fieldset = document.getElementById(`fieldset-${orderId}`);
 
       var checkBox = document.querySelector("input[name=order-status]:checked");
 
@@ -32,7 +32,9 @@ export default async function formForSetOrderStatus(userId, orderId) {
 
       if (!response.ok) {
         var err = await response.text();
-        alert(`Ошибка при обновлении статуса: ${err}`);
+        alert(
+          `Ошибка при обновлении статуса. Попробуйте еще раз\n\nОшибка: ${err}`
+        );
 
         fieldset?.remove();
         window.dialog.close();
