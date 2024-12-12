@@ -80,18 +80,18 @@ router.post("/api/order", async (req, res) => {
 });
 
 router.get("/api/status/:userId", async (req, res) => {
-  // var authHeader = req.headers.authorization;
+  var authHeader = req.headers.authorization;
 
-  // if (!authHeader) return res.sendStatus(401);
+  if (!authHeader) return res.sendStatus(401);
 
-  // var token = authHeader.split(" ")[1];
+  var token = authHeader.split(" ")[1];
 
-  // if (!token) return res.sendStatus(401);
+  if (!token) return res.sendStatus(401);
 
   try {
-    // var validToken = JWT.verify(token, env.bot_secret_key);
+    var validToken = JWT.verify(token, env.bot_secret_key);
 
-    //if (!validToken) return res.sendStatus(401);
+    if (!validToken) return res.sendStatus(401);
 
     var userId = req.params.userId;
     var collection = req.app.locals.collection;
