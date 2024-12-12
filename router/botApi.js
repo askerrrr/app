@@ -79,34 +79,68 @@ router.post("/api/order", async (req, res) => {
   }
 });
 
-router.get("/api/status/:userId/:orderId", async (req, res) => {
-  var authHeader = req.headers.authorization;
+router.get("/api/status/:userId", async (req, res) => {
+  // var authHeader = req.headers.authorization;
 
-  if (!authHeader) return res.sendStatus(401);
+  // if (!authHeader) return res.sendStatus(401);
 
-  var token = authHeader.split(" ")[1];
+  // var token = authHeader.split(" ")[1];
 
-  if (!token) return res.sendStatus(401);
+  // if (!token) return res.sendStatus(401);
 
   try {
-    var validToken = JWT.verify(token, env.bot_secret_key);
+    // var validToken = JWT.verify(token, env.bot_secret_key);
 
-    if (!validToken) return res.sendStatus(401);
+    //if (!validToken) return res.sendStatus(401);
 
     var userId = req.params.userId;
-    var orderId = req.params.orderId;
     var collection = req.app.locals.collection;
 
     var user = await collection.findOne({ userId });
+    var arr = [];
+    for (var i = 0; i < user.orders.length; i++) {
+      arr.push({
+        userid: user.userId,
+        orderid: user.orders[i].order.id,
+        status: user.orders[i].order.orderStatus,
+      });
+    }
 
-    var result = user.orders.find((item) => item.order.id === orderId);
-    var status = result.order.orderStatus;
-
-    return user ? res.json({ userId, orderId, status }) : res.sendStatus(404);
+    return user ? res.status(200).json(arr) : res.sendStatus(404);
   } catch (err) {
     console.log(err);
     return res.sendStatus(500);
   }
 });
+
+// router.get("/api/status/:userId/:orderId", async (req, res) => {
+//   var authHeader = req.headers.authorization;
+
+//   if (!authHeader) return res.sendStatus(401);
+
+//   var token = authHeader.split(" ")[1];
+
+//   if (!token) return res.sendStatus(401);
+
+//   try {
+//     var validToken = JWT.verify(token, env.bot_secret_key);
+
+//     if (!validToken) return res.sendStatus(401);
+
+//     var userId = req.params.userId;
+//     var orderId = req.params.orderId;
+//     var collection = req.app.locals.collection;
+
+//     var user = await collection.findOne({ userId });
+
+//     var result = user.orders.find((item) => item.order.id === orderId);
+//     var status = result.order.orderStatus;
+
+//     return user ? res.json({ userId, orderId, status }) : res.sendStatus(404);
+//   } catch (err) {
+//     console.log(err);
+//     return res.sendStatus(500);
+//   }
+// });
 
 export { router as botApi };
