@@ -98,15 +98,26 @@ router.get("/api/status/:userId", async (req, res) => {
 
     var user = await collection.findOne({ userId });
     var arr = [];
+
     for (var i = 0; i < user.orders.length; i++) {
       arr.push({
         userid: user.userId,
+        date: user.orders[i].order.date,
         orderid: user.orders[i].order.id,
+        phone: user.orders[i].order.phone,
         status: user.orders[i].order.orderStatus,
       });
     }
 
-    return user ? res.status(200).json(arr) : res.sendStatus(404);
+    var activeOrders = arr.filter(
+      (order) => order.status !== "order-is-completed:6"
+    );
+    var completedOrders = arr.filter(
+      (order) => order.status === "order-is-completed:6"
+    );
+    return user
+      ? res.status(200).json({ activeOrders, completedOrders })
+      : res.sendStatus(404);
   } catch (err) {
     console.log(err);
     return res.sendStatus(500);
