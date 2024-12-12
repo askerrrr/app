@@ -10,7 +10,6 @@ export default function rowForOrders(data) {
     var orderDate = orders.order.date;
     var status = orders.order.orderStatus;
 
-    console.log(status);
     var tr = document.createElement("tr");
 
     tr.append(
