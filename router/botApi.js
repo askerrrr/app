@@ -99,7 +99,7 @@ router.get("/api/status/:userId", async (req, res) => {
     var user = await collection.findOne({ userId });
     var arr = [];
 
-    for (var i = 0; i < user.orders.length; i++) {
+    for (var i = 0; i < user?.orders.length; i++) {
       arr.push({
         userId: user.userId,
         id: user.orders[i].order.id,
