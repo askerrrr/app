@@ -3,6 +3,8 @@ import createDate from "./services/date.js";
 import renderCurrentOrderStatus from "./services/currentOrdeStatus.js";
 
 export default function rowForOrders(data) {
+  document.title = `Пользователь ${data.userId}`;
+
   data.orders.forEach((orders) => {
     var orderId = orders.order.id;
     var orderDate = orders.order.date;
