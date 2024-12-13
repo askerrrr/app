@@ -5,7 +5,11 @@ import renderCurrentOrderStatus from "./services/currentOrdeStatus.js";
 export default function rowForOrders(data) {
   document.title = `Пользователь ${data.userId}`;
 
-  data.orders.forEach((orders) => {
+  var activeOrders = data.orders.filter(
+    (orders) => orders.order.orderStatus !== "order-is-completed:6"
+  );
+
+  activeOrders.forEach((orders) => {
     var orderId = orders.order.id;
     var orderDate = orders.order.date;
     var status = orders.order.orderStatus;
