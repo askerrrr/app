@@ -18,7 +18,7 @@ async function getOrderList() {
 
     var orders = await response.json();
 
-    return rowForOrders(orders);
+    return await rowForOrders(orders);
   } catch (err) {
     console.log(err);
   }
