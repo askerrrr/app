@@ -1,4 +1,4 @@
-import rowForOrders from "./services/row/rowForOrdersList.js";
+import rowForListOfActiveOrders from "./services/row/rowForListOfActiveOrders.js";
 
 async function getOrderList() {
   try {
@@ -18,7 +18,7 @@ async function getOrderList() {
 
     var orders = await response.json();
 
-    return await rowForOrders(orders);
+    return await rowForListOfActiveOrders(orders);
   } catch (err) {
     console.log(err);
   }

@@ -2,7 +2,7 @@ import createId from "./services/id.js";
 import createDate from "./services/date.js";
 import renderCurrentOrderStatus from "./services/currentOrdeStatus.js";
 
-export default async function rowForOrders(data) {
+export default async function rowForListOfActiveOrders(data) {
   document.title = `Пользователь ${data.userId}`;
 
   var activeOrders = data.orders.filter(
