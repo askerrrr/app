@@ -23,7 +23,7 @@ export default function getOrderInfo(data) {
 
   if (fresh == 0 && active !== 0) td.append(divActive);
   if (fresh == 0 && active == 0) td.append("Нет активных");
-  else td.append(divFresh, br, divActive);
+  if (fresh > 0 && active > 0) td.append(divFresh, br, divActive);
 
   return td;
 }
