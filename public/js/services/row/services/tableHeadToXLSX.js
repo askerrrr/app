@@ -6,7 +6,7 @@ export default function tableHeadToXLSX() {
   var qty = document.createElement("th");
   qty.append("Количество");
   var size = document.createElement("th");
-  size.appen("Размер");
+  size.append("Размер");
 
   var thead = document.createElement("thead");
 
