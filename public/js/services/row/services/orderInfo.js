@@ -7,9 +7,6 @@ export default function getOrderInfo(data) {
     (item) => item.order.orderStatus !== "order-is-completed:6"
   ).length;
 
-  console.log("active", active);
-  console.log("fresh", fresh);
-
   var divFresh = document.createElement("div");
   divFresh.append("Новые: ", fresh);
   divFresh.style.color = "#54ff00";
