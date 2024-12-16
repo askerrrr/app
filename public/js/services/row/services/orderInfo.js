@@ -1,34 +1,29 @@
 export default function getOrderInfo(data) {
-  var numberOfOrders = data.orders.length || 0;
+  var fresh = data.orders.filter(
+    (item) => item.order.orderStatus == "not-accepted-for-processing:0"
+  ).length;
 
-  var numberOfActiveOrders =
-    data.orders.filter(
-      (item) => !item.order.orderStatus.startsWith("order-is-completed")
-    ).length || 0;
+  var active = data.orders.filter(
+    (item) => item.order.orderStatus !== "order-is-completed:6"
+  ).length;
 
-  var numberOfcompletedOrders =
-    data.orders.filter((item) =>
-      item.order.orderStatus.startsWith("order-is-completed")
-    ).length || 0;
+  console.log("active", active);
+  console.log("fresh", fresh);
 
-  var divForNumberOfOrders = document.createElement("div");
-  divForNumberOfOrders.append("Всего: ", numberOfOrders);
+  var divFresh = document.createElement("div");
+  divFresh.append("Новые: ", fresh);
+  divFresh.style.color = "#54ff00";
 
-  var divForNumberOfActiveOrders = document.createElement("div");
-  divForNumberOfActiveOrders.append("Активно: ", numberOfActiveOrders);
-  divForNumberOfActiveOrders.style.color = "green";
-
-  var divForNumberOfCompletedOrders = document.createElement("div");
-  divForNumberOfCompletedOrders.append("Завершено: ", numberOfcompletedOrders);
-  divForNumberOfCompletedOrders.style.color = "red";
+  var divActive = document.createElement("div");
+  divActive.append("Активно: ", active);
+  divActive.style.color = "#54ff00";
 
   var td = document.createElement("td");
+  var br = document.createElement("br");
 
-  td.append(
-    divForNumberOfOrders,
-    divForNumberOfActiveOrders,
-    divForNumberOfCompletedOrders
-  );
+  if (fresh == 0 && active !== 0) td.append(divActive);
+  if (fresh == 0 && active == 0) td.append("Нет активных");
+  if (fresh > 0 && active > 0) td.append(divFresh, br, divActive);
 
   return td;
 }
