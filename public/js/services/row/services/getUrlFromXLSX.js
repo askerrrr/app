@@ -1,7 +1,7 @@
 export default async (url) => {
   var form = document.createElement("form");
-  var button = document.createElement("button");
-  button.textContent = "ссылка";
+  var btn = document.createElement("button");
+  btn.textContent = "ссылка";
 
   var td = document.createElement("td");
   if (url.length === 0) {
@@ -9,7 +9,7 @@ export default async (url) => {
     return td;
   }
 
-  form.append(button);
+  form.append(btn);
   form.action = url;
   form.target = "_blank";
 

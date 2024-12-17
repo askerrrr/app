@@ -1,14 +1,14 @@
 export default function createId(orderId) {
-  var button = document.createElement("button");
-  button.append(orderId);
+  var btn = document.createElement("button");
+  btn.append(orderId);
 
-  var orderLink = document.createElement("form");
+  var form = document.createElement("form");
 
-  orderLink.append(button);
-  orderLink.action = `/orderinfo/orders/order/${orderId}`;
+  form.append(btn);
+  form.action = `/orderinfo/orders/order/${orderId}`;
 
   var td = document.createElement("td");
-  td.append(orderLink);
+  td.append(form);
 
   return td;
 }

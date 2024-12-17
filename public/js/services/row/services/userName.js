@@ -1,6 +1,6 @@
 export default function getUserName(userName) {
-  var tdUserName = document.createElement("td");
-  tdUserName.append(userName);
+  var td = document.createElement("td");
+  td.append(userName);
 
-  return tdUserName;
+  return td;
 }

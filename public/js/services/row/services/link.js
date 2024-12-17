@@ -1,15 +1,15 @@
 export default function getUserId(userId) {
-  var buttontoId = document.createElement("button");
-  buttontoId.append(userId);
+  var btn = document.createElement("button");
+  btn.append(userId);
 
-  var userIdLink = document.createElement("form");
+  var form = document.createElement("form");
 
-  userIdLink.method = "GET";
-  userIdLink.append(buttontoId);
-  userIdLink.action = `/orderinfo/orders/${userId}`;
+  form.method = "GET";
+  form.append(btn);
+  form.action = `/orderinfo/orders/${userId}`;
 
-  var tdTelegramId = document.createElement("td");
-  tdTelegramId.append(userIdLink);
+  var td = document.createElement("td");
+  td.append(form);
 
-  return tdTelegramId;
+  return td;
 }

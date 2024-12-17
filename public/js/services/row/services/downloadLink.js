@@ -1,11 +1,11 @@
 export default function renderDownloadLink(userId, orderId) {
-  var buttonForDownload = document.createElement("button");
-  buttonForDownload.append("Скачать файл");
+  var btn = document.createElement("button");
+  btn.append("Скачать файл");
 
   var form = document.createElement("form");
 
   form.id = orderId;
-  form.append(buttonForDownload);
+  form.append(btn);
   form.action = `/download/${userId}/${orderId}`;
 
   var td = document.createElement("td");

@@ -1,6 +1,6 @@
 export default function getFirstName(firstName) {
-  var tdFirstName = document.createElement("td");
-  tdFirstName.append(firstName);
+  var td = document.createElement("td");
+  td.append(firstName);
 
-  return tdFirstName;
+  return td;
 }

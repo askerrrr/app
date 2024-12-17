@@ -1,11 +1,11 @@
 import deleteUser from "../../../deleteUser.js";
 
 export default async function buttonForDeleteUser(userId) {
-  var button = document.createElement("button");
-  button.type = "submit";
-  button.append("Удалить");
+  var btn = document.createElement("button");
+  btn.type = "submit";
+  btn.append("Удалить");
 
-  button.addEventListener("click", async (e) => {
+  btn.addEventListener("click", async (e) => {
     e.preventDefault();
 
     var tbody = document.getElementById(userId);
@@ -22,7 +22,7 @@ export default async function buttonForDeleteUser(userId) {
 
   var form = document.createElement("form");
   form.action = `/orderinfo/delete/${userId}`;
-  form.append(button);
+  form.append(btn);
 
   var td = document.createElement("td");
   td.append(form);
