@@ -3,7 +3,7 @@ import rowForListOfActiveOrders from "./services/row/rowForListOfActiveOrders.js
 async function getOrderList() {
   try {
     var pathParts = window.location.pathname.split("/");
-    var userId = pathParts[pathParts.length - 1];
+    var userId = pathParts.at(-1);
 
     var response = await fetch(`/orderinfo/api/${userId}`, {
       method: "GET",
