@@ -21,6 +21,12 @@ export default async (filePath) => {
 
     ws.getColumn(4).eachCell((d) => size.push(d.text || ""));
 
+
+    url.shift()
+    qty.shift()
+    size.shift()
+
+    
     var fileData = [];
 
     for (let i = 0; i < url.length; i++) {
@@ -34,6 +40,7 @@ export default async (filePath) => {
 
     return fileData;
   } catch (err) {
+    console.log(err);
     if (err.message === "File not found") console.log(err.message);
     return;
   }
