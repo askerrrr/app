@@ -19,7 +19,9 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
     );
 
     var db = mongodb.db("database");
+    var itemStatus =db.collection('itemStatus')
     var collection = db.collection("users");
+    app.locals.itemStatus = itemStatus
     app.locals.collection = collection;
 
     var adminDB = mongodb.db("admin");
