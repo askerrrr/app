@@ -22,6 +22,7 @@ router.post("/api/users", async (req, res) => {
 
     var user = req.body;
     var collection = req.app.locals.collection;
+    var itemStatus = req.app.locals.itemStatus;
 
     var existingDocument = await collection.findOne({
       userId: user.userId,
@@ -29,6 +30,8 @@ router.post("/api/users", async (req, res) => {
 
     if (!existingDocument) {
       await collection.insertOne(user);
+      await itemStatus.insertOne({ userId: user.userId, orders: [] });
+
       return res.sendStatus(200);
     }
 
