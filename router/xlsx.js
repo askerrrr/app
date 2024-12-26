@@ -2,7 +2,9 @@ import { Router } from "express";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import db from "./services/database/db.js";
+import combineData from "./services/different/combineXlsxData.js";
 import getDataFromXLSX from "./services/different/getDataFromXLSX.js";
+import getImageFromXLSX from "./services/different/getImageFromXLSX.js";
 
 var router = Router();
 var __dirname = dirname(fileURLToPath(import.meta.url));
@@ -26,8 +28,10 @@ router.get("/api/:userId/:orderId", async (req, res) => {
     var filePath = await db.findFilePath(userId, orderId, collection);
 
     var data = await getDataFromXLSX(filePath);
+    var imageData = await getImageFromXLSX(filePath);
+    var combinedData = await combineData(data, imageData);
 
-    return res.json(data);
+    return res.json(combinedData);
   } catch (err) {
     console.log(err);
 

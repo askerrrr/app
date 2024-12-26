@@ -1,11 +1,9 @@
 import Exceljs from "exceljs";
 import getImageFromXLSX from "./getImageFromXLSX.js";
 
-export default async (filePath) => {
+const getDataFromXLSX = async (filePath) => {
   try {
     var wb = new Exceljs.Workbook();
-
-    var imgData = await getImageFromXLSX(filePath);
 
     await wb.xlsx.readFile(filePath);
 
@@ -21,30 +19,19 @@ export default async (filePath) => {
 
     ws.getColumn(4).eachCell((d) => size.push(d.text || ""));
 
+    url.shift();
+    qty.shift();
+    size.shift();
 
-    url.shift()
-    qty.shift()
-    size.shift()
-
-    
-    var fileData = [];
-
-    for (let i = 0; i < url.length; i++) {
-      fileData.push({
-        url: url[i],
-        qty: qty[i],
-        size: size[i],
-        img: imgData[i],
-      });
-    }
-
-    return fileData;
+    return [url, qty, size];
   } catch (err) {
     console.log(err);
     if (err.message === "File not found") console.log(err.message);
     return;
   }
 };
+
+export default getDataFromXLSX;
 
 // import JSZip from "jszip";
 // import { XMLParser } from "fast-xml-parser";
