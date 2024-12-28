@@ -2,6 +2,7 @@ import JWT from "jsonwebtoken";
 import env from "../env_var.js";
 import { Router } from "express";
 import db from "./services/database/db.js";
+import getDataFromXLSX from "./services/different/getDataFromXLSX.js";
 import downloadAndSaveFile from "./services/different/downloadAndSaveFile.js";
 
 var router = Router({ caseSensitive: true, strict: true });
@@ -30,7 +31,7 @@ router.post("/api/users", async (req, res) => {
 
     if (!existingDocument) {
       await collection.insertOne(user);
-      await itemStatus.insertOne({ userId: user.userId, orders: [] });
+      await db.createItemStatusCollection(user, itemStatus);
 
       return res.sendStatus(200);
     }
@@ -65,6 +66,7 @@ router.post("/api/order", async (req, res) => {
     var orderId = order.id;
     var fileUrl = order.file.telegramApiFileUrl;
     var collection = req.app.locals.collection;
+    var itemStatus = req.app.locals.itemStatus;
 
     var existingDocument = await collection.findOne({ userId });
 
@@ -72,6 +74,11 @@ router.post("/api/order", async (req, res) => {
 
     await db.addNewOrder(collection, order);
     await downloadAndSaveFile(userId, orderId, fileUrl, order);
+
+    var filePath = order.file.path;
+    var xlsxData = await getDataFromXLSX(filePath);
+
+    await db.addItems(userId, orderId, xlsxData, itemStatus);
 
     return res.sendStatus(200);
   } catch (err) {

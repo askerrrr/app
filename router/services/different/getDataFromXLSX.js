@@ -1,5 +1,4 @@
 import Exceljs from "exceljs";
-import getImageFromXLSX from "./getImageFromXLSX.js";
 
 const getDataFromXLSX = async (filePath) => {
   try {

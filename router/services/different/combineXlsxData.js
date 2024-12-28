@@ -1,4 +1,4 @@
-const combineData = async (data, image) => {
+const combineData = async (data, image, items) => {
   var [url, qty, size] = data;
   var fileData = [];
 
@@ -8,6 +8,7 @@ const combineData = async (data, image) => {
       qty: qty[i],
       size: size[i],
       img: image[i],
+      item: items[i],
     });
   }
 
