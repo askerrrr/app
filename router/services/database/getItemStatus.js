@@ -4,7 +4,6 @@ export default async (userId, orderId, collection) => {
     "orders.order.id": orderId,
   });
 
-  console.log(existingDocument);
   var items = existingDocument.orders.flatMap((orders) => orders.order.items);
 
   return items;

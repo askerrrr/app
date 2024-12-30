@@ -18,7 +18,7 @@ async function createXLSX() {
     }
 
     var json = await response.json();
-    console.log(json);
+
     return rowForXLSX(json, userId, orderId);
   } catch (err) {
     if (err.message === "Unexpected end of JSON input")
