@@ -19,9 +19,9 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
     );
 
     var db = mongodb.db("database");
-    var itemStatus =db.collection('itemStatus')
+    var itemStatus = db.collection("itemStatus");
     var collection = db.collection("users");
-    app.locals.itemStatus = itemStatus
+    app.locals.itemStatus = itemStatus;
     app.locals.collection = collection;
 
     var adminDB = mongodb.db("admin");
@@ -38,6 +38,7 @@ import { auth } from "./router/auth.js";
 import { image } from "./router/image.js";
 import { botApi } from "./router/botApi.js";
 import { userPath } from "./router/userOrder.js";
+import { itemStatus } from "./router/itemStatus.js";
 import { download } from "./router/downloadFile.js";
 import { orderStatus } from "./router/orderStatus.js";
 
@@ -59,3 +60,4 @@ app.use("/image", image);
 app.use("/download", download);
 app.use("/orderinfo", userPath);
 app.use("/status", orderStatus);
+app.use("/itemstatus", itemStatus);
