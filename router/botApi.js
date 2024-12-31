@@ -71,7 +71,7 @@ router.post("/api/order", async (req, res) => {
     var existingDocument = await collection.findOne({ userId });
 
     if (!existingDocument) {
-      await db.createNewUser(collection, order);
+      await db.createNewUser(order, collection);
       await db.createItemStatusCollection(order, itemStatus);
     }
 
