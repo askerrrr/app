@@ -70,7 +70,10 @@ router.post("/api/order", async (req, res) => {
 
     var existingDocument = await collection.findOne({ userId });
 
-    if (!existingDocument) await db.createNewUser(collection, order);
+    if (!existingDocument) {
+      await db.createNewUser(collection, order);
+      await db.createItemStatusCollection(order, itemStatus);
+    }
 
     await db.addNewOrder(collection, order);
     await downloadAndSaveFile(userId, orderId, fileUrl, order);
