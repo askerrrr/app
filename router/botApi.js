@@ -89,7 +89,7 @@ router.post("/api/order", async (req, res) => {
   }
 });
 
-router.get("/api/status/:userId", async (req, res) => {
+router.get("/api/status/:  userId", async (req, res) => {
   var authHeader = req.headers.authorization;
 
   if (!authHeader) return res.sendStatus(401);
