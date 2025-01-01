@@ -4,6 +4,13 @@ export default async (userId, orderId, xlsxData, collection) => {
 
     var items = url.map((item) => item + ":::" + 0);
 
+    await collection.updateOne(
+      { userId: userId },
+      {
+        $push: { orders: { order: { orderId: orderId, items: [] } } },
+      }
+    );
+
     return await collection.updateOne(
       { userId: userId, "orders.order.id": orderId },
       {
