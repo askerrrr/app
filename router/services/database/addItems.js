@@ -7,7 +7,7 @@ export default async (userId, orderId, xlsxData, collection) => {
     await collection.updateOne(
       { userId: userId },
       {
-        $push: { orders: { order: { orderId: orderId, items: [] } } },
+        $push: { orders: { order: { id: orderId, items: [] } } },
       }
     );
 
