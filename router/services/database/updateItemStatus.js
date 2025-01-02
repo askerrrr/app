@@ -1,19 +1,19 @@
-export default async (userId, orderId, urls, collection) => {
+export default async (userId, orderId, newItem, collection) => {
   var existingDocument = await collection.findOne({
     userId,
     "orders.order.id": orderId,
   });
 
-  var items = existingDocument.orders.flatMap((orders) => orders.order.items);
+  var items = existingDocument.orders
+    .filter((orders) => orders.order.id == "626027897400")
+    .map((order) => order.order.items)
+    .flat();
 
-  var item = items.find((item) => item.startsWith(urls));
+  var value = newItem.split(":::")[0];
+  var item = items.find((elem) => elem.startsWith(value));
   var itemIndex = items.indexOf(item);
 
-  var [value, status] = item.split(":::");
-
-  var updatedItem = value + ":::" + 1;
-
-  items[itemIndex] = updatedItem;
+  items[itemIndex] = newItem;
 
   return await collection.updateOne(
     { userId, "orders.order.id": orderId },

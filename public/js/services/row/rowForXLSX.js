@@ -1,6 +1,6 @@
 import backToOrder from "./services/backToOrder.js";
-import getUrlFromXLSX from "./services/getUrlFromXLSX.js";
 import getItemStatus from "./services/getItemStatus.js";
+import getUrlFromXLSX from "./services/getUrlFromXLSX.js";
 import tableHeadToXLSX from "./services/tableHeadToXLSX.js";
 import getSizeFromXLSX from "./services/getSizeFromXLSX.js";
 import getImageFromXLSX from "./services/getImageFromXLSX.js";
@@ -16,7 +16,7 @@ export default async function rowForXLSX(sheetData, userId, orderId) {
     var url = await getUrlFromXLSX(item.url);
     var qty = await getQuantityFromXLSX(item.qty);
     var size = await getSizeFromXLSX(item.size);
-    var itemStatus = await getItemStatus(item.item);
+    var itemStatus = await getItemStatus(userId, orderId, item.item);
 
     var tr = document.createElement("tr");
     tr.append(img, url, qty, size, itemStatus);
@@ -24,7 +24,6 @@ export default async function rowForXLSX(sheetData, userId, orderId) {
     tbody.append(tr);
     return tbody;
   });
-
   table.append(thead, tbody);
 
   var body = document.getElementById("body");
@@ -33,10 +32,3 @@ export default async function rowForXLSX(sheetData, userId, orderId) {
 
   return body;
 }
-
-function foo() {
-  var a = document.getElementsByName("item-status");
-  console.log(...a);
-}
-
-foo();
