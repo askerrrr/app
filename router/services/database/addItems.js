@@ -5,9 +5,9 @@ export default async (userId, orderId, xlsxData, collection) => {
     var items = url.map((item, index) => {
       {
         if (item?.startsWith("http")) {
-          item.split("://")[1] + ":::" + 0;
+          return item.split("://")[1] + ":::" + 0;
         } else {
-          "неопознанная ссылка" + index + ":::" + 0;
+          return "неопознанная ссылка" + index + ":::" + 0;
         }
       }
     });
