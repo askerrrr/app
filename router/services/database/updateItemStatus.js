@@ -5,7 +5,7 @@ export default async (userId, orderId, newItem, collection) => {
   });
 
   var items = existingDocument.orders
-    .filter((orders) => orders.order.id == "626027897400")
+    .filter((orders) => orders.order.id == orderId)
     .map((order) => order.order.items)
     .flat();
 
