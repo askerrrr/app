@@ -2,9 +2,15 @@ export default async (userId, orderId, xlsxData, collection) => {
   try {
     var url = xlsxData[0];
 
-    var items = url.map((item) =>
-      item?.startsWith("http") ? item + ":::" + 0 : item + ":::" + 0
-    );
+    var items = url.map((item, index) => {
+      {
+        if (item?.startsWith("http")) {
+          item.split("://")[1] + ":::" + 0;
+        } else {
+          "неопознанная ссылка" + index + ":::" + 0;
+        }
+      }
+    });
 
     await collection.updateOne(
       { userId: userId },
