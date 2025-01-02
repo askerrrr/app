@@ -2,6 +2,13 @@ export default async (userId, orderId, xlsxData, collection) => {
   try {
     var url = xlsxData[0];
 
+    await collection.updateOne(
+      { userId: userId },
+      {
+        $push: { orders: { order: { id: orderId, items: [] } } },
+      }
+    );
+
     var items = url.map((item, index) => {
       {
         if (item?.startsWith("http")) {
@@ -12,12 +19,7 @@ export default async (userId, orderId, xlsxData, collection) => {
       }
     });
 
-    await collection.updateOne(
-      { userId: userId },
-      {
-        $push: { orders: { order: { id: orderId, items: [] } } },
-      }
-    );
+    console.log("items: ", items);
 
     return await collection.updateOne(
       { userId: userId, "orders.order.id": orderId },
