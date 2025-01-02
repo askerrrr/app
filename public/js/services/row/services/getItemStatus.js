@@ -1,11 +1,13 @@
-const sendItemStatus = async (url) => {
-  var response = await fetch(url, {
+const sendItemStatus = async (userId, orderId, item) => {
+  var response = await fetch("/itemstatus", {
     method: "PATCH",
+    body: JSON.stringify({ userId, orderId, item }),
     headers: { "Content-Type": "application/json" },
   });
 
   if (!response.ok) {
     var err = await response.text();
+    alert("Ошибка при обновлении статуса: " + err);
     console.log("sendItemStatusErr: ", err);
     return;
   }
@@ -28,14 +30,17 @@ export default async (userId, orderId, items) => {
   checkbox.addEventListener("change", async (e) => {
     e.preventDefault();
 
-    var url = "/itemstatus" + "/" + userId + "/" + orderId + "/";
+    var orderStatus = await getOrderStatus(userId, orderId);
+
+    // if (orderStatus < 3) {
+    //   alert("text");
+    //   return;
+    // }
 
     if (checkbox.checked) {
-      url = url + value + ":::" + 1;
-      await sendItemStatus(url);
+      await sendItemStatus(userId, orderId, value + ":::" + 1);
     } else {
-      url = url + value + ":::" + 0;
-      await sendItemStatus(url);
+      await sendItemStatus(userId, orderId, value + ":::" + 0);
     }
   });
 
@@ -43,4 +48,18 @@ export default async (userId, orderId, items) => {
   td.append(checkbox);
 
   return td;
+};
+
+const getOrderStatus = async (userId, orderId) => {
+  var response = await fetch("/itemstatus" + "/" + userId + "/" + orderId);
+
+  if (!response.ok) {
+    var err = await response.text();
+    console.log("sendItemStatusErr: ", err);
+    return;
+  }
+
+  var json = await response.json();
+
+  return json.split(":")[1];
 };

@@ -8,7 +8,7 @@ export default function tableHeadToXLSX() {
   var size = document.createElement("th");
   size.append("Размер");
   var itemStatus = document.createElement("th");
-  itemStatus.append("Статус");
+  itemStatus.append("Статус выкупа");
 
   var thead = document.createElement("thead");
 
