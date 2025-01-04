@@ -9,10 +9,14 @@ export default function tableHeadToXLSX() {
   size.append("Размер");
   var itemStatus = document.createElement("th");
   itemStatus.append("Статус выкупа");
+  var priceOfEach = document.createElement("th");
+  priceOfEach.append("Цена");
+  var totalSum = document.createElement("th");
+  totalSum.append("Всего");
 
   var thead = document.createElement("thead");
 
-  thead.append(img, url, qty, size, itemStatus);
+  thead.append(img, url, qty, size, priceOfEach, totalSum, itemStatus);
 
   return thead;
 }

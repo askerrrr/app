@@ -11,6 +11,8 @@ const getDataFromXLSX = async (filePath) => {
     var url = [];
     var qty = [];
     var size = [];
+    var totalSum = [];
+    var priceOfEach = [];
 
     ws.getColumn(2).eachCell((b) => url.push(b.text || ""));
 
@@ -18,11 +20,17 @@ const getDataFromXLSX = async (filePath) => {
 
     ws.getColumn(4).eachCell((d) => size.push(d.text || ""));
 
+    ws.getColumn(5).eachCell((e) => priceOfEach.push(e.text || 0));
+
+    ws.getColumn(7).eachCell((g) => totalSum.push(g.text || 0));
+
     url.shift();
     qty.shift();
     size.shift();
+    totalSum = totalSum.slice(0, 1);
+    priceOfEach.shift();
 
-    return [url, qty, size];
+    return [url, qty, size, totalSum, priceOfEach];
   } catch (err) {
     console.log(err);
     if (err.message === "File not found") console.log(err.message);
