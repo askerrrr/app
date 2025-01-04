@@ -12,7 +12,7 @@ export default async function rowForXLSX(sheetData, userId, orderId) {
   var thead = tableHeadToXLSX();
   var tbody = document.createElement("tbody");
   var table = document.createElement("table");
-  console.log(sheetData);
+
   sheetData.forEach(async (item) => {
     var img = await getImageFromXLSX(item.img);
     var url = await getUrlFromXLSX(item.url);

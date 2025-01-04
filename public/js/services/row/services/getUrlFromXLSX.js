@@ -1,19 +1,25 @@
 export default async (url) => {
-  var form = document.createElement("form");
   var btn = document.createElement("button");
   btn.textContent = "ссылка";
 
   var td = document.createElement("td");
-  if (url.length === 0) {
+  if (!url?.length) {
     td.append("Пусто");
     return td;
   }
 
-  form.append(btn);
-  form.action = url;
-  form.target = "_blank";
+  var a = document.createElement("a");
+  a.href = url;
+  a.target = "_blank";
+  a.append(btn);
 
-  td.append(form);
+  var td = document.createElement("td");
+  if (!url?.length) {
+    td.append("Пусто");
+    return td;
+  }
+
+  td.append(a);
 
   return td;
 };
