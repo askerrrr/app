@@ -13,10 +13,24 @@ export default function tableHeadToXLSX() {
   priceOfEach.append("Цена");
   var totalSum = document.createElement("th");
   totalSum.append("Всего");
+  var itemId = document.createElement("th");
+  itemId.append("ID предмета");
+  var editItemId = document.createElement("th");
+  editItemId.append("Редактировать ID предмета");
 
   var thead = document.createElement("thead");
 
-  thead.append(img, url, qty, size, priceOfEach, totalSum, itemStatus);
+  thead.append(
+    img,
+    url,
+    qty,
+    size,
+    priceOfEach,
+    totalSum,
+    itemStatus,
+    itemId,
+    editItemId
+  );
 
   return thead;
 }
