@@ -15,7 +15,7 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
   try {
     await mongodb.connect();
     app.listen(env.PORT, env.HOST, () =>
-      console.log("The server is running...")
+      console.log(`The server is running on ${env.HOST}:${env.PORT}`)
     );
 
     var db = mongodb.db("database");
