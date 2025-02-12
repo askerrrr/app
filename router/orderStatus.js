@@ -33,7 +33,7 @@ router.patch("/:userId/:orderId/:status", async (req, res) => {
 
     statusId = statusId.split("").reverse()[0];
 
-    var updatedStatus = `${statusValue}:${statusId}`;
+    var orderStatus = `${statusValue}:${statusId}`;
 
     var existingDocument = await collection.findOne({ userId });
 
@@ -49,13 +49,13 @@ router.patch("/:userId/:orderId/:status", async (req, res) => {
       body: JSON.stringify({
         userId,
         orderId,
-        updatedStatus,
+        orderStatus,
       }),
     });
 
     if (!botResponse.ok) return res.sendStatus(500);
 
-    await db.updateOrderStatus(userId, orderId, updatedStatus, collection);
+    await db.updateOrderStatus(userId, orderId, orderStatus, collection);
     return res.sendStatus(200);
   } catch (err) {
     if (err.message === "fetch failed") return res.sendStatus(500);
