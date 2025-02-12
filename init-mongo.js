@@ -8,3 +8,10 @@ db.createUser({
   pwd: process.env.MONGO_PASSWORD,
   roles: ["userAdminAnyDatabase", "dbAdminAnyDatabase", "readWriteAnyDatabase"],
 });
+
+db.createCollection("adminData");
+
+db.adminData.insertOne({
+  login: process.env.HASH_LOGIN,
+  passwd: process.env.HASH_PASSWD,
+});
