@@ -27,7 +27,7 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
     var adminDB = mongodb.db("admin");
     var adminCollection = adminDB.collection("adminData");
     app.locals.adminCollection = adminCollection;
-  } catch (err) {
+  } catch (err) {-
     console.log(err);
   }
 })();

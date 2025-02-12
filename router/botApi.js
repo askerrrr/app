@@ -115,7 +115,7 @@ router.get("/api/status/:userId", async (req, res) => {
     for (var i = 0; i < user?.orders.length; i++) {
       arr.push({
         userId: user.userId,
-        id: user.orders[i].order.id,
+        id: user.orders[i].order.orderId,
         date: user.orders[i].order.date,
         phone: user.orders[i].order.phone,
         orderStatus: user.orders[i].order.orderStatus,
