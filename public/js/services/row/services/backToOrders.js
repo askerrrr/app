@@ -1,4 +1,4 @@
-export default function backToOrders(userId) {
+export default async (userId) => {
   var btn = document.createElement("button");
   btn.append("Назад");
 
@@ -9,4 +9,4 @@ export default function backToOrders(userId) {
   form.action = `/orderinfo/orders/${userId}`;
 
   return form;
-}
+};
