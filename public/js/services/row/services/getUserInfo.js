@@ -1,4 +1,4 @@
-export default async (userId, orderId) => {
+export default async (userId) => {
   var userInfo = document.createElement("div");
   userInfo.id = "user-info";
 

@@ -42,7 +42,7 @@ export default async function rowForMultiple(orders) {
   await closePopUp(orderId);
   await formForSetOrderStatus(userId, orderId);
 
-  var userInfo = await getUserInfo(userId, orderId);
+  var userInfo = await getUserInfo(userId);
   var buttonForbackToOrders = await backToOrders(userId);
 
   var openPopUp = await formForOpenPopUp(userId, orderId);
