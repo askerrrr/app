@@ -1,4 +1,4 @@
-import env from "../env_var.js";
+import env from "../src/env_var.js";
 import { Router } from "express";
 import db from "./services/database/db.js";
 

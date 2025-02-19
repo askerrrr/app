@@ -1,5 +1,5 @@
 import JWT from "jsonwebtoken";
-import env from "../env_var.js";
+import env from "../src/env_var.js";
 import { Router } from "express";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";

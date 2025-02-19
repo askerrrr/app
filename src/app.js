@@ -5,7 +5,7 @@ import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { MongoClient } from "mongodb";
 import cookieParser from "cookie-parser";
-import verifyToken from "./router/services/different/verifyToken.js";
+import verifyToken from "../router/services/different/verifyToken.js";
 
 var app = express();
 var mongodb = new MongoClient(env.mongo_url);
@@ -27,21 +27,21 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
     var adminDB = mongodb.db("admin");
     var adminCollection = adminDB.collection("adminData");
     app.locals.adminCollection = adminCollection;
-  } catch (err) {-
-    console.log(err);
+  } catch (err) {
+    -console.log(err);
   }
 })();
 
-import { home } from "./router/home.js";
-import { xlsx } from "./router/xlsx.js";
-import { auth } from "./router/auth.js";
-import { image } from "./router/image.js";
-import { itemId } from "./router/itemId.js";
-import { botApi } from "./router/botApi.js";
-import { userPath } from "./router/userOrder.js";
-import { itemStatus } from "./router/itemStatus.js";
-import { download } from "./router/downloadFile.js";
-import { orderStatus } from "./router/orderStatus.js";
+import { home } from "../router/home.js";
+import { xlsx } from "../router/xlsx.js";
+import { auth } from "../router/auth.js";
+import { image } from "../router/image.js";
+import { itemId } from "../router/itemId.js";
+import { botApi } from "../router/botApi.js";
+import { userPath } from "../router/userOrder.js";
+import { itemStatus } from "../router/itemStatus.js";
+import { download } from "../router/downloadFile.js";
+import { orderStatus } from "../router/orderStatus.js";
 
 app.use(
   helmet.contentSecurityPolicy({
