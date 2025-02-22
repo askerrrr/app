@@ -7,12 +7,12 @@ export default async function downloadAndSaveFile(userId, fileId, url, order) {
   try {
     var userDir = await makeUserDir(userId);
 
-    var docsPath = join(userDir[0], `${fileId}.xlsx`);
-    var imagesPath = join(userDir[1], `${fileId}.jpg`);
+    var docsPath = join(userDir[0], fileId + ".xlsx");
+    var imagesPath = join(userDir[1], fileId + ".jpg");
 
     var dataStream = await getFileData(url);
 
-    return order?.type
+    return order.type == "single"
       ? await writeFile(imagesPath, dataStream)
       : await writeFile(docsPath, dataStream);
   } catch (err) {

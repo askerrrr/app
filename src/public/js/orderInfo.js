@@ -6,7 +6,7 @@ async function getOrderInfo() {
     var pathParts = window.location.pathname.split("/");
     var userId = pathParts.at(-1);
 
-    var response = await fetch(`/orderinfo/api/order/${userId}`, {
+    var response = await fetch("/orderinfo/api/order/" + userId, {
       method: "GET",
       headers: { Accept: "application/json" },
     });
@@ -19,7 +19,7 @@ async function getOrderInfo() {
 
     var orders = await response.json();
 
-    return orders.order?.type
+    return orders.order.type == "single"
       ? await rowForSingle(orders)
       : await rowForMultiple(orders);
   } catch (err) {
