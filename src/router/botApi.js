@@ -4,6 +4,7 @@ import { Router } from "express";
 import db from "../database/db.js";
 import getDataFromXLSX from "./services/getDataFromXLSX.js";
 import downloadAndSaveFile from "./services/downloadAndSaveFile.js";
+import getOrderDetailsForBot from "./services/getOrderDetailsForBot.js";
 
 var router = Router({ caseSensitive: true, strict: true });
 
@@ -78,10 +79,11 @@ router.post("/api/order", async (req, res) => {
     await db.addNewOrder(collection, order);
     await downloadAndSaveFile(userId, orderId, fileUrl, order);
 
-    var filePath = order.file.path;
-    var xlsxData = await getDataFromXLSX(filePath);
-
-    await db.addItems(userId, orderId, xlsxData, itemStatus);
+    if (order.type == "multiple") {
+      var filePath = order.file.path;
+      var xlsxData = await getDataFromXLSX(filePath);
+      await db.addItems(userId, orderId, xlsxData, itemStatus);
+    }
 
     return res.sendStatus(200);
   } catch (err) {
@@ -109,26 +111,16 @@ router.get("/api/status/:userId", async (req, res) => {
     var userId = req.params.userId;
     var collection = req.app.locals.collection;
 
-    var user = await collection.findOne({ userId });
-    var arr = [];
+    var orders = await collection.findOne({ userId });
+    var orderDetailsForBot = await getOrderDetailsForBot(orders);
 
-    for (var i = 0; i < user?.orders.length; i++) {
-      arr.push({
-        userId: user.userId,
-        id: user.orders[i].order.orderId,
-        date: user.orders[i].order.date,
-        phone: user.orders[i].order.phone,
-        orderStatus: user.orders[i].order.orderStatus,
-      });
-    }
-
-    var activeOrders = arr.filter(
+    var activeOrders = orderDetailsForBot.filter(
       (order) => order.status !== "order-is-completed:6"
     );
-    var completedOrders = arr.filter(
+    var completedOrders = orderDetailsForBot.filter(
       (order) => order.status === "order-is-completed:6"
     );
-    return user
+    return orders
       ? res.status(200).json({ activeOrders, completedOrders })
       : res.sendStatus(404);
   } catch (err) {
