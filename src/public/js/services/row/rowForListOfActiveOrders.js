@@ -3,7 +3,7 @@ import createDate from "./services/date.js";
 import renderCurrentOrderStatus from "./services/currentOrdeStatus.js";
 
 export default async function rowForListOfActiveOrders(data) {
-  document.title = `Пользователь ${data.userId}`;
+  document.title = "Список заказов пользователя " + data.userId;
   var tbody = document.createElement("tbody");
   var table = document.getElementById("active");
 
