@@ -1,10 +1,10 @@
 import { Router } from "express";
+import db from "../database/db.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import db from "./services/database/db.js";
-import combineData from "./services/different/combineXlsxData.js";
-import getDataFromXLSX from "./services/different/getDataFromXLSX.js";
-import getImageFromXLSX from "./services/different/getImageFromXLSX.js";
+import combineData from "./services/combineXlsxData.js";
+import getDataFromXLSX from "./services/getDataFromXLSX.js";
+import getImageFromXLSX from "./services/getImageFromXLSX.js";
 
 var router = Router();
 var __dirname = dirname(fileURLToPath(import.meta.url));

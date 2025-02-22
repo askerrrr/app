@@ -1,4 +1,4 @@
-export default async function getFileData(url) {
+var getFileData = async (url) => {
   var response = await fetch(url);
 
   if (!response.ok) {
@@ -8,4 +8,6 @@ export default async function getFileData(url) {
   }
 
   return response.body;
-}
+};
+
+export default getFileData;

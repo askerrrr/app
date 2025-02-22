@@ -1,6 +1,6 @@
 import env from "../env_var.js";
 import { Router } from "express";
-import db from "./services/database/db.js";
+import db from "../database/db.js";
 
 var router = Router({ caseSensitive: true, strict: true });
 

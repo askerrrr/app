@@ -1,10 +1,10 @@
 import env from "../env_var.js";
+import db from "../database/db.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";
-import db from "./services/database/db.js";
-import deleteUserDir from "./services/different/deleteUserDir.js";
-import deleteOrderFile from "./services/different/deleteOrderFile.js";
+import deleteUserDir from "./services/deleteUserDir.js";
+import deleteOrderFile from "./services/deleteOrderFile.js";
 
 var router = Router({ caseSensitive: true, strict: true });
 var __dirname = dirname(fileURLToPath(import.meta.url));

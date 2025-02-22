@@ -5,7 +5,7 @@ import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { MongoClient } from "mongodb";
 import cookieParser from "cookie-parser";
-import verifyToken from "./router/services/different/verifyToken.js";
+import verifyToken from "./router/services/verifyToken.js";
 
 var app = express();
 var mongodb = new MongoClient(env.mongo_url);

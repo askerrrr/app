@@ -1,9 +1,9 @@
 import JWT from "jsonwebtoken";
 import env from "../env_var.js";
 import { Router } from "express";
-import db from "./services/database/db.js";
-import getDataFromXLSX from "./services/different/getDataFromXLSX.js";
-import downloadAndSaveFile from "./services/different/downloadAndSaveFile.js";
+import db from "../database/db.js";
+import getDataFromXLSX from "./services/getDataFromXLSX.js";
+import downloadAndSaveFile from "./services/downloadAndSaveFile.js";
 
 var router = Router({ caseSensitive: true, strict: true });
 
