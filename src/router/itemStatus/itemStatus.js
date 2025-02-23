@@ -26,7 +26,7 @@ router.patch("/", async (req, res) => {
       orderId,
       ordersCollection
     );
-    console.log(currentOrderStatus);
+
     if (currentOrderStatus == "in-processing:1") {
       await db.updateOrderStatus(
         userId,

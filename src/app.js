@@ -28,7 +28,7 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
     var adminCollection = adminDB.collection("adminData");
     app.locals.adminCollection = adminCollection;
   } catch (err) {
-    -console.log(err);
+    console.log(err);
   }
 })();
 
