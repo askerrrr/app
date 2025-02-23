@@ -1,6 +1,7 @@
 import env from "../env_var.js";
 import { Router } from "express";
 import db from "../database/db.js";
+import sendOrderStatusUpdate from "./services/sendOrderStatusUpdate.js";
 
 var router = Router({ caseSensitive: true, strict: true });
 
@@ -39,21 +40,13 @@ router.patch("/:userId/:orderId/:status", async (req, res) => {
 
     if (!existingDocument) return res.sendStatus(404);
 
-    var botResponse = await fetch(env.bot_server_ip, {
-      method: "PATCH",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${env.bearer_token}`,
-      },
-      body: JSON.stringify({
-        userId,
-        orderId,
-        orderStatus,
-      }),
-    });
+    var isStatusUpdated = await sendOrderStatusUpdate(
+      userId,
+      orderId,
+      orderStatus
+    );
 
-    if (!botResponse.ok) return res.sendStatus(500);
+    if (!isStatusUpdated) return;
 
     await db.updateOrderStatus(userId, orderId, orderStatus, collection);
     return res.sendStatus(200);
