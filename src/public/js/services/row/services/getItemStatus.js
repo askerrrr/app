@@ -38,7 +38,7 @@ export default async (userId, orderId, items) => {
     // }
 
     if (checkbox.checked) {
-      await sendItemStatus(userId, orderId, value + ":::" + 1);
+      await sendItemStatus(userId, orderId, value + ":::" + 2);
     } else {
       await sendItemStatus(userId, orderId, value + ":::" + 0);
     }
