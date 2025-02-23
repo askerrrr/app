@@ -1,5 +1,5 @@
-import env from "../env_var.js";
-import db from "../database/db.js";
+import env from "../../env_var.js";
+import db from "../../database/db.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Router, json } from "express";

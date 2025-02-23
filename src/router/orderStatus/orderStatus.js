@@ -1,6 +1,6 @@
 import { Router } from "express";
-import db from "../database/db.js";
-import sendOrderStatusUpdate from "./services/sendOrderStatusUpdate.js";
+import db from "../../database/db.js";
+import sendOrderStatusUpdate from "../itemStatus/services/sendOrderStatusUpdate.js";
 
 var router = Router({ caseSensitive: true, strict: true });
 
@@ -60,7 +60,7 @@ export { router as orderStatus };
 //           'detail.m.1688.com/page/index.htm?offerId=724363443765:::0',
 //           'detail.m.1688.com/page/index.htm?offerId=846715624233:::0'
 //         ],
-//         itemId: [] 
+//         itemId: []
 //       }
 //     }
 //   ]

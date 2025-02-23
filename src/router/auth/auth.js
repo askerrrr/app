@@ -1,9 +1,9 @@
 import JWT from "jsonwebtoken";
-import env from "../env_var.js";
+import env from "../../env_var.js";
 import { Router } from "express";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import verifyFormData from "./services/verifyFormData.js";
+import verifyFormData from "./service/verifyFormData.js";
 
 var __dirname = dirname(fileURLToPath(import.meta.url));
 var router = Router({ caseSensitive: true, strict: true });

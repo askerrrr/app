@@ -1,4 +1,4 @@
-import env from "../../env_var.js";
+import env from "../../../env_var.js";
 
 var sendOrderStatusUpdate = async (userId, orderId, orderStatus) => {
   var response = await fetch(env.bot_server_ip, {

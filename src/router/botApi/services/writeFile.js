@@ -1,6 +1,6 @@
 import { open } from "fs/promises";
 
-export default async function writeFile(path, data) {
+var writeFile = async (path, data) => {
   let fileHandle;
 
   try {
@@ -22,4 +22,5 @@ export default async function writeFile(path, data) {
   } finally {
     await fileHandle?.close();
   }
-}
+};
+export default writeFile;

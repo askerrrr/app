@@ -1,4 +1,4 @@
-export default async (userId, orderId, collection) => {
+var getItemStatus = async (userId, orderId, collection) => {
   var existingDocument = await collection.findOne({
     userId,
     "orders.order.id": orderId,
@@ -8,3 +8,4 @@ export default async (userId, orderId, collection) => {
 
   return items;
 };
+export default getItemStatus;

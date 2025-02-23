@@ -1,5 +1,5 @@
 import { rm } from "fs/promises";
-import db from "../../database/db.js";
+import db from "../../../database/db.js";
 
 export default async function deleteOrderFile(userId, fileId, collection) {
   try {

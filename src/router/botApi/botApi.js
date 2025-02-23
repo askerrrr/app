@@ -1,8 +1,8 @@
 import JWT from "jsonwebtoken";
-import env from "../env_var.js";
 import { Router } from "express";
-import db from "../database/db.js";
-import getDataFromXLSX from "./services/getDataFromXLSX.js";
+import env from "../../env_var.js";
+import db from "../../database/db.js";
+import getDataFromXLSX from "../xlsx/services/getDataFromXLSX.js";
 import downloadAndSaveFile from "./services/downloadAndSaveFile.js";
 import getOrderDetailsForBot from "./services/getOrderDetailsForBot.js";
 

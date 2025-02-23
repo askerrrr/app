@@ -1,6 +1,6 @@
 import argon2 from "argon2";
 
-export default async function verifyFormData(login, passwd, collection) {
+var verifyFormData = async (login, passwd, collection) => {
   try {
     var data = await collection.findOne();
     var loginHash = data.login;
@@ -13,4 +13,5 @@ export default async function verifyFormData(login, passwd, collection) {
   } catch (err) {
     console.log(err);
   }
-}
+};
+export default verifyFormData;

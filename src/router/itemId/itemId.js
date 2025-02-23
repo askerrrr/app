@@ -1,5 +1,5 @@
 import { Router } from "express";
-import db from "../database/db.js";
+import db from "../../database/db.js";
 
 var router = Router({ caseSensitive: true, strict: true });
 

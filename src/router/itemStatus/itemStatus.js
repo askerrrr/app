@@ -1,5 +1,5 @@
 import { Router } from "express";
-import db from "../database/db.js";
+import db from "../../database/db.js";
 import allItemsArePurchased from "./services/allItemsArePurchased.js";
 import sendOrderStatusUpdate from "./services/sendOrderStatusUpdate.js";
 

@@ -1,7 +1,7 @@
 import JWT from "jsonwebtoken";
 import env from "../../env_var.js";
 
-export default async function verifyToken(req, res, next) {
+var verifyToken = async (req, res, next) => {
   try {
     var token = req.cookies?.token;
 
@@ -15,4 +15,5 @@ export default async function verifyToken(req, res, next) {
     res.clearCookie("token");
     return res.redirect("/auth/login");
   }
-}
+};
+export default verifyToken;

@@ -1,6 +1,6 @@
 import Exceljs from "exceljs";
 
-const getDataFromXLSX = async (filePath) => {
+var getDataFromXLSX = async (filePath) => {
   try {
     var wb = new Exceljs.Workbook();
 

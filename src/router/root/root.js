@@ -24,4 +24,4 @@ router.get("/api/users", async (req, res) => {
   }
 });
 
-export { router as home };
+export { router as root };
