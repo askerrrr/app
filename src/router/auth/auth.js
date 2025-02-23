@@ -22,7 +22,7 @@ router.post("/login/check", async (req, res) => {
     var validFormData = await verifyFormData(login, passwd, collection);
 
     if (validFormData) {
-      var token = JWT.sign(user, env.secretKey, { expiresIn: "30m" });
+      var token = JWT.sign(user, env.secretKey, { expiresIn: "60m" });
 
       return res
         .cookie("token", token, {

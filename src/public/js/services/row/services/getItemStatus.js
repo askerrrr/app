@@ -7,8 +7,8 @@ const sendItemStatus = async (userId, orderId, item) => {
 
   if (!response.ok) {
     var err = await response.text();
-    alert("Ошибка при обновлении статуса: " + err);
-    console.log("sendItemStatusErr: ", err);
+    alert("Ошибка при обновлении статуса предмета: " + err);
+    console.log("Ошибка при обновлении статуса предмета: ", err);
     return;
   }
 };
@@ -27,20 +27,25 @@ var getItemStatus = async (userId, orderId, items) => {
     checkbox.checked = true;
   }
 
+  checkbox.addEventListener("click", async (e) => {
+    e.preventDefault();
+    var orderStatus = await getCurrentOrderStatus(userId, orderId);
+
+    if (orderStatus !== "in-processing:1") {
+      alert(
+        "Статус выкупа предмета можно изменить только после взятия заказа в обработку"
+      );
+      return;
+    }
+  });
+
   checkbox.addEventListener("change", async (e) => {
     e.preventDefault();
 
-    var orderStatus = await getCurrentOrderStatus(userId, orderId);
-
-    if (orderStatus == "not-accepted-for-processing:0") {
-      alert("Нельзя изменить статус выкупа предмета");
-      return;
+    if (checkbox.checked) {
+      await sendItemStatus(userId, orderId, value + ":::" + 2);
     } else {
-      if (checkbox.checked) {
-        await sendItemStatus(userId, orderId, value + ":::" + 2);
-      } else {
-        await sendItemStatus(userId, orderId, value + ":::" + 0);
-      }
+      await sendItemStatus(userId, orderId, value + ":::" + 0);
     }
   });
 
@@ -55,7 +60,7 @@ const getCurrentOrderStatus = async (userId, orderId) => {
 
   if (!response.ok) {
     var err = await response.text();
-    console.log("sendItemStatusErr: ", err);
+    console.log("Ошибка при получении статуса заказа: ", err);
     return;
   }
 
