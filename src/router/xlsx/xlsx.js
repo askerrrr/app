@@ -11,7 +11,7 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
 
 router.get("/:userid/:orderid", async (_, res) => {
   try {
-    res.sendFile(join(__dirname, "../public", "html", "sheet.html"));
+    res.sendFile(join(__dirname, "../../public", "html", "sheet.html"));
   } catch (err) {
     console.log(err);
 

@@ -7,7 +7,7 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
 
 router.get("/", async (_, res) => {
   try {
-    return res.sendFile(join(__dirname, "../public", "html", "index.html"));
+    return res.sendFile(join(__dirname, "../../public", "html", "index.html"));
   } catch {
     return res.sendStatus(500);
   }

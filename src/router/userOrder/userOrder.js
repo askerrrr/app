@@ -42,7 +42,7 @@ router.get("/api/order/:orderId", async (req, res) => {
 
 router.get("/orders/order/:orderId", async (_, res) => {
   try {
-    return res.sendFile(join(__dirname, "../public", "html", "userOrder.html"));
+    return res.sendFile(join(__dirname, "../../public", "html", "userOrder.html"));
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
@@ -58,10 +58,10 @@ router.get("/orders/:userId", async (req, res) => {
 
     if (existingDocument.orders.length > 0)
       return res.sendFile(
-        join(__dirname, "../public", "html", "ordersList.html")
+        join(__dirname, "../../public", "html", "ordersList.html")
       );
 
-    return res.sendFile(join(__dirname, "../public", "html", "noOrders.html"));
+    return res.sendFile(join(__dirname, "../../public", "html", "noOrders.html"));
   } catch (err) {
     console.log(err);
     return res.sendStatus(500);

@@ -9,7 +9,7 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
 var router = Router({ caseSensitive: true, strict: true });
 
 router.get("/login", async (_, res) => {
-  return res.sendFile(join(__dirname, "../public", "html", "authForm.html"));
+  return res.sendFile(join(__dirname, "../../public", "html", "authForm.html"));
 });
 
 router.post("/login/check", async (req, res) => {

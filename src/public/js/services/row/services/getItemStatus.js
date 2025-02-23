@@ -13,7 +13,7 @@ const sendItemStatus = async (userId, orderId, item) => {
   }
 };
 
-export default async (userId, orderId, items) => {
+var getItemStatus = async (userId, orderId, items) => {
   var [value, status] = items.split(":::");
 
   var checkbox = document.createElement("input");
@@ -30,17 +30,17 @@ export default async (userId, orderId, items) => {
   checkbox.addEventListener("change", async (e) => {
     e.preventDefault();
 
-    var orderStatus = await getOrderStatus(userId, orderId);
+    var orderStatus = await getCurrentOrderStatus(userId, orderId);
 
-    // if (orderStatus < 3) {
-    //   alert("text");
-    //   return;
-    // }
-
-    if (checkbox.checked) {
-      await sendItemStatus(userId, orderId, value + ":::" + 2);
+    if (orderStatus == "not-accepted-for-processing:0") {
+      alert("Нельзя изменить статус выкупа предмета");
+      return;
     } else {
-      await sendItemStatus(userId, orderId, value + ":::" + 0);
+      if (checkbox.checked) {
+        await sendItemStatus(userId, orderId, value + ":::" + 2);
+      } else {
+        await sendItemStatus(userId, orderId, value + ":::" + 0);
+      }
     }
   });
 
@@ -50,7 +50,7 @@ export default async (userId, orderId, items) => {
   return td;
 };
 
-const getOrderStatus = async (userId, orderId) => {
+const getCurrentOrderStatus = async (userId, orderId) => {
   var response = await fetch("/itemstatus" + "/" + userId + "/" + orderId);
 
   if (!response.ok) {
@@ -61,5 +61,7 @@ const getOrderStatus = async (userId, orderId) => {
 
   var json = await response.json();
 
-  return json.split(":")[1];
+  return json;
 };
+
+export default getItemStatus;

@@ -53,12 +53,12 @@ router.get("/:userId/:orderId", async (req, res) => {
   var orderId = req.params.orderId;
   var ordersCollection = req.app.locals.collection;
 
-  var user = await ordersCollection.findOne({ userId });
+  var document = await ordersCollection.findOne({ userId });
 
-  var result = user.orders.find((item) => item.order.id === orderId);
+  var result = document.orders.find((item) => item.order.id === orderId);
   var status = result.order.orderStatus;
 
-  return user ? res.json(status) : res.sendStatus(404);
+  return document ? res.json(status) : res.sendStatus(404);
 });
 
 export { router as itemStatus };
