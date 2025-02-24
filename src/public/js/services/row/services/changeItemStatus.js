@@ -27,7 +27,7 @@ const getCurrentOrderStatus = async (userId, orderId) => {
   return json;
 };
 
-var getItemStatus = async (userId, orderId, items) => {
+var changeItemStatus = async (userId, orderId, items) => {
   var [value, status] = items.split(":::");
 
   var checkbox = document.createElement("input");
@@ -63,4 +63,4 @@ var getItemStatus = async (userId, orderId, items) => {
   return td;
 };
 
-export default getItemStatus;
+export default changeItemStatus;

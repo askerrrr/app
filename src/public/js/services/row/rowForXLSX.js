@@ -1,11 +1,11 @@
 import getTotalSum from "./services/getTotalSum.js";
 import backToOrder from "./services/backToOrder.js";
-import getItemStatus from "./services/getItemStatus.js";
 import getPriceOfEach from "./services/getPriceOfEach.js";
 import getUrlFromXLSX from "./services/getUrlFromXLSX.js";
 import tableHeadToXLSX from "./services/tableHeadToXLSX.js";
 import getSizeFromXLSX from "./services/getSizeFromXLSX.js";
 import { getItemId, setItemId } from "./services/ItemId.js";
+import changeItemStatus from "./services/changeItemStatus.js";
 import getImageFromXLSX from "./services/getImageFromXLSX.js";
 import getQuantityFromXLSX from "./services/getQuantityFromXLSX.js";
 
@@ -22,7 +22,7 @@ export default async function rowForXLSX(sheetData, userId, orderId) {
     var itemId = await getItemId(item.id);
     var priceOfEach = await getPriceOfEach(item.priceOfEach);
     var totalSum = await getTotalSum(item.totalSum);
-    var itemStatus = await getItemStatus(userId, orderId, item.item);
+    var itemStatus = await changeItemStatus(userId, orderId, item.item);
 
     var tr = document.createElement("tr");
     tr.append(
