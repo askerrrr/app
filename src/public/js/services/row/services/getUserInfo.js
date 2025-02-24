@@ -3,10 +3,10 @@ export default async (userId) => {
   userInfo.id = "user-info";
 
   var btn = document.createElement("button");
-  btn.append(`ID пользователя: ${userId}`);
+  btn.append("ID пользователя: " + userId);
 
   var formForUserId = document.createElement("form");
-  formForUserId.action = `/orderinfo/orders/${userId}`;
+  formForUserId.action = "/orderinfo/orders/" + userId;
   formForUserId.append(btn);
 
   userInfo.append(formForUserId);

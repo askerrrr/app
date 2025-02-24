@@ -6,7 +6,7 @@ export default function renderDownloadLink(userId, orderId) {
 
   form.id = orderId;
   form.append(btn);
-  form.action = `/download/${userId}/${orderId}`;
+  form.action = "/download/" + userId + "/" + orderId;
 
   var td = document.createElement("td");
   td.append(form);

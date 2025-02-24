@@ -15,13 +15,13 @@ export default async function buttonForDeleteUser(userId) {
 
     alert("Пользователь был удален");
 
-    window.location.href = `/orderinfo/users`;
+    window.location.href = "/orderinfo/users";
 
     return deleteUser(userId);
   });
 
   var form = document.createElement("form");
-  form.action = `/orderinfo/delete/${userId}`;
+  form.action = "/orderinfo/delete/" + userId;
   form.append(btn);
 
   var td = document.createElement("td");

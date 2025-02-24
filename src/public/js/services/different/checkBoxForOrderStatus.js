@@ -40,7 +40,7 @@ export default async function createCheckBoxForOrderStatus(id) {
   legend.append("Статус заказа");
 
   var fieldset = document.createElement("fieldset");
-  fieldset.id = `fieldset-${id}`;
+  fieldset.id = "fieldset-" + id;
   fieldset.append(legend, A, B, C, D, E, F);
 
   var childTeg = document.getElementById("submit-order-status");

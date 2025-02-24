@@ -3,7 +3,7 @@ export default function renderXLSX(userId, orderId) {
   btn.append("Открыть файл");
 
   var form = document.createElement("form");
-  form.action = `/xlsx/${userId}/${orderId}`;
+  form.action = "/xlsx/" + userId + "/" + orderId;
   form.append(btn);
 
   var td = document.createElement("td");

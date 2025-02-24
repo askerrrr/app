@@ -13,6 +13,20 @@ const sendItemStatus = async (userId, orderId, item) => {
   }
 };
 
+const getCurrentOrderStatus = async (userId, orderId) => {
+  var response = await fetch("/itemstatus" + "/" + userId + "/" + orderId);
+
+  if (!response.ok) {
+    var err = await response.text();
+    console.log("Ошибка при получении статуса заказа: ", err);
+    return;
+  }
+
+  var json = await response.json();
+
+  return json;
+};
+
 var getItemStatus = async (userId, orderId, items) => {
   var [value, status] = items.split(":::");
 
@@ -53,20 +67,6 @@ var getItemStatus = async (userId, orderId, items) => {
   td.append(checkbox);
 
   return td;
-};
-
-const getCurrentOrderStatus = async (userId, orderId) => {
-  var response = await fetch("/itemstatus" + "/" + userId + "/" + orderId);
-
-  if (!response.ok) {
-    var err = await response.text();
-    console.log("Ошибка при получении статуса заказа: ", err);
-    return;
-  }
-
-  var json = await response.json();
-
-  return json;
 };
 
 export default getItemStatus;

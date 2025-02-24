@@ -12,7 +12,7 @@ function renderNextUnmarkedPendingStatus(array, statusId) {
 
 export default async function saveAndRenderCurrentOrderStatus(userId, orderId) {
   try {
-    var response = await fetch(`/status/api/${userId}/${orderId}`, {
+    var response = await fetch("/status/api/" + userId + "/" + orderId, {
       method: "GET",
     });
 

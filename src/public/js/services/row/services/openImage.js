@@ -7,7 +7,7 @@ export default function openImage(userId, orderId) {
   form.id = orderId;
   form.target = "_blank";
   form.append(btn);
-  form.action = `/image/${userId}/${orderId}`;
+  form.action = "/image/" + userId + "/" + orderId;
 
   var td = document.createElement("td");
   td.append(form);

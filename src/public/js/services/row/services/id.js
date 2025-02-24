@@ -5,7 +5,7 @@ export default function createId(orderId) {
   var form = document.createElement("form");
 
   form.append(btn);
-  form.action = `/orderinfo/orders/order/${orderId}`;
+  form.action = "/orderinfo/orders/order/" + orderId;
 
   var td = document.createElement("td");
   td.append(form);

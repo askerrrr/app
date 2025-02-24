@@ -2,10 +2,9 @@ import saveAndRenderCurrentOrderStatus from "./saveOrderStatus.js";
 import createCheckBoxForOrderStatus from "./checkBoxForOrderStatus.js";
 
 export default async function formForOpenPopUp(userId, orderId) {
-  orderId = +orderId;
   var button = document.createElement("button");
 
-  button.id = `button-${orderId}`;
+  button.id = "button-" + orderId;
   button.className = "change-order-status";
   button.textContent = "Изменить статут заказа";
 

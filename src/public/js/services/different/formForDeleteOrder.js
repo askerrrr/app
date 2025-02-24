@@ -23,7 +23,7 @@ export default async function createDeleteOrderForm(userId, orderId, orders) {
   });
 
   var form = document.createElement("form");
-  form.action = `/orderinfo/delete/${userId}/${orderId}`;
+  form.action = "/orderinfo/delete/" + userId + "/" + orderId;
   form.className = "form-for-delete-order";
   form.append(button);
 

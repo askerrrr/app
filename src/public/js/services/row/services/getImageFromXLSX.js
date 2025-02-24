@@ -11,7 +11,7 @@ export default async (base64) => {
   img.width = 200;
   img.height = 200;
   img.alt = "image";
-  img.src = `data:image/png=;base64,${base64}`;
+  img.src = "data:image/png=;base64," + base64;
 
   td.append(img);
 

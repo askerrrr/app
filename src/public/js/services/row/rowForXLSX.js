@@ -44,7 +44,7 @@ export default async function rowForXLSX(sheetData, userId, orderId) {
 
   var body = document.getElementById("body");
 
-  body.append(backToOrder(userId, orderId), table);
+  body.append(backToOrder(orderId), table);
 
   return body;
 }
