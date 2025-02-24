@@ -1,4 +1,4 @@
-const sendItemStatus = async (userId, orderId, item) => {
+var sendItemStatus = async (userId, orderId, item) => {
   var response = await fetch("/itemstatus", {
     method: "PATCH",
     body: JSON.stringify({ userId, orderId, item }),
@@ -13,7 +13,7 @@ const sendItemStatus = async (userId, orderId, item) => {
   }
 };
 
-const getCurrentOrderStatus = async (userId, orderId) => {
+var getCurrentOrderStatus = async (userId, orderId) => {
   var response = await fetch("/itemstatus" + "/" + userId + "/" + orderId);
 
   if (!response.ok) {
