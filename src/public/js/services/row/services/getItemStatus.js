@@ -41,17 +41,11 @@ var getItemStatus = async (userId, orderId, items) => {
     checkbox.checked = true;
   }
 
-  checkbox.addEventListener("click", async (e) => {
-    e.preventDefault();
-    var orderStatus = await getCurrentOrderStatus(userId, orderId);
+  var orderStatus = await getCurrentOrderStatus(userId, orderId);
 
-    if (orderStatus !== "in-processing:1") {
-      alert(
-        "Статус выкупа предмета можно изменить только после взятия заказа в обработку"
-      );
-      return;
-    }
-  });
+  if (orderStatus !== "in-processing:1") {
+    checkbox.disabled = true;
+  }
 
   checkbox.addEventListener("change", async (e) => {
     e.preventDefault();
