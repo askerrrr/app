@@ -1,12 +1,15 @@
 import rowForUserList from "./services/row/rowForUserList.js";
+import printErrMessage from "./services/different/printErrMessage.js";
 
 async function GetUsers() {
   try {
-    var response = await fetch("/api/users");
+    var url = "/api/users";
+
+    var response = await fetch(url);
 
     if (!response.ok) {
       var err = await response.text();
-      console.log(err);
+      await printErrMessage(url, err);
       return;
     }
 

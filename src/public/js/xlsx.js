@@ -1,4 +1,5 @@
 import rowForXLSX from "./services/row/rowForXLSX.js";
+import printErrMessage from "./services/different/printErrMessage.js";
 
 async function createXLSX() {
   try {
@@ -6,11 +7,13 @@ async function createXLSX() {
     var userId = pathParts[2];
     var orderId = pathParts[3];
 
-    var response = await fetch("/xlsx/api/" + userId + "/" + orderId);
+    var url = "/xlsx/api/" + userId + "/" + orderId;
+
+    var response = await fetch(url);
 
     if (!response.ok) {
       var err = await response.text();
-      console.log(err);
+      await printErrMessage(url, err);
       return;
     }
 

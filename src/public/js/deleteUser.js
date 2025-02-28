@@ -1,13 +1,17 @@
-export default async function deleteUser(userId) {
+import printErrMessage from "./services/different/printErrMessage";
+
+var deleteUser = async (userId) => {
   try {
-    var response = await fetch(`/orderinfo/api/delete/${userId}`, {
+    var url = "/orderinfo/api/delete/" + userId;
+
+    var response = await fetch(url, {
       method: "DELETE",
       headers: { Accept: "application/json" },
     });
 
     if (!response.ok) {
       var err = await response.text();
-      console.log(err);
+      await printErrMessage(url, err);
       return;
     }
 
@@ -15,4 +19,6 @@ export default async function deleteUser(userId) {
   } catch (err) {
     console.log(err);
   }
-}
+};
+
+export default deleteUser;

@@ -1,16 +1,19 @@
 import rowForSingle from "./services/row/rowForSingle.js";
 import rowForMultiple from "./services/row/rowForMultiple.js";
+import printErrMessage from "./services/different/printErrMessage.js";
 
 async function getOrderInfo() {
   try {
     var pathParts = window.location.pathname.split("/");
-    var userId = pathParts.at(-1);
+    var orderId = pathParts.at(-1);
 
-    var response = await fetch("/orderinfo/api/order/" + userId);
+    var url = "/orderinfo/api/order/" + orderId;
+
+    var response = await fetch(url);
 
     if (!response.ok) {
       var err = await response.text();
-      console.log(err);
+      await printErrMessage(url, err);
       return;
     }
 

@@ -1,15 +1,14 @@
+import { Router } from "express";
 import env from "../../env_var.js";
-import db from "../../database/db.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import { Router, json } from "express";
+import db from "../../database/db.js";
 import deleteUserDir from "./services/deleteUserDir.js";
 import deleteOrderFile from "./services/deleteOrderFile.js";
+import sendDeleteUserDataRequest from "./services/sendDeleteUserDataRequest.js";
 
 var router = Router({ caseSensitive: true, strict: true });
 var __dirname = dirname(fileURLToPath(import.meta.url));
-
-router.use(json());
 
 router.get("/api/:userId", async (req, res) => {
   try {
@@ -25,11 +24,12 @@ router.get("/api/:userId", async (req, res) => {
 
 router.get("/api/order/:orderId", async (req, res) => {
   try {
+    //var userId = req.param.userId
     var orderId = req.params.orderId;
     var collection = req.app.locals.collection;
 
     var user = await collection.findOne({
-      "orders.order.id": orderId,
+      "orders.order.id": orderId, //userId
     });
 
     var order = user.orders.find((item) => item.order.id === orderId);
@@ -90,18 +90,7 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
   try {
     await deleteOrderFile(userId, orderId, collection);
     await db.deleteOrder(userId, orderId, collection);
-
-    var botResponse = await fetch(env.bot_server_ip, {
-      method: "DELETE",
-      body: JSON.stringify({ userId, orderId }),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${env.bearer_token}`,
-      },
-    });
-
-    if (!botResponse.ok) throw new Error(`${botResponse.statusText}`);
+    await sendDeleteUserDataRequest(userId, orderId);
 
     return res.sendStatus(200);
   } catch (err) {
