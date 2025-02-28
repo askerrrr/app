@@ -1,5 +1,4 @@
 import { Router } from "express";
-import env from "../../env_var.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import db from "../../database/db.js";

@@ -1,4 +1,4 @@
-import printErrMessage from "./services/different/printErrMessage";
+import printErrMessage from "./services/different/printErrMessage.js";
 
 var deleteUser = async (userId) => {
   try {

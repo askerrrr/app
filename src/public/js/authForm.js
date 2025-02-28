@@ -1,6 +1,3 @@
-
-
-
 async function formHandler() {
   var form = document.getElementById("auth-form");
 
