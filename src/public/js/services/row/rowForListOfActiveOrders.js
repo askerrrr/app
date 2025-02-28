@@ -12,6 +12,7 @@ export default async function rowForListOfActiveOrders(data) {
   );
 
   activeOrders.forEach((orders) => {
+    var userId = orders.order.userId;
     var orderId = orders.order.id;
     var orderDate = orders.order.date;
     var status = orders.order.orderStatus;
@@ -20,7 +21,7 @@ export default async function rowForListOfActiveOrders(data) {
 
     tr.append(
       createDate(orderDate),
-      createId(orderId),
+      createId(userId, orderId),
       renderCurrentOrderStatus(status)
     );
 

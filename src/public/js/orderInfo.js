@@ -5,9 +5,10 @@ import printErrMessage from "./services/different/printErrMessage.js";
 async function getOrderInfo() {
   try {
     var pathParts = window.location.pathname.split("/");
+    var userId = pathParts.at(-2);
     var orderId = pathParts.at(-1);
 
-    var url = "/orderinfo/api/order/" + orderId;
+    var url = "/orderinfo/api/order/" + userId + "/" + orderId;
 
     var response = await fetch(url);
 

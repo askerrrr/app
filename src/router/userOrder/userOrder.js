@@ -21,15 +21,13 @@ router.get("/api/:userId", async (req, res) => {
   }
 });
 
-router.get("/api/order/:orderId", async (req, res) => {
+router.get("/api/order/:userId/:orderId", async (req, res) => {
   try {
-    //var userId = req.param.userId
+    var userId = req.param.userId;
     var orderId = req.params.orderId;
     var collection = req.app.locals.collection;
 
-    var user = await collection.findOne({
-      "orders.order.id": orderId, //userId
-    });
+    var user = await collection.findOne(userId);
 
     var order = user.orders.find((item) => item.order.id === orderId);
 
@@ -39,11 +37,9 @@ router.get("/api/order/:orderId", async (req, res) => {
   }
 });
 
-router.get("/orders/order/:orderId", async (_, res) => {
+router.get("/orders/order/:userId/:orderId", async (_, res) => {
   try {
-    return res.sendFile(
-      join(__dirname, "../../public", "html", "userOrder.html")
-    );
+    res.sendFile(join(__dirname, "../../public", "html", "userOrder.html"));
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
@@ -55,9 +51,9 @@ router.get("/orders/:userId", async (req, res) => {
     var userId = req.params.userId;
     var collection = req.app.locals.collection;
 
-    var existingDocument = await collection.findOne({ userId });
+    var user = await collection.findOne({ userId });
 
-    return existingDocument.orders.length
+    return user.orders.length
       ? res.sendFile(join(__dirname, "../../public", "html", "ordersList.html"))
       : res.sendFile(join(__dirname, "../../public", "html", "noOrders.html"));
   } catch (err) {
