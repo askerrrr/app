@@ -19,7 +19,7 @@ async function createXLSX() {
 
     var json = await response.json();
 
-    return rowForXLSX(json, userId, orderId);
+    return await rowForXLSX(json, userId, orderId);
   } catch (err) {
     if (err.message === "Unexpected end of JSON input")
       alert("Не удалось прочитать файл\nОшибка: " + err.message);

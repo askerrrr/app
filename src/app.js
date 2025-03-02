@@ -19,7 +19,7 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
     );
 
     var db = mongodb.db("database");
-    var itemCollection = db.collection("itemCollection");
+    var itemCollection = db.collection("items");
     var collection = db.collection("users");
     app.locals.itemCollection = itemCollection;
     app.locals.collection = collection;

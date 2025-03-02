@@ -32,6 +32,7 @@ router.get("/api/:userId/:orderId", async (req, res) => {
     var imageData = await getImageFromXLSX(filePath);
     var items = await db.getItemStatus(userId, orderId, itemCollection);
     var itemId = await db.getItemId(userId, orderId, itemCollection);
+
     var combinedData = await combineData(data, imageData, items, itemId);
 
     return res.json(combinedData);

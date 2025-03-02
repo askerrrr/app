@@ -4,7 +4,7 @@ var getItemStatus = async (userId, orderId, collection) => {
     "orders.order.id": orderId,
   });
 
-  var items = existingDocument.orders.flatMap((orders) => orders.order.items);
+  var items = existingDocument.orders.flatMap((e) => e.order.items);
 
   return items;
 };
