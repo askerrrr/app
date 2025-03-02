@@ -1,3 +1,5 @@
-export default async function deleteUser(userId, collection) {
+var deleteUser = async (userId, collection) => {
   return await collection.deleteOne({ userId });
-}
+};
+
+export default deleteUser;

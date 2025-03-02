@@ -20,6 +20,7 @@ router.patch("/", async (req, res) => {
     itemCollection
   );
 
+  await db.getCurrentOrderStatus(userId, orderId, ordersCollection);
   if (isAllItemsArePurchased) {
     var currentOrderStatus = await db.getCurrentOrderStatus(
       userId,

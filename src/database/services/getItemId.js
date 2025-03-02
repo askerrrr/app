@@ -1,7 +1,9 @@
 export default async (userId, orderId, itemStatus) => {
-  var user = await itemStatus.findOne({ userId, "orders.order.id": orderId });
+  var document = await itemStatus.findOne({ userId });
 
-  var itemId = user.orders.map((order) => order.order.itemId).flat();
+  var result = document.orders.find((e) => e.order.id == orderId);
+
+  var itemId = result.order.itemId;
 
   return itemId;
 };
