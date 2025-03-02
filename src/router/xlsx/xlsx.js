@@ -24,14 +24,14 @@ router.get("/api/:userId/:orderId", async (req, res) => {
     var userId = req.params.userId;
     var orderId = req.params.orderId;
     var collection = req.app.locals.collection;
-    var itemStatus = req.app.locals.itemStatus;
+    var itemCollection = req.app.locals.itemCollection;
 
     var filePath = await db.findFilePath(userId, orderId, collection);
 
     var data = await getDataFromXLSX(filePath);
     var imageData = await getImageFromXLSX(filePath);
-    var items = await db.getItemStatus(userId, orderId, itemStatus);
-    var itemId = await db.getItemId(userId, orderId, itemStatus);
+    var items = await db.getItemStatus(userId, orderId, itemCollection);
+    var itemId = await db.getItemId(userId, orderId, itemCollection);
     var combinedData = await combineData(data, imageData, items, itemId);
 
     return res.json(combinedData);

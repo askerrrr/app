@@ -39,6 +39,7 @@ var setItemId = async (userId, orderId, index) => {
       alert("Нельзя отправить пустое поле");
       return;
     }
+
     await sendItemId(userId, orderId, index, itemId);
     window.location.reload();
   });
@@ -54,7 +55,7 @@ var setItemId = async (userId, orderId, index) => {
 var getItemId = async (itemId) => {
   var td = document.createElement("td");
   td.id = itemId;
-  td.append(itemId || '');
+  td.append(itemId || "");
   return td;
 };
 
