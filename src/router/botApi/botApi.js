@@ -1,7 +1,7 @@
-import JWT from "jsonwebtoken";
 import { Router } from "express";
 import env from "../../env_var.js";
 import db from "../../database/db.js";
+import validateAuthHeader from "./services/validateAuthHeader.js";
 import getDataFromXLSX from "../xlsx/services/getDataFromXLSX.js";
 import downloadAndSaveFile from "./services/downloadAndSaveFile.js";
 import getOrderDetailsForBot from "./services/getOrderDetailsForBot.js";
@@ -9,18 +9,14 @@ import getOrderDetailsForBot from "./services/getOrderDetailsForBot.js";
 var router = Router({ caseSensitive: true, strict: true });
 
 router.post("/api/users", async (req, res) => {
-  var authHeader = req.headers.authorization;
+  var authHeader = req.headers?.authorization;
 
   try {
-    if (!authHeader) return res.status(401);
+    var validAuthHeader = await validateAuthHeader(authHeader);
 
-    var token = authHeader.split(" ")[1];
-
-    if (!token) return res.status(401);
-
-    var validToken = JWT.verify(token, env.bot_secret_key);
-
-    if (!validToken) return res.sendStatus(401);
+    if (!validAuthHeader) {
+      return res.sendStatus(401);
+    }
 
     var user = req.body;
     var collection = req.app.locals.collection;
@@ -49,18 +45,13 @@ router.post("/api/users", async (req, res) => {
 });
 
 router.post("/api/order", async (req, res) => {
+  var authHeader = req.headers?.authorization;
   try {
-    var authHeader = req.headers.authorization;
+    var validAuthHeader = await validateAuthHeader(authHeader);
 
-    if (!authHeader) return res.sendStatus(401);
-
-    var token = authHeader.split(" ")[1];
-
-    if (!token) return res.sendStatus(401);
-
-    var validToken = JWT.verify(token, env.bot_secret_key);
-
-    if (!validToken) return res.sendStatus(401);
+    if (!validAuthHeader) {
+      return res.sendStatus(401);
+    }
 
     var order = req.body;
     var userId = order.userId;
@@ -95,18 +86,14 @@ router.post("/api/order", async (req, res) => {
 });
 
 router.get("/api/status/:userId", async (req, res) => {
-  var authHeader = req.headers.authorization;
-
-  if (!authHeader) return res.sendStatus(401);
-
-  var token = authHeader.split(" ")[1];
-
-  if (!token) return res.sendStatus(401);
+  var authHeader = req.headers?.authorization;
 
   try {
-    var validToken = JWT.verify(token, env.bot_secret_key);
+    var validAuthHeader = await validateAuthHeader(authHeader);
 
-    if (!validToken) return res.sendStatus(401);
+    if (!validAuthHeader) {
+      return res.sendStatus(401);
+    }
 
     var userId = req.params.userId;
     var collection = req.app.locals.collection;
