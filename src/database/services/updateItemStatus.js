@@ -1,17 +1,12 @@
-export default async (userId, orderId, newItem, collection) => {
-  var existingDocument = await collection.findOne({
-    userId,
-    "orders.order.id": orderId,
-  });
+var updateItemStatus = async (userId, orderId, newItem, collection) => {
+  var document = await collection.findOne({ userId });
 
-  var items = existingDocument.orders
-    .filter((orders) => orders.order.id == orderId)
-    .map((order) => order.order.items)
-    .flat();
+  var result = document.orders.find((e) => e.order.id == orderId);
 
-  var value = newItem.split(":::")[0];
-  var item = items.find((elem) => elem.startsWith(value));
-  var itemIndex = items.indexOf(item);
+  var items = result.order.items;
+
+  var itemValue = newItem.split(":::")[0];
+  var itemIndex = items.findIndex((e) => e.startsWith(itemValue));
 
   items[itemIndex] = newItem;
 
@@ -22,3 +17,5 @@ export default async (userId, orderId, newItem, collection) => {
     }
   );
 };
+
+export default updateItemStatus;

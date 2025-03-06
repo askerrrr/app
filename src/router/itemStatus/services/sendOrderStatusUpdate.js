@@ -6,7 +6,7 @@ var sendOrderStatusUpdate = async (userId, orderId, orderStatus) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${env.bearer_token}`,
+      Authorization: "Bearer " + env.bot_secret_key,
     },
     body: JSON.stringify({
       userId,

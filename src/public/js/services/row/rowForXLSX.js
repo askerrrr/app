@@ -9,7 +9,7 @@ import changeItemStatus from "./services/changeItemStatus.js";
 import getImageFromXLSX from "./services/getImageFromXLSX.js";
 import getQuantityFromXLSX from "./services/getQuantityFromXLSX.js";
 
-export default async function rowForXLSX(sheetData, userId, orderId) {
+var rowForXLSX = async (sheetData, userId, orderId) => {
   var thead = tableHeadToXLSX();
   var tbody = document.createElement("tbody");
   var table = document.createElement("table");
@@ -40,6 +40,7 @@ export default async function rowForXLSX(sheetData, userId, orderId) {
     tbody.append(tr);
     return tbody;
   });
+
   table.append(thead, tbody);
 
   var body = document.getElementById("body");
@@ -47,4 +48,6 @@ export default async function rowForXLSX(sheetData, userId, orderId) {
   body.append(backToOrder(userId, orderId), table);
 
   return body;
-}
+};
+
+export default rowForXLSX;

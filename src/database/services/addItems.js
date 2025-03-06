@@ -1,4 +1,4 @@
-export default async (userId, orderId, xlsxData, collection) => {
+var addItems = async (userId, orderId, xlsxData, collection) => {
   try {
     var url = xlsxData[0];
 
@@ -19,8 +19,6 @@ export default async (userId, orderId, xlsxData, collection) => {
       }
     });
 
-    console.log("items: ", items);
-
     return await collection.updateOne(
       { userId: userId, "orders.order.id": orderId },
       {
@@ -32,3 +30,4 @@ export default async (userId, orderId, xlsxData, collection) => {
   }
 };
 
+export default addItems;

@@ -1,11 +1,10 @@
 var getItemStatus = async (userId, orderId, collection) => {
-  var existingDocument = await collection.findOne({
-    userId,
-    "orders.order.id": orderId,
-  });
+  var document = await collection.findOne({ userId });
 
-  var items = existingDocument.orders.flatMap((orders) => orders.order.items);
+  var result = document.orders.find((e) => e.order.id == orderId);
 
-  return items;
+  var itemValues = result.order.items;
+
+  return itemValues;
 };
 export default getItemStatus;

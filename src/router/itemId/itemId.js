@@ -9,9 +9,9 @@ router.patch("/", async (req, res) => {
   var itemId = req.body.itemId;
   var orderId = req.body.orderId;
 
-  var itemStatus = req.app.locals.itemStatus;
+  var itemCollection = req.app.locals.itemCollection;
 
-  await db.updateItemId(userId, orderId, index, itemId, itemStatus);
+  await db.updateItemId(userId, orderId, index, itemId, itemCollection);
   return res.sendStatus(200);
 });
 

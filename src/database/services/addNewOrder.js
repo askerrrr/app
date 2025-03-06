@@ -1,6 +1,7 @@
-export default async function addNewOrder(collection, order) {
-  return await collection.updateOne(
+var addNewOrder = async (collection, order) =>
+  await collection.updateOne(
     { userId: order.userId },
     { $push: { orders: { order } } }
   );
-}
+
+export default addNewOrder;

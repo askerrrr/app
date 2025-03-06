@@ -9,17 +9,18 @@ router.patch("/", async (req, res) => {
   var userId = req.body.userId;
   var orderId = req.body.orderId;
   var item = req.body.item;
-  var itemStatus = req.app.locals.itemStatus;
+  var itemCollection = req.app.locals.itemCollection;
   var ordersCollection = req.app.locals.collection;
 
-  await db.updateItemStatus(userId, orderId, item, itemStatus);
+  await db.updateItemStatus(userId, orderId, item, itemCollection);
 
   var isAllItemsArePurchased = await allItemsArePurchased(
     userId,
     orderId,
-    itemStatus
+    itemCollection
   );
 
+  await db.getCurrentOrderStatus(userId, orderId, ordersCollection);
   if (isAllItemsArePurchased) {
     var currentOrderStatus = await db.getCurrentOrderStatus(
       userId,
@@ -55,10 +56,15 @@ router.get("/:userId/:orderId", async (req, res) => {
 
   var document = await ordersCollection.findOne({ userId });
 
+  if (!document) res.sendStatus(404);
+
   var result = document.orders.find((item) => item.order.id === orderId);
+
+  if (!result) res.sendStatus(404);
+
   var status = result.order.orderStatus;
 
-  return document ? res.json(status) : res.sendStatus(404);
+  return res.json(status);
 });
 
 export { router as itemStatus };

@@ -1,4 +1,4 @@
-export default function tableHeadToXLSX() {
+var tableHeadToXLSX = () => {
   var img = document.createElement("th");
   img.append("Фото");
   var url = document.createElement("th");
@@ -33,4 +33,6 @@ export default function tableHeadToXLSX() {
   );
 
   return thead;
-}
+};
+
+export default tableHeadToXLSX;
