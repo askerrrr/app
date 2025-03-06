@@ -3,6 +3,7 @@ import db from "../../database/db.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import combineData from "./services/combineXlsxData.js";
+import checkFileExists from "./services/checkFileExists.js";
 import getDataFromXLSX from "./services/getDataFromXLSX.js";
 import getImageFromXLSX from "./services/getImageFromXLSX.js";
 
@@ -43,4 +44,15 @@ router.get("/api/:userId/:orderId", async (req, res) => {
   }
 });
 
+router.get("check/:userId/:orderId", async (req, res) => {
+  var userId = req.params.userId;
+  var orderId = req.params.orderId;
+
+  var collection = req.app.locals.collection;
+  var filePath = await db.findFilePath(userId, orderId, collection);
+
+  var fileIsExists = await checkFileExists(filePath);
+
+  return res.json({ fileIsExists });
+});
 export { router as xlsx };
