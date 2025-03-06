@@ -1,17 +1,15 @@
-import printErrMessage from "./services/different/printErrMessage.js";
-
 var deleteUser = async (userId) => {
   try {
-    var url = "/orderinfo/api/delete/" + userId;
+    var url = '/orderinfo/api/delete/' + userId;
 
     var response = await fetch(url, {
-      method: "DELETE",
-      headers: { Accept: "application/json" },
+      method: 'DELETE',
+      headers: { Accept: 'application/json' },
     });
 
     if (!response.ok) {
       var err = await response.text();
-      await printErrMessage(url, err);
+      console.log(err);
       return;
     }
 

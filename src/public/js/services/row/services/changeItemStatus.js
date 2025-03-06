@@ -1,39 +1,37 @@
 var sendItemStatus = async (userId, orderId, item) => {
-  var response = await fetch("/itemstatus", {
-    method: "PATCH",
+  var response = await fetch('/itemstatus', {
+    method: 'PATCH',
     body: JSON.stringify({ userId, orderId, item }),
-    headers: { "Content-Type": "application/json" },
+    headers: { 'Content-Type': 'application/json' },
   });
 
   if (!response.ok) {
     var err = await response.text();
-    alert("Ошибка при обновлении статуса предмета: " + err);
-    console.log("Ошибка при обновлении статуса предмета: ", err);
+    alert('Ошибка при обновлении статуса предмета: ' + err);
+    console.log('Ошибка при обновлении статуса предмета: ', err);
     return;
   }
 };
 
 var getCurrentOrderStatus = async (userId, orderId) => {
-  var response = await fetch("/itemstatus" + "/" + userId + "/" + orderId);
+  var response = await fetch('/itemstatus' + '/' + userId + '/' + orderId);
 
   if (!response.ok) {
-    var err = await response.text();
-    console.log("Ошибка при получении статуса заказа: ", err);
-    return;
+    throw new Error('Ошибка при получении статуса заказа');
   }
 
   var json = await response.json();
 
-  return json;
+  return json.currentOrdeStatus;
 };
 
 var changeItemStatus = async (userId, orderId, items) => {
-  var [value, status] = items.split(":::");
+  var [value, status] = items.split(':::');
 
-  var checkbox = document.createElement("input");
+  var checkbox = document.createElement('input');
   checkbox.id = value;
-  checkbox.type = "checkbox";
-  checkbox.name = "item-status";
+  checkbox.type = 'checkbox';
+  checkbox.name = 'item-status';
 
   if (!Boolean(+status)) {
     checkbox.checked = false;
@@ -43,21 +41,21 @@ var changeItemStatus = async (userId, orderId, items) => {
 
   var orderStatus = await getCurrentOrderStatus(userId, orderId);
 
-  if (orderStatus !== "in-processing:1") {
+  if (orderStatus !== 'in-processing:1') {
     checkbox.disabled = true;
   }
 
-  checkbox.addEventListener("change", async (e) => {
+  checkbox.addEventListener('change', async (e) => {
     e.preventDefault();
 
     if (checkbox.checked) {
-      await sendItemStatus(userId, orderId, value + ":::" + 2);
+      await sendItemStatus(userId, orderId, value + ':::' + 2);
     } else {
-      await sendItemStatus(userId, orderId, value + ":::" + 0);
+      await sendItemStatus(userId, orderId, value + ':::' + 0);
     }
   });
 
-  var td = document.createElement("td");
+  var td = document.createElement('td');
   td.append(checkbox);
 
   return td;

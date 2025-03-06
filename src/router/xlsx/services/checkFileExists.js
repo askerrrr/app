@@ -7,3 +7,5 @@ var checkFileExists = async (filePath) => {
 
   return fileIsExists;
 };
+
+export default checkFileExists;

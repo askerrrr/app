@@ -1,10 +1,11 @@
 import rowForSingle from "./services/row/rowForSingle.js";
 import rowForMultiple from "./services/row/rowForMultiple.js";
-import printErrMessage from "./services/different/printErrMessage.js";
 
-async function getOrderInfo() {
+var getOrderInfo = async () => {
   try {
     var pathParts = window.location.pathname.split("/");
+
+    console.log(pathParts);
     var userId = pathParts.at(-2);
     var orderId = pathParts.at(-1);
 
@@ -14,7 +15,7 @@ async function getOrderInfo() {
 
     if (!response.ok) {
       var err = await response.text();
-      await printErrMessage(url, err);
+      console.log(err);
       return;
     }
 
@@ -26,6 +27,6 @@ async function getOrderInfo() {
   } catch (err) {
     console.log(err);
   }
-}
+};
 
 getOrderInfo();

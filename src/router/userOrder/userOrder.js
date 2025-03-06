@@ -23,6 +23,7 @@ router.get("/api/:userId", async (req, res) => {
 
 router.get("/api/order/:userId/:orderId", async (req, res) => {
   try {
+    console.log("asfd");
     var userId = req.param.userId;
     var orderId = req.params.orderId;
     var collection = req.app.locals.collection;
