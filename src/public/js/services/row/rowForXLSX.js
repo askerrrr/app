@@ -14,15 +14,15 @@ var rowForXLSX = async (sheetData, userId, orderId) => {
   var tbody = document.createElement("tbody");
   var table = document.createElement("table");
 
-  sheetData.forEach(async (item, index) => {
-    var img = await getImageFromXLSX(item.img);
-    var url = await getUrlFromXLSX(item.url);
-    var qty = await getQuantityFromXLSX(item.qty);
-    var size = await getSizeFromXLSX(item.size);
-    var itemId = await getItemId(item.id);
-    var itemPrice = await getPriceOfEach(item.itemPrice);
-    var totalSum = await getTotalSum(item.totalSum);
-    var itemStatus = await changeItemStatus(userId, orderId, item.item);
+  sheetData.forEach(async (e, index) => {
+    var img = await getImageFromXLSX(e.img);
+    var url = await getUrlFromXLSX(e.url);
+    var qty = await getQuantityFromXLSX(e.qty);
+    var size = await getSizeFromXLSX(e.size);
+    var itemId = await getItemId(e.id);
+    var itemPrice = await getPriceOfEach(e.itemPrice);
+    var totalSum = await getTotalSum(e.totalSum);
+    var itemStatus = await changeItemStatus(userId, orderId, e.item);
 
     var tr = document.createElement("tr");
     tr.append(

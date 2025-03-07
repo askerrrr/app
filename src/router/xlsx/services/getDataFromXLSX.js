@@ -12,25 +12,21 @@ var getDataFromXLSX = async (filePath) => {
     var qty = [];
     var size = [];
     var totalSum = [];
-    var priceOfEach = [];
+    var itemPrice = [];
 
     ws.getColumn(2).eachCell((b) => url.push(b.text || ""));
-
     ws.getColumn(3).eachCell((c) => qty.push(c.text || ""));
-
     ws.getColumn(4).eachCell((d) => size.push(d.text || ""));
-
-    ws.getColumn(5).eachCell((e) => priceOfEach.push(e.text || 0));
-
+    ws.getColumn(5).eachCell((e) => itemPrice.push(e.text || 0));
     ws.getColumn(7).eachCell((g) => totalSum.push(g.text || 0));
 
     url.shift();
     qty.shift();
     size.shift();
     totalSum = totalSum.slice(0, 1);
-    priceOfEach.shift();
+    itemPrice.shift();
 
-    return [url, qty, size, totalSum, priceOfEach];
+    return [url, qty, size, totalSum, itemPrice];
   } catch (err) {
     console.log(err);
     if (err.message === "File not found") console.log(err.message);

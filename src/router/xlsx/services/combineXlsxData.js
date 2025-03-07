@@ -1,5 +1,5 @@
 const combineData = async (data, image, items, itemId) => {
-  var [url, qty, size, totalSum, priceOfEach] = data;
+  var [url, qty, size, totalSum, itemPrice] = data;
   var fileData = [];
 
   for (let i = 0; i < url.length; i++) {
@@ -10,7 +10,7 @@ const combineData = async (data, image, items, itemId) => {
       size: size[i],
       img: image[i],
       item: items[i],
-      priceOfEach: priceOfEach[i],
+      itemPrice: itemPrice[i],
       totalSum: totalSum[i],
     });
   }
