@@ -1,14 +1,6 @@
-var getOrderId = async (userId, orderId) => {
-  var btn = document.createElement("button");
-  btn.append(orderId);
-
-  var form = document.createElement("form");
-
-  form.append(btn);
-  form.action = "/orderinfo/orders/order/" + userId + "/" + orderId;
-
+var getOrderId = async (orderId) => {
   var td = document.createElement("td");
-  td.append(form);
+  td.append(orderId);
 
   return td;
 };
