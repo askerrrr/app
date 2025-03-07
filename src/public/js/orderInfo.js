@@ -5,7 +5,6 @@ var getOrderInfo = async () => {
   try {
     var pathParts = window.location.pathname.split("/");
 
-    console.log(pathParts);
     var userId = pathParts.at(-2);
     var orderId = pathParts.at(-1);
 

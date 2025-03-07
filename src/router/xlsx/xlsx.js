@@ -44,7 +44,7 @@ router.get("/api/:userId/:orderId", async (req, res) => {
   }
 });
 
-router.get("check/:userId/:orderId", async (req, res) => {
+router.get("/check/:userId/:orderId", async (req, res) => {
   var userId = req.params.userId;
   var orderId = req.params.orderId;
 
@@ -55,4 +55,5 @@ router.get("check/:userId/:orderId", async (req, res) => {
 
   return res.json({ fileIsExists });
 });
+
 export { router as xlsx };

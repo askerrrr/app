@@ -1,32 +1,32 @@
 var createTableHeadToXLSX = () => {
-  var img = document.createElement('th');
-  img.append('Фото');
+  var img = document.createElement("th");
+  img.append("Фото");
 
-  var url = document.createElement('th');
-  url.append('Ссылка');
+  var url = document.createElement("th");
+  url.append("Ссылка");
 
-  var qty = document.createElement('th');
-  qty.append('Количество');
+  var qty = document.createElement("th");
+  qty.append("Количество");
 
-  var size = document.createElement('th');
-  size.append('Размер');
+  var size = document.createElement("th");
+  size.append("Размер");
 
-  var itemStatus = document.createElement('th');
-  itemStatus.append('Статус выкупа');
+  var itemStatus = document.createElement("th");
+  itemStatus.append("Статус выкупа");
 
-  var itemPrice = document.createElement('th');
-  itemPrice.append('Цена');
+  var itemPrice = document.createElement("th");
+  itemPrice.append("Цена");
 
-  var totalSum = document.createElement('th');
-  totalSum.append('Всего');
+  var totalSum = document.createElement("th");
+  totalSum.append("Всего");
 
-  var itemId = document.createElement('th');
-  itemId.append('ID предмета');
+  var itemId = document.createElement("th");
+  itemId.append("ID предмета");
 
-  var editItemId = document.createElement('th');
-  editItemId.append('Редактировать ID предмета');
+  var editItemId = document.createElement("th");
+  editItemId.append("Редактировать ID предмета");
 
-  var thead = document.createElement('thead');
+  var thead = document.createElement("thead");
 
   thead.append(
     img,
@@ -37,7 +37,7 @@ var createTableHeadToXLSX = () => {
     totalSum,
     itemStatus,
     itemId,
-    editItemId,
+    editItemId
   );
 
   return thead;

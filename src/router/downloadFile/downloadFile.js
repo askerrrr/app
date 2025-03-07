@@ -1,6 +1,5 @@
 import { Router } from "express";
 import db from "../../database/db.js";
-import { access, constants } from "fs/promises";
 import checkFileExists from "../xlsx/services/checkFileExists.js";
 
 var router = Router({ caseSensitive: true, strict: true });
@@ -20,7 +19,7 @@ router.get("/:userId/:orderId", async (req, res) => {
   }
 });
 
-router.get("check/:userId/:orderId", async (req, res) => {
+router.get("/check/:userId/:orderId", async (req, res) => {
   var userId = req.params.userId;
   var orderId = req.params.orderId;
   var collection = req.app.locals.collection;
