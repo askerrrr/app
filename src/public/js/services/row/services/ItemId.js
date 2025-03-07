@@ -1,5 +1,6 @@
+import checkItemId from "./checkItemId.js";
+
 var sendItemId = async (userId, orderId, index, itemId) => {
-  console.log("index: ", index, "itemId: ", itemId);
   var response = await fetch("/itemid", {
     method: "PATCH",
     body: JSON.stringify({ userId, orderId, index, itemId }),
@@ -33,11 +34,17 @@ var setItemId = async (userId, orderId, index) => {
     var formData = new FormData(form);
 
     for (var [index, itemId] of formData) {
-      console.log(index, itemId);
     }
 
     if (!input.value) {
       alert("Нельзя отправить пустое поле");
+      return;
+    }
+
+    var itemIdIsValid = checkItemId(itemId);
+
+    if (!itemIdIsValid) {
+      alert("Введите корректный id товара");
       return;
     }
 
