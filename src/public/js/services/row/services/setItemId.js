@@ -1,19 +1,5 @@
 import checkItemId from "./checkItemId.js";
-
-var sendItemId = async (userId, orderId, index, itemId) => {
-  var response = await fetch("/itemid", {
-    method: "PATCH",
-    body: JSON.stringify({ userId, orderId, index, itemId }),
-    headers: { "Content-Type": "application/json" },
-  });
-
-  if (!response.ok) {
-    var err = await response.text();
-    alert("Ошибка при обновлении статуса: " + err);
-    console.log("ErrorOfSetItemID: ", err);
-    return;
-  }
-};
+import sendItemIdToServer from "./sendItemIdToServer.js";
 
 var setItemId = async (userId, orderId, index) => {
   var input = document.createElement("input");
@@ -48,7 +34,7 @@ var setItemId = async (userId, orderId, index) => {
       return;
     }
 
-    await sendItemId(userId, orderId, index, itemId);
+    await sendItemIdToServer(userId, orderId, index, itemId);
     window.location.reload();
   });
 
@@ -60,11 +46,4 @@ var setItemId = async (userId, orderId, index) => {
   return td;
 };
 
-var getItemId = async (itemId) => {
-  var td = document.createElement("td");
-  td.id = itemId;
-  td.append(itemId || "");
-  return td;
-};
-
-export { getItemId, setItemId };
+export default setItemId;

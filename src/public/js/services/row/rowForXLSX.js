@@ -1,8 +1,9 @@
+import getItemId from "./services/getItemId.js";
+import setItemId from "./services/setItemId.js";
 import getTotalSum from "./services/getTotalSum.js";
 import getPriceOfEach from "./services/getItemPrice.js";
 import getUrlFromXLSX from "./services/getUrlFromXLSX.js";
 import getSizeFromXLSX from "./services/getSizeFromXLSX.js";
-import { getItemId, setItemId } from "./services/ItemId.js";
 import changeItemStatus from "./services/changeItemStatus.js";
 import getImageFromXLSX from "./services/getImageFromXLSX.js";
 import getQuantityFromXLSX from "./services/getQuantityFromXLSX.js";
