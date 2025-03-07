@@ -27,7 +27,8 @@ router.get("/api/:userId/:orderId", async (req, res) => {
     var collection = req.app.locals.collection;
     var itemCollection = req.app.locals.itemCollection;
 
-    var filePath = await db.findFilePath(userId, orderId, collection);
+    //var filePath = await db.findFilePath(userId, orderId, collection);
+    var filePath = "C:\\Users\\Adm\\Desktop\\510709571140.xlsx";
 
     var data = await getDataFromXLSX(filePath);
     var imageData = await getImageFromXLSX(filePath);
@@ -49,7 +50,8 @@ router.get("/check/:userId/:orderId", async (req, res) => {
   var orderId = req.params.orderId;
 
   var collection = req.app.locals.collection;
-  var filePath = await db.findFilePath(userId, orderId, collection);
+  //var filePath = // await db.findFilePath(userId, orderId, collection);
+  var filePath = "C:\\Users\\Adm\\Desktop\\510709571140.xlsx";
 
   var fileIsExists = await checkFileExists(filePath);
 
