@@ -4,7 +4,7 @@ import { dirname, join } from "path";
 import db from "../../database/db.js";
 import deleteUserDir from "./services/deleteUserDir.js";
 import deleteOrderFile from "./services/deleteOrderFile.js";
-import sendDeleteUserDataRequest from "./services/sendDeleteUserDataRequest.js";
+import sendDeleteOrderRequest from "./services/sendDeleteOrderRequest.js";
 
 var router = Router({ caseSensitive: true, strict: true });
 var __dirname = dirname(fileURLToPath(import.meta.url));
@@ -83,14 +83,20 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
   var collection = req.app.locals.collection;
 
   try {
-    await deleteOrderFile(userId, orderId, collection);
-    await db.deleteOrder(userId, orderId, collection);
-    await sendDeleteUserDataRequest(userId, orderId);
+    var successfulResponse = await sendDeleteOrderRequest(userId, orderId);
 
-    return res.sendStatus(200);
+    if (successfulResponse) {
+      var isFileDeleted = await deleteOrderFile(userId, orderId, collection);
+      var isDeletedFromDB = await db.deleteOrder(userId, orderId, collection);
+
+      return isFileDeleted && isDeletedFromDB
+        ? res.sendStatus(200)
+        : res.sendStatus(304);
+    } else {
+      res.sendStatus(304);
+    }
   } catch (err) {
-    console.log(err);
-    return res.sendStatus(500);
+    console.log("errMessage: ", err);
   }
 });
 

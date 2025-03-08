@@ -1,30 +1,40 @@
-import deleteOrder from '../../deleteOrder.js';
+import deleteOrder from "../../deleteOrder.js";
 
-var createDeleteOrderForm = async (userId, orderId, orders) => {
-  var button = document.createElement('button');
-  button.type = 'submit';
-  button.append('Удалить');
+var createDeleteOrderForm = async (userId, orderId) => {
+  var button = document.createElement("button");
+  button.type = "submit";
+  button.append("Удалить заказ");
 
-  button.addEventListener('click', async (e) => {
+  button.addEventListener("click", async (e) => {
     e.preventDefault();
 
-    var confirmDeletion = confirm('Удалить?');
+    var confirmDeletion = confirm("Удалить заказ?");
 
-    if (!confirmDeletion) return;
+    if (!confirmDeletion) {
+      return;
+    }
 
-    var tbody = document.getElementById(orderId);
+    var isDeletionSuccessful = await deleteOrder(userId, orderId);
+    console.log(isDeletionSuccessful);
 
-    var table = document.getElementById('table');
-    table.removeChild(tbody);
+    if (isDeletionSuccessful) {
+      alert("Заказ был удален!");
 
-    alert('Заказ был удален!');
+      var tbody = document.getElementById(orderId);
+      var table = document.getElementById("table");
+      table.removeChild(tbody);
 
-    return deleteOrder(userId, orderId);
+      window.location.replace("/orderinfo/orders/" + userId);
+      return;
+    } else {
+      alert("Не удалось удалить заказ");
+      return;
+    }
   });
 
-  var form = document.createElement('form');
-  form.action = '/orderinfo/delete/' + userId + '/' + orderId;
-  form.className = 'form-for-delete-order';
+  var form = document.createElement("form");
+  form.action = "/orderinfo/delete/" + userId + "/" + orderId;
+  form.className = "form-for-delete-order";
   form.append(button);
 
   return form;

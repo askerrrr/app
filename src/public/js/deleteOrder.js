@@ -1,19 +1,13 @@
 var deleteOrder = async (userId, orderId) => {
   try {
-    var url = '/orderinfo/api/delete/' + userId + '/' + orderId;
+    var url = "/orderinfo/api/delete/" + userId + "/" + orderId;
 
     var response = await fetch(url, {
-      method: 'DELETE',
-      headers: { Accept: 'application/json' },
+      method: "DELETE",
+      headers: { Accept: "application/json" },
     });
 
-    if (!response.ok) {
-      var err = await response.text();
-      console.log(err);
-      return;
-    }
-
-    window.location.href = '/orderinfo/orders/' + userId;
+    return response.status == 200;
   } catch (err) {
     console.log(err);
   }

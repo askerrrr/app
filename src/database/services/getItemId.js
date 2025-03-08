@@ -3,7 +3,11 @@ export default async (userId, orderId, itemStatus) => {
 
   var result = document.orders.find((e) => e.order.id == orderId);
 
-  var itemId = result.order.itemId;
+  if (!result) {
+    return;
+  }
+
+  var itemId = result?.order?.itemId;
 
   return itemId;
 };
