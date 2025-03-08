@@ -1,9 +1,9 @@
 import env from "../../../env_var.js";
 
-var sendDeleteOrderRequest = async (userId, orderId) => {
-  var response = await fetch(env.bot_server_delete_order, {
+var sendDeleteUserRequest = async (userId) => {
+  var response = await fetch(env.bot_server_delete_user, {
     method: "DELETE",
-    body: JSON.stringify({ userId, orderId }),
+    body: JSON.stringify({ userId }),
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -14,4 +14,4 @@ var sendDeleteOrderRequest = async (userId, orderId) => {
   return response.status == 200;
 };
 
-export default sendDeleteOrderRequest;
+export default sendDeleteUserRequest;

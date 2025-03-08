@@ -10,7 +10,7 @@ var deleteOrderFile = async (userId, fileId, collection) => {
 
     var fileIsExists = await checkFileExists(filePath);
 
-    return fileIsExists == false;
+    return fileIsExists == false ? true : false;
   } catch (err) {
     console.log(err);
   }

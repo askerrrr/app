@@ -1,7 +1,7 @@
 import env from "../../../env_var.js";
 
 var sendOrderStatusUpdate = async (userId, orderId, orderStatus) => {
-  var response = await fetch(env.bot_server_ip, {
+  var response = await fetch(env.bot_server, {
     method: "PATCH",
     headers: {
       Accept: "application/json",
