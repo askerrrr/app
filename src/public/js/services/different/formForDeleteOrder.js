@@ -15,7 +15,6 @@ var createDeleteOrderForm = async (userId, orderId) => {
     }
 
     var isDeletionSuccessful = await deleteOrder(userId, orderId);
-    console.log(isDeletionSuccessful);
 
     if (isDeletionSuccessful) {
       alert("Заказ был удален!");
@@ -34,7 +33,7 @@ var createDeleteOrderForm = async (userId, orderId) => {
 
   var form = document.createElement("form");
   form.action = "/orderinfo/delete/" + userId + "/" + orderId;
-  form.className = "form-for-delete-order";
+  form.className = "form-for-delete";
   form.append(button);
 
   return form;

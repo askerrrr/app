@@ -1,10 +1,12 @@
 import getOrderDate from "./services/getOrderDate.js";
 import createOrderLink from "./services/createOrderLink.js";
+import createDeleteUserForm from "../different/formForDeleteUser.js";
 import getCurrentOrderStatus from "./services/getCurrentOrdeStatus.js";
 
 var rowForListOfActiveOrders = async (data) => {
   document.title = "Пользователь " + data.userId;
   var tbody = document.createElement("tbody");
+  tbody.id = data.userId;
   var table = document.getElementById("active");
 
   var activeOrders = data.orders.filter(
@@ -29,7 +31,14 @@ var rowForListOfActiveOrders = async (data) => {
     (orders) => orders.order.orderStatus == "order-is-completed:6"
   );
 
-  if (completedOrders.length > 0) await showCompletedOrders(completedOrders);
+  if (completedOrders.length > 0) {
+    await showCompletedOrders(completedOrders);
+  }
+
+  var formForDeleteUser = await createDeleteUserForm(data.userId);
+
+  var body = document.getElementById("body");
+  body.append(formForDeleteUser);
 };
 
 var showCompletedOrders = async (completedOrders) => {

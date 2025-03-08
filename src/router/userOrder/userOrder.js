@@ -4,6 +4,7 @@ import { dirname, join } from "path";
 import db from "../../database/db.js";
 import deleteOrderFile from "./services/deleteOrderFile.js";
 import deleteUserFolder from "./services/deleteUserFolder.js";
+import sendDeleteUserRequest from "./services/sendDeleteUserRequest.js";
 import sendDeleteOrderRequest from "./services/sendDeleteOrderRequest.js";
 
 var router = Router({ caseSensitive: true, strict: true });
@@ -66,12 +67,16 @@ router.delete("/api/delete/:userId", async (req, res) => {
   var userId = req.params.userId;
   var collection = req.app.locals.collection;
 
-  var isDeletedFromDB = await db.deleteUser(userId, collection);
+  var successfulResponse = await sendDeleteUserRequest(userId);
 
-  if (isDeletedFromDB) {
-    var isUserFolderDeleted = await deleteUserFolder(userId);
+  if (successfulResponse) {
+    var isDeletedFromDB = await db.deleteUser(userId, collection);
 
-    return isUserFolderDeleted ? res.sendStatus(200) : res.sendStatus(304);
+    if (isDeletedFromDB) {
+      var isUserFolderDeleted = await deleteUserFolder(userId);
+
+      return isUserFolderDeleted ? res.sendStatus(200) : res.sendStatus(304);
+    }
   } else {
     res.sendStatus(304);
   }
