@@ -12,3 +12,5 @@ var deleteUserFolder = async (userId) => {
     }
   }
 };
+
+export default deleteUserFolder;
