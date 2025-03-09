@@ -20,7 +20,7 @@ router.post("/api/users", async (req, res) => {
 
     var user = req.body;
     var collection = req.app.locals.collection;
-    var itemStatus = req.app.locals.itemStatus;
+    var itemCollection = req.app.locals.itemCollection;
 
     var existingDocument = await collection.findOne({
       userId: user.userId,
@@ -28,7 +28,7 @@ router.post("/api/users", async (req, res) => {
 
     if (!existingDocument) {
       await collection.insertOne(user);
-      await db.createItemStatusCollection(user, itemStatus);
+      await db.createItemCollection(user, itemCollection);
 
       return res.sendStatus(200);
     }
@@ -58,13 +58,13 @@ router.post("/api/order", async (req, res) => {
     var orderId = order.id;
     var fileUrl = order.file.telegramApiFileUrl;
     var collection = req.app.locals.collection;
-    var itemStatus = req.app.locals.itemStatus;
+    var itemCollection = req.app.locals.itemCollection;
 
     var existingDocument = await collection.findOne({ userId });
 
     if (!existingDocument) {
       await db.createNewUser(order, collection);
-      await db.createItemStatusCollection(order, itemStatus);
+      await db.createItemStatusCollection(order, itemCollection);
     }
 
     await db.addNewOrder(collection, order);
@@ -73,7 +73,7 @@ router.post("/api/order", async (req, res) => {
     if (order.type == "multiple") {
       var filePath = order.file.path;
       var xlsxData = await getDataFromXLSX(filePath);
-      await db.addItems(userId, orderId, xlsxData, itemStatus);
+      await db.addItems(userId, orderId, xlsxData, itemCollection);
     }
 
     return res.sendStatus(200);

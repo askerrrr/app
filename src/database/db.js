@@ -10,8 +10,8 @@ import createNewUser from "./services/createNewUser.js";
 import getItemStatus from "./services/getItemStatus.js";
 import updateItemStatus from "./services/updateItemStatus.js";
 import updateOrderStatus from "./services/updateOrderStatus.js";
+import createItemCollection from "./services/createItemCollection.js";
 import getCurrentOrderStatus from "./services/getCurrentOrderStatus.js";
-import createItemStatusCollection from "./services/createItemStatusCollection.js";
 
 var db = {
   findUser,
@@ -28,8 +28,8 @@ var db = {
   getItemStatus,
   updateItemStatus,
   updateOrderStatus,
+  createItemCollection,
   getCurrentOrderStatus,
-  createItemStatusCollection,
 };
 
 export default db;

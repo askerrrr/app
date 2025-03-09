@@ -10,7 +10,7 @@ var addItems = async (userId, orderId, xlsxData, collection) => {
     );
 
     var items = url.map((item, index) => {
-      {
+      { 
         if (item?.startsWith("http")) {
           return item.split("://")[1] + ":::" + 0;
         } else {

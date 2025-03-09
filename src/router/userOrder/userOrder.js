@@ -40,7 +40,9 @@ router.get("/api/order/:userId/:orderId", async (req, res) => {
 
 router.get("/orders/order/:userId/:orderId", async (_, res) => {
   try {
-    res.sendFile(join(__dirname, "../../public", "html", "userOrder.html"));
+    res.sendFile(
+      join(__dirname, "..", "..", "public", "html", "userOrder.html")
+    );
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
@@ -55,8 +57,12 @@ router.get("/orders/:userId", async (req, res) => {
     var user = await collection.findOne({ userId });
 
     return user.orders.length
-      ? res.sendFile(join(__dirname, "../../public", "html", "ordersList.html"))
-      : res.sendFile(join(__dirname, "../../public", "html", "noOrders.html"));
+      ? res.sendFile(
+          join(__dirname, "..", "..", "public", "html", "ordersList.html")
+        )
+      : res.sendFile(
+          join(__dirname, "..", "..", "public", "html", "noOrders.html")
+        );
   } catch (err) {
     console.log(err);
     return res.sendStatus(500);

@@ -1,5 +1,5 @@
-export default async (userId, orderId, itemStatus) => {
-  var document = await itemStatus.findOne({ userId });
+export default async (userId, orderId, itemCollection) => {
+  var document = await itemCollection.findOne({ userId });
 
   var result = document.orders.find((e) => e.order.id == orderId);
 

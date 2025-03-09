@@ -1,5 +1,5 @@
-var getItemStatus = async (userId, orderId, collection) => {
-  var document = await collection.findOne({ userId });
+var getItemStatus = async (userId, orderId, itemCollection) => {
+  var document = await itemCollection.findOne({ userId });
 
   var result = document.orders.find((e) => e.order.id == orderId);
 

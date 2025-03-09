@@ -1,5 +1,5 @@
-var updateItemStatus = async (userId, orderId, newItem, collection) => {
-  var document = await collection.findOne({ userId });
+var updateItemStatus = async (userId, orderId, newItem, itemCollection) => {
+  var document = await itemCollection.findOne({ userId });
 
   var result = document.orders.find((e) => e.order.id == orderId);
 
@@ -10,7 +10,7 @@ var updateItemStatus = async (userId, orderId, newItem, collection) => {
 
   items[itemIndex] = newItem;
 
-  return await collection.updateOne(
+  return await itemCollection.updateOne(
     { userId, "orders.order.id": orderId },
     {
       $set: { "orders.$.order.items": items },
