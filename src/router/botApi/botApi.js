@@ -1,5 +1,4 @@
 import { Router } from "express";
-import env from "../../env_var.js";
 import db from "../../database/db.js";
 import validateAuthHeader from "./services/validateAuthHeader.js";
 import getDataFromXLSX from "../xlsx/services/getDataFromXLSX.js";
@@ -15,7 +14,8 @@ router.post("/api/users", async (req, res) => {
     var validAuthHeader = await validateAuthHeader(authHeader);
 
     if (!validAuthHeader) {
-      return res.sendStatus(401);
+      res.sendStatus(401);
+      return;
     }
 
     var user = req.body;
@@ -57,6 +57,7 @@ router.post("/api/order", async (req, res) => {
     var userId = order.userId;
     var orderId = order.id;
     var fileUrl = order.file.telegramApiFileUrl;
+
     var collection = req.app.locals.collection;
     var itemCollection = req.app.locals.itemCollection;
 

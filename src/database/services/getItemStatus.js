@@ -9,7 +9,6 @@ var getItemStatus = async (userId, orderId, itemCollection) => {
 
   var itemValues = result?.order?.items;
 
-  console.log(itemValues);
   return itemValues;
 };
 export default getItemStatus;

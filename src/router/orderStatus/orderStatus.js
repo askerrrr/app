@@ -13,9 +13,9 @@ router.get("/api/:userId/:orderId", async (req, res) => {
     var user = await collection.findOne({ userId });
 
     var result = user.orders.find((item) => item.order.id === orderId);
-    var status = result.order.orderStatus;
+    var orderStatus = result.order.orderStatus;
 
-    return user ? res.json(status) : res.sendStatus(404);
+    return user ? res.json({ orderStatus }) : res.sendStatus(404);
   } catch (err) {
     console.log(err);
     return res.sendStatus(500);
