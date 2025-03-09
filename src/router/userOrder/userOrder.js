@@ -12,7 +12,8 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
 
 router.get("/api/:userId", async (req, res) => {
   try {
-    var userId = req.params.userId;
+    var { userId } = req.params;
+
     var collection = req.app.locals.collection;
     var user = await collection.findOne({ userId });
 
@@ -24,11 +25,11 @@ router.get("/api/:userId", async (req, res) => {
 
 router.get("/api/order/:userId/:orderId", async (req, res) => {
   try {
-    var userId = req.param.userId;
-    var orderId = req.params.orderId;
+    var { userId, orderId } = req.params;
+
     var collection = req.app.locals.collection;
 
-    var user = await collection.findOne(userId);
+    var user = await collection.findOne({ userId });
 
     var order = user.orders.find((item) => item.order.id === orderId);
 
@@ -51,7 +52,7 @@ router.get("/orders/order/:userId/:orderId", async (_, res) => {
 
 router.get("/orders/:userId", async (req, res) => {
   try {
-    var userId = req.params.userId;
+    var { userId } = req.params;
     var collection = req.app.locals.collection;
 
     var user = await collection.findOne({ userId });
@@ -70,7 +71,7 @@ router.get("/orders/:userId", async (req, res) => {
 });
 
 router.delete("/api/delete/:userId", async (req, res) => {
-  var userId = req.params.userId;
+  var { userId } = req.params;
   var collection = req.app.locals.collection;
 
   var successfulResponse = await sendDeleteUserRequest(userId);
@@ -89,8 +90,8 @@ router.delete("/api/delete/:userId", async (req, res) => {
 });
 
 router.delete("/api/delete/:userId/:orderId", async (req, res) => {
-  var userId = req.params.userId;
-  var orderId = req.params.orderId;
+  var { userId, orderId } = req.params;
+
   var collection = req.app.locals.collection;
 
   try {

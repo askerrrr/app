@@ -54,9 +54,10 @@ router.post("/api/order", async (req, res) => {
     }
 
     var order = req.body;
-    var userId = order.userId;
-    var orderId = order.id;
-    var fileUrl = order.file.telegramApiFileUrl;
+
+    var { userId, orderId, file } = order;
+
+    var fileUrl = file.telegramApiFileUrl;
 
     var collection = req.app.locals.collection;
     var itemCollection = req.app.locals.itemCollection;
@@ -96,7 +97,7 @@ router.get("/api/status/:userId", async (req, res) => {
       return res.sendStatus(401);
     }
 
-    var userId = req.params.userId;
+    var { userId } = req.params;
     var collection = req.app.locals.collection;
 
     var orders = await collection.findOne({ userId });

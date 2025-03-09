@@ -6,8 +6,8 @@ var router = Router({ caseSensitive: true, strict: true });
 
 router.get("/api/:userId/:orderId", async (req, res) => {
   try {
-    var userId = req.params.userId;
-    var orderId = req.params.orderId;
+    var { userId, orderId } = req.params;
+
     var collection = req.app.locals.collection;
 
     var user = await collection.findOne({ userId });
@@ -24,9 +24,8 @@ router.get("/api/:userId/:orderId", async (req, res) => {
 
 router.patch("/:userId/:orderId/:status", async (req, res) => {
   try {
-    var userId = req.params.userId;
-    var status = req.params.status;
-    var orderId = req.params.orderId;
+    var { userId, orderId, status } = req.params;
+
     var collection = req.app.locals.collection;
 
     let [statusValue, statusId] = status.split(":");
@@ -49,19 +48,3 @@ router.patch("/:userId/:orderId/:status", async (req, res) => {
 });
 
 export { router as orderStatus };
-// {
-
-//   userId: '7413876142',
-//   orders: [
-//     {
-//       order: {
-//         id: '529069005630',
-//         items: [
-//           'detail.m.1688.com/page/index.htm?offerId=724363443765:::0',
-//           'detail.m.1688.com/page/index.htm?offerId=846715624233:::0'
-//         ],
-//         itemId: []
-//       }
-//     }
-//   ]
-// }

@@ -6,8 +6,7 @@ var router = Router({ caseSensitive: true, strict: true });
 
 router.get("/:userId/:orderId", async (req, res) => {
   try {
-    var userId = req.params.userId;
-    var orderId = req.params.orderId;
+    var { userId, orderId } = req.params;
 
     var collection = req.app.locals.collection;
     var filePath = await db.findFilePath(userId, orderId, collection);
@@ -20,8 +19,8 @@ router.get("/:userId/:orderId", async (req, res) => {
 });
 
 router.get("/check/:userId/:orderId", async (req, res) => {
-  var userId = req.params.userId;
-  var orderId = req.params.orderId;
+  var { userId, orderId } = req.params;
+
   var collection = req.app.locals.collection;
 
   var filePath = await db.findFilePath(userId, orderId, collection);

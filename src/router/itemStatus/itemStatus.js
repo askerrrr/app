@@ -6,9 +6,8 @@ import sendOrderStatusUpdate from "./services/sendOrderStatusUpdate.js";
 var router = Router({ caseSensitive: true, strict: true });
 
 router.patch("/", async (req, res) => {
-  var userId = req.body.userId;
-  var orderId = req.body.orderId;
-  var item = req.body.item;
+  var { userId, orderId, item } = req.body;
+
   var itemCollection = req.app.locals.itemCollection;
   var ordersCollection = req.app.locals.collection;
 
@@ -50,8 +49,8 @@ router.patch("/", async (req, res) => {
 });
 
 router.get("/:userId/:orderId", async (req, res) => {
-  var userId = req.params.userId;
-  var orderId = req.params.orderId;
+  var { userId, orderId } = req.params;
+
   var ordersCollection = req.app.locals.collection;
 
   var document = await ordersCollection.findOne({ userId });
