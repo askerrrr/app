@@ -1,13 +1,13 @@
 import argon2 from "argon2";
 
-var verifyFormData = async (login, passwd, collection) => {
+var verifyFormData = async (userLogin, userPasswd, collection) => {
   try {
     var data = await collection.findOne();
 
-    var { loginHash, passwdHash } = data;
+    var { login, passwd } = data;
 
-    var validLogin = await argon2.verify(loginHash, login);
-    var validPasswd = await argon2.verify(passwdHash, passwd);
+    var validLogin = await argon2.verify(login, userLogin);
+    var validPasswd = await argon2.verify(passwd, userPasswd);
 
     return validLogin && validPasswd;
   } catch (err) {
