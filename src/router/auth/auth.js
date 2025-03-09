@@ -14,15 +14,16 @@ router.get("/login", async (_, res) => {
 
 router.post("/login/check", async (req, res) => {
   try {
-    var user = req.body;
-    var login = user.login;
-    var passwd = user.passwd;
+    var { login, passwd } = req.body;
+
     var collection = req.app.locals.adminCollection;
 
     var validFormData = await verifyFormData(login, passwd, collection);
 
     if (validFormData) {
-      var token = JWT.sign(user, env.secretKey, { expiresIn: "60m" });
+      var token = JWT.sign({ payload: login }, env.secretKey, {
+        expiresIn: "60m",
+      });
 
       return res
         .cookie("token", token, {
