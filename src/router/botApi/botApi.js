@@ -53,7 +53,7 @@ router.post("/api/order", async (req, res) => {
 
     var order = req.body;
 
-    var { userId, orderId, file } = order;
+    var { userId, id, file } = order;
 
     var fileUrl = file.telegramApiFileUrl;
 
@@ -68,12 +68,12 @@ router.post("/api/order", async (req, res) => {
     }
 
     await db.addNewOrder(collection, order);
-    await downloadAndSaveFile(userId, orderId, fileUrl, order);
+    await downloadAndSaveFile(userId, id, fileUrl, order);
 
     if (order.type == "multiple") {
-      var filePath = order.file.path;
+      var filePath = file.path;
       var xlsxData = await getDataFromXLSX(filePath);
-      await db.addItems(userId, orderId, xlsxData, itemCollection);
+      await db.addItems(userId, id, xlsxData, itemCollection);
     }
 
     return res.sendStatus(200);
