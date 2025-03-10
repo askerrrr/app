@@ -28,13 +28,13 @@ router.post("/login/check", async (req, res) => {
 
     if (validFormData) {
       var token = JWT.sign({ payload: login }, env.secretKey, {
-        expiresIn: "1m",
+        expiresIn: "1h",
       });
 
       return res
         .cookie("token", token, {
           httpOnly: true,
-          maxAge: 1000 * 60,
+          maxAge: 1000 * 60 * 60,
         })
         .json({ redirect: true });
     }
