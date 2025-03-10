@@ -17,7 +17,7 @@ router.get("/:userId/:orderId", async (req, res) => {
       }
     });
   } catch (err) {
-    return res.sendStatus(500);
+    res.status(500).json({ err });
   }
 });
 

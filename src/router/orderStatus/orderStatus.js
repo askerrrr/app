@@ -17,8 +17,7 @@ router.get("/api/:userId/:orderId", async (req, res) => {
 
     return user ? res.json({ orderStatus }) : res.sendStatus(404);
   } catch (err) {
-    console.log(err);
-    return res.sendStatus(500);
+    res.status(500).json({ err });
   }
 });
 
@@ -43,7 +42,9 @@ router.patch("/:userId/:orderId/:status", async (req, res) => {
     await db.updateOrderStatus(userId, orderId, orderStatus, collection);
     return res.sendStatus(200);
   } catch (err) {
-    if (err.message === "fetch failed") return res.sendStatus(500);
+    if (err.message === "fetch failed") {
+      res.status(500).json({ err });
+    }
   }
 });
 

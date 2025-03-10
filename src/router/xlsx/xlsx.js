@@ -14,9 +14,7 @@ router.get("/:userid/:orderid", async (_, res) => {
   try {
     res.sendFile(join(__dirname, "..", "..", "public", "html", "sheet.html"));
   } catch (err) {
-    console.log(err);
-
-    res.sendStatus(500);
+    res.status(500).json({ err });
   }
 });
 
@@ -38,21 +36,23 @@ router.get("/api/:userId/:orderId", async (req, res) => {
 
     res.json(combinedData);
   } catch (err) {
-    console.log(err);
-
-    res.sendStatus(500);
+    res.status(500).json({ err });
   }
 });
 
 router.get("/check/:userId/:orderId", async (req, res) => {
-  var { userId, orderId } = req.params;
+  try {
+    var { userId, orderId } = req.params;
 
-  var collection = req.app.locals.collection;
-  var filePath = await db.findFilePath(userId, orderId, collection);
+    var collection = req.app.locals.collection;
+    var filePath = await db.findFilePath(userId, orderId, collection);
 
-  var fileIsExists = await checkFileExists(filePath);
+    var fileIsExists = await checkFileExists(filePath);
 
-  res.json({ fileIsExists });
+    res.json({ fileIsExists });
+  } catch (err) {
+    res.status(500).json({ err });
+  }
 });
 
 export { router as xlsx };

@@ -22,12 +22,15 @@ router.get("/check/:userId/:orderId", async (req, res) => {
   var { userId, orderId } = req.params;
 
   var collection = req.app.locals.collection;
+  try {
+    var filePath = await db.findFilePath(userId, orderId, collection);
 
-  var filePath = await db.findFilePath(userId, orderId, collection);
+    var fileIsExists = await checkFileExists(filePath);
 
-  var fileIsExists = await checkFileExists(filePath);
-
-  return res.json({ fileIsExists });
+    res.json({ fileIsExists });
+  } catch (err) {
+    res.status(500).json({ err });
+  }
 });
 
 export { router as download };

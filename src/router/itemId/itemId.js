@@ -8,8 +8,12 @@ router.patch("/", async (req, res) => {
 
   var itemCollection = req.app.locals.itemCollection;
 
-  await db.updateItemId(userId, orderId, index, itemId, itemCollection);
-  return res.sendStatus(200);
+  try {
+    await db.updateItemId(userId, orderId, index, itemId, itemCollection);
+    res.sendStatus(200);
+  } catch (err) {
+    res.status(500).json({ err });
+  }
 });
 
 export { router as itemId };

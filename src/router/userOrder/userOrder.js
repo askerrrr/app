@@ -18,8 +18,8 @@ router.get("/api/:userId", async (req, res) => {
     var user = await collection.findOne({ userId });
 
     return user ? res.json(user) : res.sendStatus(404);
-  } catch {
-    return res.sendStatus(500);
+  } catch (err) {
+    res.status(500).json({ err });
   }
 });
 
@@ -35,7 +35,7 @@ router.get("/api/order/:userId/:orderId", async (req, res) => {
 
     return order ? res.json(order) : res.sendStatus(404);
   } catch {
-    return res.sendStatus(500);
+    res.status(500).json({ err });
   }
 });
 
@@ -65,27 +65,30 @@ router.get("/orders/:userId", async (req, res) => {
           join(__dirname, "..", "..", "public", "html", "noOrders.html")
         );
   } catch (err) {
-    console.log(err);
-    return res.sendStatus(500);
+    res.status(500).json({ err });
   }
 });
 
 router.delete("/api/delete/:userId", async (req, res) => {
-  var { userId } = req.params;
-  var collection = req.app.locals.collection;
+  try {
+    var { userId } = req.params;
+    var collection = req.app.locals.collection;
 
-  var successfulResponse = await sendDeleteUserRequest(userId);
+    var successfulResponse = await sendDeleteUserRequest(userId);
 
-  if (successfulResponse) {
-    var isDeletedFromDB = await db.deleteUser(userId, collection);
+    if (successfulResponse) {
+      var isDeletedFromDB = await db.deleteUser(userId, collection);
 
-    if (isDeletedFromDB) {
-      var isUserFolderDeleted = await deleteUserFolder(userId);
+      if (isDeletedFromDB) {
+        var isUserFolderDeleted = await deleteUserFolder(userId);
 
-      return isUserFolderDeleted ? res.sendStatus(200) : res.sendStatus(304);
+        return isUserFolderDeleted ? res.sendStatus(200) : res.sendStatus(304);
+      }
+    } else {
+      res.sendStatus(304);
     }
-  } else {
-    res.sendStatus(304);
+  } catch (err) {
+    res.status(500).json({ err });
   }
 });
 
@@ -108,7 +111,7 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
       res.sendStatus(304);
     }
   } catch (err) {
-    console.log("errMessage: ", err);
+    res.status(500).json({ err });
   }
 });
 

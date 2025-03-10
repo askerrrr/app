@@ -9,7 +9,7 @@ router.get("/", async (_, res) => {
   try {
     res.sendFile(join(__dirname, "../../public", "html", "index.html"));
   } catch {
-    res.sendStatus(500);
+    res.status(500).json({ err });
   }
 });
 
@@ -20,7 +20,7 @@ router.get("/api/users", async (req, res) => {
 
     res.json(users);
   } catch {
-    res.sendStatus(500);
+    res.status(500).json({ err });
   }
 });
 

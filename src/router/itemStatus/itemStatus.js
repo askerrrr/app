@@ -13,39 +13,43 @@ router.patch("/", async (req, res) => {
 
   await db.updateItemStatus(userId, orderId, item, itemCollection);
 
-  var isAllItemsArePurchased = await allItemsArePurchased(
-    userId,
-    orderId,
-    itemCollection
-  );
-
-  await db.getCurrentOrderStatus(userId, orderId, ordersCollection);
-  if (isAllItemsArePurchased) {
-    var currentOrderStatus = await db.getCurrentOrderStatus(
+  try {
+    var isAllItemsArePurchased = await allItemsArePurchased(
       userId,
       orderId,
-      ordersCollection
+      itemCollection
     );
 
-    if (currentOrderStatus == "in-processing:1") {
-      await db.updateOrderStatus(
+    await db.getCurrentOrderStatus(userId, orderId, ordersCollection);
+    if (isAllItemsArePurchased) {
+      var currentOrderStatus = await db.getCurrentOrderStatus(
         userId,
         orderId,
-        "purchased:2",
         ordersCollection
       );
 
-      var isStatusUpdated = await sendOrderStatusUpdate(
-        userId,
-        orderId,
-        "purchased:2"
-      );
+      if (currentOrderStatus == "in-processing:1") {
+        await db.updateOrderStatus(
+          userId,
+          orderId,
+          "purchased:2",
+          ordersCollection
+        );
 
-      if (!isStatusUpdated) return;
+        var isStatusUpdated = await sendOrderStatusUpdate(
+          userId,
+          orderId,
+          "purchased:2"
+        );
+
+        if (!isStatusUpdated) return;
+      }
     }
-  }
 
-  return res.sendStatus(200);
+    res.sendStatus(200);
+  } catch (err) {
+    res.status(500).json({ err });
+  }
 });
 
 router.get("/:userId/:orderId", async (req, res) => {
@@ -53,17 +57,21 @@ router.get("/:userId/:orderId", async (req, res) => {
 
   var ordersCollection = req.app.locals.collection;
 
-  var document = await ordersCollection.findOne({ userId });
+  try {
+    var document = await ordersCollection.findOne({ userId });
 
-  if (!document) res.sendStatus(404);
+    if (!document) res.sendStatus(404);
 
-  var result = document.orders.find((item) => item.order.id === orderId);
+    var result = document.orders.find((item) => item.order.id === orderId);
 
-  if (!result) res.sendStatus(404);
+    if (!result) res.sendStatus(404);
 
-  var status = result.order.orderStatus;
+    var status = result.order.orderStatus;
 
-  return res.json(status);
+    res.json(status);
+  } catch (err) {
+    res.status(500).json({ err });
+  }
 });
 
 export { router as itemStatus };

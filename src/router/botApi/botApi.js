@@ -38,9 +38,7 @@ router.post("/api/users", async (req, res) => {
     if (err.name === "JsonWebTokenError") {
       return res.sendStatus(401);
     }
-
-    console.log(err);
-    return res.sendStatus(500);
+    res.status(500).json({ err });
   }
 });
 
@@ -80,10 +78,11 @@ router.post("/api/order", async (req, res) => {
 
     return res.sendStatus(200);
   } catch (err) {
-    if (err.name === "JsonWebTokenError") return res.sendStatus(401);
+    if (err.name === "JsonWebTokenError") {
+      return res.sendStatus(401);
+    }
 
-    console.log(err);
-    return res.sendStatus(500);
+    res.status(500).json({ err });
   }
 });
 
@@ -113,8 +112,7 @@ router.get("/api/status/:userId", async (req, res) => {
       ? res.status(200).json({ activeOrders, completedOrders })
       : res.sendStatus(404);
   } catch (err) {
-    console.log(err);
-    return res.sendStatus(500);
+    res.status(500).json({ err });
   }
 });
 

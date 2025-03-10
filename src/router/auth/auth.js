@@ -9,7 +9,13 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
 var router = Router({ caseSensitive: true, strict: true });
 
 router.get("/login", async (_, res) => {
-  return res.sendFile(join(__dirname, "../../public", "html", "authForm.html"));
+  try {
+    res.sendFile(
+      join(__dirname, "..", "..", "public", "html", "authForm.html")
+    );
+  } catch (err) {
+    res.status(500).json({ err });
+  }
 });
 
 router.post("/login/check", async (req, res) => {
@@ -35,8 +41,7 @@ router.post("/login/check", async (req, res) => {
 
     return res.sendStatus(403);
   } catch (err) {
-    console.log(err);
-    return res.sendStatus(500);
+    res.status(500).json({ err });
   }
 });
 
