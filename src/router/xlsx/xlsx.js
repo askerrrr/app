@@ -22,8 +22,8 @@ router.get("/:userid/:orderid", async (_, res) => {
 
 router.get("/api/:userId/:orderId", async (req, res) => {
   try {
-    var userId = req.params.userId;
-    var orderId = req.params.orderId;
+    var { userId, orderId } = req.params;
+
     var collection = req.app.locals.collection;
     var itemCollection = req.app.locals.itemCollection;
 
@@ -45,8 +45,7 @@ router.get("/api/:userId/:orderId", async (req, res) => {
 });
 
 router.get("/check/:userId/:orderId", async (req, res) => {
-  var userId = req.params.userId;
-  var orderId = req.params.orderId;
+  var { userId, orderId } = req.params;
 
   var collection = req.app.locals.collection;
   var filePath = await db.findFilePath(userId, orderId, collection);
