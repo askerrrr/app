@@ -1,4 +1,5 @@
 import deleteUser from "../../deleteUser.js";
+import showAlertByHttpStatus from "./showAlertByHttpStatus.js";
 
 var createDeleteUserForm = async (userId) => {
   var button = document.createElement("button");
@@ -14,9 +15,9 @@ var createDeleteUserForm = async (userId) => {
       return;
     }
 
-    var isDeletionSuccessful = await deleteUser(userId);
+    var responseStatus = await deleteUser(userId);
 
-    if (isDeletionSuccessful) {
+    if (responseStatus == 200) {
       var table = document.getElementById("active");
       var tbody = document.getElementById(userId);
       table.removeChild(tbody);
@@ -24,7 +25,7 @@ var createDeleteUserForm = async (userId) => {
       window.location.replace("/");
       return;
     } else {
-      alert("Не удалось удалить пользователя");
+      await showAlertByHttpStatus(responseStatus);
       return;
     }
   });

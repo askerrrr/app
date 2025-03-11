@@ -11,7 +11,7 @@ var sendDeleteOrderRequest = async (userId, orderId) => {
     },
   });
 
-  return response.status == 200;
+  return response.status;
 };
 
 export default sendDeleteOrderRequest;

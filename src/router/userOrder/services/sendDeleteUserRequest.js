@@ -11,7 +11,7 @@ var sendDeleteUserRequest = async (userId) => {
     },
   });
 
-  return response.status == 200;
+  return response.status;
 };
 
 export default sendDeleteUserRequest;

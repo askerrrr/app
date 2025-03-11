@@ -1,4 +1,5 @@
 import deleteOrder from "../../deleteOrder.js";
+import showAlertByHttpStatus from "./showAlertByHttpStatus.js";
 
 var createDeleteOrderForm = async (userId, orderId) => {
   var button = document.createElement("button");
@@ -14,9 +15,9 @@ var createDeleteOrderForm = async (userId, orderId) => {
       return;
     }
 
-    var isDeletionSuccessful = await deleteOrder(userId, orderId);
+    var responseStatus = await deleteOrder(userId, orderId);
 
-    if (isDeletionSuccessful) {
+    if (responseStatus == 200) {
       alert("Заказ был удален!");
 
       var tbody = document.getElementById(orderId);
@@ -26,7 +27,7 @@ var createDeleteOrderForm = async (userId, orderId) => {
       window.location.replace("/orderinfo/orders/" + userId);
       return;
     } else {
-      alert("Не удалось удалить заказ");
+      await showAlertByHttpStatus(responseStatus);
       return;
     }
   });

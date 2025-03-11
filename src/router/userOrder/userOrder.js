@@ -45,8 +45,7 @@ router.get("/orders/order/:userId/:orderId", async (_, res) => {
       join(__dirname, "..", "..", "public", "html", "userOrder.html")
     );
   } catch (err) {
-    console.log(err);
-    res.sendStatus(500);
+    res.status(500).json({ err });
   }
 });
 
@@ -74,18 +73,20 @@ router.delete("/api/delete/:userId", async (req, res) => {
     var { userId } = req.params;
     var collection = req.app.locals.collection;
 
-    var successfulResponse = await sendDeleteUserRequest(userId);
+    var responseStatus = await sendDeleteUserRequest(userId);
 
-    if (successfulResponse) {
+    if (responseStatus == 200) {
       var isDeletedFromDB = await db.deleteUser(userId, collection);
 
       if (isDeletedFromDB) {
         var isUserFolderDeleted = await deleteUserFolder(userId);
 
         return isUserFolderDeleted ? res.sendStatus(200) : res.sendStatus(304);
+      } else {
+        res.sendStatus(304);
       }
     } else {
-      res.sendStatus(304);
+      res.sendStatus(responseStatus);
     }
   } catch (err) {
     res.status(500).json({ err });
@@ -98,9 +99,9 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
   var collection = req.app.locals.collection;
 
   try {
-    var successfulResponse = await sendDeleteOrderRequest(userId, orderId);
+    var responseStatus = await sendDeleteOrderRequest(userId, orderId);
 
-    if (successfulResponse) {
+    if (responseStatus == 200) {
       var isFileDeleted = await deleteOrderFile(userId, orderId, collection);
       var isDeletedFromDB = await db.deleteOrder(userId, orderId, collection);
 
@@ -108,7 +109,7 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
         ? res.sendStatus(200)
         : res.sendStatus(304);
     } else {
-      res.sendStatus(304);
+      res.sendStatus(responseStatus);
     }
   } catch (err) {
     res.status(500).json({ err });
