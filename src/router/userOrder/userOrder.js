@@ -61,7 +61,7 @@ router.get("/orders/:userId", async (req, res) => {
           join(__dirname, "..", "..", "public", "html", "ordersList.html")
         )
       : res.sendFile(
-          join(__dirname, "..", "..", "public", "html", "noOrders.html")
+          join(__dirname, "..", "..", "public", "html", "noActiveOrders.html")
         );
   } catch (err) {
     res.status(500).json({ err });
