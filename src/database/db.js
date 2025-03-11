@@ -10,6 +10,7 @@ import createNewUser from "./services/createNewUser.js";
 import getItemStatus from "./services/getItemStatus.js";
 import updateItemStatus from "./services/updateItemStatus.js";
 import updateOrderStatus from "./services/updateOrderStatus.js";
+import getCompletedOrders from "./services/getCompletedOrders.js";
 import createItemCollection from "./services/createItemCollection.js";
 import getCurrentOrderStatus from "./services/getCurrentOrderStatus.js";
 
@@ -28,6 +29,7 @@ var db = {
   getItemStatus,
   updateItemStatus,
   updateOrderStatus,
+  getCompletedOrders,
   createItemCollection,
   getCurrentOrderStatus,
 };

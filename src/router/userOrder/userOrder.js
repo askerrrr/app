@@ -116,4 +116,24 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
   }
 });
 
+router.get("/completed/:userId", async (req, res) => {
+  try {
+    res.sendFile(
+      join(__dirname, "..", "..", "public", "html", "completedOrders.html")
+    );
+  } catch (err) {
+    res.status(500).json({ err });
+  }
+});
+
+router.get("/api/completed/:userId", async (req, res) => {
+  var { userId } = req.params;
+
+  var collection = req.app.locals.collection;
+
+  var completedOrders = await db.getCompletedOrders(userId, collection);
+
+  res.json({ completedOrders });
+});
+
 export { router as userPath };
