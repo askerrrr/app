@@ -7,7 +7,7 @@ var deleteOrder = async (userId, orderId) => {
       headers: { Accept: "application/json" },
     });
 
-    return response.status == 200;
+    return response.status;
   } catch (err) {
     console.log(err);
   }
