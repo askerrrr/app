@@ -4,7 +4,7 @@ var getCompletedOrders = async (userId, collection) => {
   var completedOrders = document.orders.filter(
     (e) => e.order.orderStatus == "order-is-completed:6"
   );
-
+  console.log(completedOrders);
   return completedOrders;
 };
 

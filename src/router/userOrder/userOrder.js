@@ -59,11 +59,11 @@ router.get("/orders/:userId", async (req, res) => {
     var completed = join(__dirname, "../../public/html/completedOrders.html");
     var noOrders = join(__dirname, "../../public/html/noOrders.html");
 
-    if (activeOrders?.length > 0 && completedOrders?.length > 0) {
+    if (activeOrders?.length && completedOrders?.length == 0) {
       res.sendFile(active);
     } else if (activeOrders?.length == 0 && completedOrders?.length > 0) {
       res.sendFile(completed);
-    } else {
+    } else if (activeOrders?.length == 0 && completedOrders?.length == 0) {
       res.sendFile(noOrders);
     }
   } catch (err) {
