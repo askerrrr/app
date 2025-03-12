@@ -13,10 +13,10 @@ var rowForListOfActiveOrders = async (data) => {
     (orders) => orders.order.orderStatus !== "order-is-completed:6"
   );
 
-  activeOrders.forEach(async (orders) => {
-    var orderId = await createOrderLink(orders.order.userId, orders.order.id);
-    var orderDate = await getOrderDate(orders.order.date);
-    var orderStatus = await getCurrentOrderStatus(orders.order.orderStatus);
+  activeOrders.forEach(async (e) => {
+    var orderId = await createOrderLink(e.order.userId, e.order.id);
+    var orderDate = await getOrderDate(e.order.date);
+    var orderStatus = await getCurrentOrderStatus(e.order.orderStatus);
 
     var tr = document.createElement("tr");
 
@@ -55,11 +55,11 @@ var showCompletedOrders = async (completedOrders) => {
 
     var table = document.getElementById("completed");
 
-    completedOrders.forEach(async (orders) => {
-      var userId = orders.order.userId;
-      var orderId = orders.order.id;
-      var orderDate = orders.order.date;
-      var status = orders.order.orderStatus;
+    completedOrders.forEach(async (e) => {
+      var userId = e.order.userId;
+      var orderId = e.order.id;
+      var orderDate = e.order.date;
+      var status = e.order.orderStatus;
 
       var tr = document.createElement("tr");
 
