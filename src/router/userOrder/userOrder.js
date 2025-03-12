@@ -41,9 +41,7 @@ router.get("/api/order/:userId/:orderId", async (req, res) => {
 
 router.get("/orders/order/:userId/:orderId", async (_, res) => {
   try {
-    res.sendFile(
-      join(__dirname, "..", "..", "public", "html", "userOrder.html")
-    );
+    res.sendFile(join(__dirname, "../../public/html/userOrder.html"));
   } catch (err) {
     res.status(500).json({ err });
   }
@@ -54,7 +52,6 @@ router.get("/orders/:userId", async (req, res) => {
     var { userId } = req.params;
     var collection = req.app.locals.collection;
 
-    var user = await collection.findOne({ userId });
     var activeOrders = await db.getActiveOrders(userId, collection);
     var completedOrders = await db.getCompletedOrders(userId, collection);
 
@@ -69,13 +66,6 @@ router.get("/orders/:userId", async (req, res) => {
     } else {
       res.sendFile(noOrders);
     }
-
-    // //
-    // return user.orders.length
-    //   ? res.sendFile()
-    //   : res.sendFile(
-    //       join(__dirname, "..", "..", "public", "html", "noOrders.html")
-    //     );
   } catch (err) {
     res.status(500).json({ err });
   }
