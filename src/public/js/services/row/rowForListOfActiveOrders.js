@@ -43,7 +43,7 @@ var rowForListOfActiveOrders = async (data) => {
 
 var showCompletedOrders = async (completedOrders) => {
   var btn = document.createElement("button");
-  btn.append("Показать");
+  btn.append("Показать завершенные");
   btn.id = "show-completed";
   btn.addEventListener("click", async (e) => {
     e.preventDefault();
@@ -84,7 +84,7 @@ var showCompletedOrders = async (completedOrders) => {
 
 var deleteCompeledOrders = async () => {
   var btn = document.createElement("button");
-  btn.append("Удалить");
+  btn.append("Скрыть");
 
   var form = document.createElement("form");
   form.append(btn);

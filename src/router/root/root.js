@@ -8,7 +8,7 @@ var __dirname = dirname(fileURLToPath(import.meta.url));
 router.get("/", async (_, res) => {
   try {
     res.sendFile(join(__dirname, "../../public", "html", "index.html"));
-  } catch {
+  } catch (err) {
     res.status(500).json({ err });
   }
 });
@@ -19,7 +19,7 @@ router.get("/api/users", async (req, res) => {
     var users = await collection.find({}).toArray();
 
     res.json(users);
-  } catch {
+  } catch (err) {
     res.status(500).json({ err });
   }
 });

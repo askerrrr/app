@@ -55,14 +55,27 @@ router.get("/orders/:userId", async (req, res) => {
     var collection = req.app.locals.collection;
 
     var user = await collection.findOne({ userId });
+    var activeOrders = await db.getActiveOrders(userId, collection);
+    var completedOrders = await db.getCompletedOrders(userId, collection);
 
-    return user.orders.length
-      ? res.sendFile(
-          join(__dirname, "..", "..", "public", "html", "ordersList.html")
-        )
-      : res.sendFile(
-          join(__dirname, "..", "..", "public", "html", "noActiveOrders.html")
-        );
+    var active = join(__dirname, "../../public/html/activeOrders.html");
+    var completed = join(__dirname, "../../public/html/completedOrders.html");
+    var noOrders = join(__dirname, "../../public/html/noOrders.html");
+
+    if (activeOrders?.length > 0 && completedOrders?.length > 0) {
+      res.sendFile(active);
+    } else if (activeOrders?.length == 0 && completedOrders?.length > 0) {
+      res.sendFile(completed);
+    } else {
+      res.sendFile(noOrders);
+    }
+
+    // //
+    // return user.orders.length
+    //   ? res.sendFile()
+    //   : res.sendFile(
+    //       join(__dirname, "..", "..", "public", "html", "noOrders.html")
+    //     );
   } catch (err) {
     res.status(500).json({ err });
   }
@@ -111,16 +124,6 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
     } else {
       res.sendStatus(responseStatus);
     }
-  } catch (err) {
-    res.status(500).json({ err });
-  }
-});
-
-router.get("/completed/:userId", async (req, res) => {
-  try {
-    res.sendFile(
-      join(__dirname, "..", "..", "public", "html", "completedOrders.html")
-    );
   } catch (err) {
     res.status(500).json({ err });
   }
