@@ -78,11 +78,16 @@ router.delete("/api/delete/:userId", async (req, res) => {
   try {
     var { userId } = req.params;
     var collection = req.app.locals.collection;
+    var itemCollection = req.app.locals.itemCollection;
 
     var responseStatus = await sendDeleteUserRequest(userId);
 
     if (responseStatus == 200) {
-      var isDeletedFromDB = await db.deleteUser(userId, collection);
+      var isDeletedFromDB = await db.deleteUser(
+        userId,
+        collection,
+        itemCollection
+      );
 
       if (isDeletedFromDB) {
         var isUserFolderDeleted = await deleteUserFolder(userId);
