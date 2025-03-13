@@ -1,4 +1,4 @@
-import { Router } from "express";
+import e, { Router } from "express";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import db from "../../database/db.js";
@@ -108,13 +108,20 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
   var { userId, orderId } = req.params;
 
   var collection = req.app.locals.collection;
-
+  var itemCollection = req.app.locals.itemCollection;
   try {
     var responseStatus = await sendDeleteOrderRequest(userId, orderId);
 
     if (responseStatus == 200) {
-      var isFileDeleted = await deleteOrderFile(userId, orderId, collection);
-      var isDeletedFromDB = await db.deleteOrder(userId, orderId, collection);
+      var filePath = await db.findFilePath(userId, orderId, collection);
+
+      var isFileDeleted = await deleteOrderFile(filePath);
+      var isDeletedFromDB = await db.deleteOrder(
+        userId,
+        orderId,
+        collection,
+        itemCollection
+      );
 
       return isFileDeleted && isDeletedFromDB
         ? res.sendStatus(200)

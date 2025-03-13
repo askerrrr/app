@@ -1,9 +1,7 @@
 import { rm } from "fs/promises";
 import db from "../../../database/db.js";
 
-var deleteOrderFile = async (userId, fileId, collection) => {
-  var filePath = await db.findFilePath(userId, fileId, collection);
-
+var deleteOrderFile = async (filePath) => {
   try {
     await rm(filePath);
     return true;
