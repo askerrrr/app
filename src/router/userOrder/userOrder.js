@@ -31,7 +31,7 @@ router.get("/api/order/:userId/:orderId", async (req, res) => {
 
     var user = await collection.findOne({ userId });
 
-    var order = user.orders.find((item) => item.order.id === orderId);
+    var order = user.orders.find((e) => e.order.id === orderId);
 
     return order ? res.json(order) : res.sendStatus(404);
   } catch {
@@ -59,11 +59,11 @@ router.get("/orders/:userId", async (req, res) => {
     var completed = join(__dirname, "../../public/html/completedOrders.html");
     var noOrders = join(__dirname, "../../public/html/noOrders.html");
 
-    if (activeOrders?.length && completedOrders?.length == 0) {
+    if (activeOrders?.length && completedOrders?.length) {
       res.sendFile(active);
-    } else if (activeOrders?.length == 0 && completedOrders?.length > 0) {
+    } else if (!activeOrders?.length && completedOrders?.length) {
       res.sendFile(completed);
-    } else if (activeOrders?.length == 0 && completedOrders?.length == 0) {
+    } else if (!activeOrders?.length && !completedOrders?.length) {
       res.sendFile(noOrders);
     }
   } catch (err) {
