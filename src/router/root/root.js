@@ -5,9 +5,15 @@ import { dirname, join } from "path";
 var router = Router({ caseSensitive: true, strict: true });
 var __dirname = dirname(fileURLToPath(import.meta.url));
 
-router.get("/", async (_, res) => {
+router.get("/", async (req, res) => {
   try {
-    res.sendFile(join(__dirname, "../../public/html/index.html"));
+    var collection = req.app.locals.collection;
+
+    var document = await collection.find({}).toArray();
+
+    return document?.length
+      ? res.sendFile(join(__dirname, "../../public/html/index.html"))
+      : res.sendFile(join(__dirname, "../../public/html/noUsers.html"));
   } catch (err) {
     res.status(500).json({ err });
   }
