@@ -9,9 +9,9 @@ var getoCompletedOrders = async () => {
 
   var response = await fetch(url);
 
-  var { completedOrders } = await response.json();
+  var { userId, completedOrders } = await response.json();
 
-  await rowForCompletedOrders(completedOrders);
+  await rowForCompletedOrders(userId, completedOrders);
 };
 
 getoCompletedOrders().catch((err) => console.error(err));

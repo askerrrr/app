@@ -3,9 +3,7 @@ import createOrderLink from "./services/createOrderLink.js";
 import createDeleteUserForm from "../different/formForDeleteUser.js";
 import getCurrentOrderStatus from "./services/getCurrentOrdeStatus.js";
 
-var rowForCompletedOrders = async (completedOrders) => {
-  var { userId } = completedOrders;
-
+var rowForCompletedOrders = async (userId, completedOrders) => {
   var tbody = document.createElement("tbody");
   tbody.id = userId;
   var table = document.getElementById("completed");

@@ -141,7 +141,7 @@ router.get("/api/completed/:userId", async (req, res) => {
 
   var completedOrders = await db.getCompletedOrders(userId, collection);
 
-  res.json({ completedOrders });
+  res.json({ userId, completedOrders });
 });
 
 export { router as userPath };
