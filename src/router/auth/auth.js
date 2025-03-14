@@ -1,6 +1,7 @@
 import JWT from "jsonwebtoken";
-import env from "../../env_var.js";
 import { Router } from "express";
+import env from "../../env_var.js";
+import logger from "../../logger.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import verifyFormData from "./service/verifyFormData.js";
@@ -14,7 +15,8 @@ router.get("/login", async (_, res) => {
       join(__dirname, "..", "..", "public", "html", "authForm.html")
     );
   } catch (err) {
-    res.status(500).json({ err });
+    logger.error({ place: "getting auth file", userId, err });
+    res.status(500);
   }
 });
 
@@ -41,7 +43,8 @@ router.post("/login/check", async (req, res) => {
 
     return res.sendStatus(403);
   } catch (err) {
-    res.status(500).json({ err });
+    logger.error({ place: "checking auth data", userId, err });
+    res.status(500);
   }
 });
 

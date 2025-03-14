@@ -1,4 +1,5 @@
 import { Router } from "express";
+import logger from "../../logger.js";
 import db from "../../database/db.js";
 import sendOrderStatusUpdate from "../itemStatus/services/sendOrderStatusUpdate.js";
 
@@ -17,7 +18,8 @@ router.get("/api/:userId/:orderId", async (req, res) => {
 
     return user ? res.json({ orderStatus }) : res.sendStatus(404);
   } catch (err) {
-    res.status(500).json({ err });
+    logger.error({ place: "getting order status", userId, err });
+    res.status(500);
   }
 });
 
@@ -43,8 +45,9 @@ router.patch("/:userId/:orderId/:status", async (req, res) => {
     return res.sendStatus(200);
   } catch (err) {
     if (err.message === "fetch failed") {
-      res.status(500).json({ err });
+      res.status(500);
     }
+    logger.error({ place: "change order status", userId, err });
   }
 });
 

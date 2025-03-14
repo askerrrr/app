@@ -1,4 +1,5 @@
 import { Router } from "express";
+import logger from "../../logger.js";
 import db from "../../database/db.js";
 
 var router = Router({ caseSensitive: true, strict: true });
@@ -12,7 +13,8 @@ router.patch("/", async (req, res) => {
     await db.updateItemId(userId, orderId, index, itemId, itemCollection);
     res.sendStatus(200);
   } catch (err) {
-    res.status(500).json({ err });
+    logger.error({ place: "change item id", userId, err });
+    res.status(500);
   }
 });
 

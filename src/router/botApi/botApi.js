@@ -1,4 +1,5 @@
 import { Router } from "express";
+import logger from "../../logger.js";
 import db from "../../database/db.js";
 import validateAuthHeader from "./services/validateAuthHeader.js";
 import getDataFromXLSX from "../xlsx/services/getDataFromXLSX.js";
@@ -38,7 +39,8 @@ router.post("/api/users", async (req, res) => {
     if (err.name === "JsonWebTokenError") {
       return res.sendStatus(401);
     }
-    res.status(500).json({ err });
+    logger.error({ place: "getting users from a bot", userId, err });
+    res.status(500);
   }
 });
 
@@ -81,8 +83,8 @@ router.post("/api/order", async (req, res) => {
     if (err.name === "JsonWebTokenError") {
       return res.sendStatus(401);
     }
-
-    res.status(500).json({ err });
+    logger.error({ place: "getting orders from a bot", userId, err });
+    res.status(500);
   }
 });
 
@@ -112,7 +114,8 @@ router.get("/api/status/:userId", async (req, res) => {
       ? res.status(200).json({ activeOrders, completedOrders })
       : res.sendStatus(404);
   } catch (err) {
-    res.status(500).json({ err });
+    logger.error({ place: "sending orders to the bot", userId, err });
+    res.status(500);
   }
 });
 

@@ -1,4 +1,5 @@
 import { Router } from "express";
+import logger from "../../logger.js";
 import db from "../../database/db.js";
 
 var router = Router({ caseSensitive: true, strict: true });
@@ -17,7 +18,8 @@ router.get("/:userId/:orderId", async (req, res) => {
       }
     });
   } catch (err) {
-    res.status(500).json({ err });
+    logger.error({ place: "getting image", userId, err });
+    res.status(500);
   }
 });
 

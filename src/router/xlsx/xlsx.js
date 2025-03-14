@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
+import logger from "../../logger.js";
 import db from "../../database/db.js";
 import combineData from "./services/combineXlsxData.js";
 import checkFileExists from "./services/checkFileExists.js";
@@ -14,7 +15,8 @@ router.get("/:userid/:orderid", async (_, res) => {
   try {
     res.sendFile(join(__dirname, "..", "..", "public", "html", "sheet.html"));
   } catch (err) {
-    res.status(500).json({ err });
+    logger.error({ place: "getting xlsx file", userId, err });
+    res.status(500);
   }
 });
 
@@ -36,7 +38,8 @@ router.get("/api/:userId/:orderId", async (req, res) => {
 
     res.json(combinedData);
   } catch (err) {
-    res.status(500).json({ err });
+    logger.error({ place: "getting xlsx data", userId, err });
+    res.status(500);
   }
 });
 
@@ -51,7 +54,8 @@ router.get("/check/:userId/:orderId", async (req, res) => {
 
     res.json({ fileIsExists });
   } catch (err) {
-    res.status(500).json({ err });
+    logger.error({ place: "checking xlsx file exists", userId, err });
+    res.status(500);
   }
 });
 

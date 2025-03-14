@@ -1,4 +1,5 @@
 import { Router } from "express";
+import logger from "../../logger.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import db from "../../database/db.js";
@@ -19,7 +20,8 @@ router.get("/api/:userId", async (req, res) => {
 
     return user ? res.json(user) : res.sendStatus(404);
   } catch (err) {
-    res.status(500).json({ err });
+    logger.error({ place: "getting order list", userId, err });
+    res.status(500);
   }
 });
 
@@ -35,7 +37,8 @@ router.get("/api/order/:userId/:orderId", async (req, res) => {
 
     return order ? res.json(order) : res.sendStatus(404);
   } catch (err) {
-    res.status(500).json({ err });
+    logger.error({ place: "getting order info", userId, err });
+    res.status(500);
   }
 });
 
@@ -43,7 +46,8 @@ router.get("/orders/order/:userId/:orderId", async (_, res) => {
   try {
     res.sendFile(join(__dirname, "../../public/html/userOrder.html"));
   } catch (err) {
-    res.status(500).json({ err });
+    logger.error({ location: "getting order file", userId, err });
+    res.status(500);
   }
 });
 
@@ -70,7 +74,8 @@ router.get("/orders/:userId", async (req, res) => {
       res.sendFile(noOrders);
     }
   } catch (err) {
-    res.status(500).json({ err });
+    logger.error({ place: "getting orders", userId, err });
+    res.status(500);
   }
 });
 
@@ -99,8 +104,10 @@ router.delete("/api/delete/:userId", async (req, res) => {
     } else {
       res.sendStatus(responseStatus);
     }
+
+    logger.error({ place: "delete user", userId, err });
   } catch (err) {
-    res.status(500).json({ err });
+    res.status(500);
   }
 });
 
@@ -130,18 +137,24 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
       res.sendStatus(responseStatus);
     }
   } catch (err) {
-    res.status(500).json({ err });
+    logger.error({ place: "delete order", userId, err });
+    res.status(500);
   }
 });
 
 router.get("/api/completed/:userId", async (req, res) => {
-  var { userId } = req.params;
+  try {
+    var { userId } = req.params;
 
-  var collection = req.app.locals.collection;
+    var collection = req.app.locals.collection;
 
-  var completedOrders = await db.getCompletedOrders(userId, collection);
+    var completedOrders = await db.getCompletedOrders(userId, collection);
 
-  res.json({ userId, completedOrders });
+    res.json({ userId, completedOrders });
+  } catch (err) {
+    logger.error({ place: "getting completed order", userId, err });
+    res.sendStatus(500);
+  }
 });
 
 export { router as userPath };

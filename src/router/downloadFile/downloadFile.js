@@ -1,4 +1,5 @@
 import { Router } from "express";
+import logger from "../../logger.js";
 import db from "../../database/db.js";
 import checkFileExists from "../xlsx/services/checkFileExists.js";
 
@@ -13,7 +14,7 @@ router.get("/:userId/:orderId", async (req, res) => {
 
     return res.download(filePath);
   } catch (err) {
-    console.log(err);
+    logger.error({ place: "download order file", userId, err });
     return res.sendStatus(500);
   }
 });
@@ -29,7 +30,8 @@ router.get("/check/:userId/:orderId", async (req, res) => {
 
     res.json({ fileIsExists });
   } catch (err) {
-    res.status(500).json({ err });
+    logger.error({ place: "checking order file exists", userId, err });
+    res.status(500);
   }
 });
 

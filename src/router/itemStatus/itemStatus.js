@@ -1,4 +1,5 @@
 import { Router } from "express";
+import logger from "../../logger.js";
 import db from "../../database/db.js";
 import allItemsArePurchased from "./services/allItemsArePurchased.js";
 import sendOrderStatusUpdate from "./services/sendOrderStatusUpdate.js";
@@ -48,7 +49,8 @@ router.patch("/", async (req, res) => {
 
     res.sendStatus(200);
   } catch (err) {
-    res.status(500).json({ err });
+    logger.error({ place: "change item status", userId, err });
+    res.status(500);
   }
 });
 
@@ -70,7 +72,8 @@ router.get("/:userId/:orderId", async (req, res) => {
 
     res.json(status);
   } catch (err) {
-    res.status(500).json({ err });
+    logger.error({ place: "getting item status", userId, err });
+    res.status(500);
   }
 });
 
