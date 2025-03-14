@@ -9,13 +9,15 @@ var rowForCompletedOrders = async (data) => {
   var table = document.getElementById("completed");
 
   data.completedOrders.forEach(async (e) => {
-    var orderId = await createOrderLink(e.order.userId, e.order.id);
-    var orderDate = await getOrderDate(e.order.date);
-    var orderStatus = await getCurrentOrderStatus(e.order.orderStatus);
+    var { id, date, userId, orderStatus } = e.order;
+
+    var orderId = await createOrderLink(userId, id);
+    var orderDate = await getOrderDate(date);
+    var currentOrderStatus = await getCurrentOrderStatus(orderStatus);
 
     var tr = document.createElement("tr");
 
-    tr.append(orderDate, orderId, orderStatus);
+    tr.append(orderDate, orderId, currentOrderStatus);
 
     tbody.append(tr);
     table.append(tbody);
