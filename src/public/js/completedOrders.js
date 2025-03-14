@@ -9,9 +9,11 @@ var getoCompletedOrders = async () => {
 
   var response = await fetch(url);
 
-  var json = await response.json();
+  var { completedOrders } = await response.json();
 
-  await rowForCompletedOrders(json);
+  console.log("c ", completedOrders);
+
+  await rowForCompletedOrders(completedOrders);
 };
 
-getoCompletedOrders();
+getoCompletedOrders().catch((err) => console.error(err));

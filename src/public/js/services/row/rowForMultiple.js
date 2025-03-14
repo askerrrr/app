@@ -12,8 +12,8 @@ import formForSetOrderStatus from "../checkbox/formForSetOrderStatus.js";
 import createTableHeadForOrder from "./services/createTableHeadForOrder.js";
 import createBackToOrdersButton from "./services/createBackToOrdersButton.js";
 
-var rowForMultiple = async (data) => {
-  var { userId, id, orderStatus, phone, date } = data.order;
+var rowForMultiple = async (order) => {
+  var { userId, id, orderStatus, phone, date } = order;
 
   var tr = document.createElement("tr");
 
@@ -30,7 +30,7 @@ var rowForMultiple = async (data) => {
   tbody.append(tr);
   tbody.id = id;
 
-  var thead = createTableHeadForOrder(data);
+  var thead = createTableHeadForOrder(order);
 
   var table = document.getElementById("table");
   table.append(thead, tbody);

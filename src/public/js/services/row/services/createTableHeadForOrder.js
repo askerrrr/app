@@ -1,4 +1,4 @@
-var createTableHeadForOrder = (orders) => {
+var createTableHeadForOrder = (order) => {
   var phone = document.createElement("th");
   phone.append("Телефон");
 
@@ -30,7 +30,7 @@ var createTableHeadForOrder = (orders) => {
 
   var tr = document.createElement("tr");
 
-  if (orders.order?.type == "single") {
+  if (order?.type == "single") {
     tr.append(
       orderId,
       orderDate,

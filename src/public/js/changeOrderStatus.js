@@ -1,5 +1,5 @@
 var changeOrderStatus = async (userId, orderId, status) => {
-  try {
+
     var url = '/status/' + userId + '/' + orderId + '/' + status;
 
     var response = await fetch(url, {
@@ -14,9 +14,7 @@ var changeOrderStatus = async (userId, orderId, status) => {
     }
 
     return response;
-  } catch (err) {
-    console.log(err);
-  }
+ 
 };
 
 export default changeOrderStatus;

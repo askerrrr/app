@@ -8,12 +8,12 @@ var rowForUserList = async (order) => {
 
   var tr = document.createElement("tr");
 
-  var firstNames = await getFirstName(firstName);
-  var userNames = await getUserName(userName);
-  var userIDs = await createAllOrdersLink(userId);
-  var userInfo = await getOrderInfo(order);
-
-  tr.append(firstNames, userNames, userIDs, userInfo);
+  tr.append(
+    await getFirstName(firstName),
+    await getUserName(userName),
+    await createAllOrdersLink(userId),
+    await getOrderInfo(order)
+  );
 
   var tbody = document.createElement("tbody");
   tbody.append(tr);
