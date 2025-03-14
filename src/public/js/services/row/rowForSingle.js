@@ -14,44 +14,39 @@ import formForSetOrderStatus from "../checkbox/formForSetOrderStatus.js";
 import createTableHeadForOrder from "./services/createTableHeadForOrder.js";
 import createBackToOrdersButton from "./services/createBackToOrdersButton.js";
 
-export default async function rowForSingle(orders) {
-  var orderId = orders.order.id;
-  var phone = orders.order.phone;
-  var userId = orders.order.userId;
-  var orderDate = orders.order.date;
-  var itemUrl = orders.order.itemUrl;
-  var status = orders.order.orderStatus;
-  var description = orders.order.description;
+var rowForSingle = async (data) => {
+  var { userId, id, phone, date, orderStatus, description, itemUrl } =
+    data.order;
 
   var tr = document.createElement("tr");
 
   tr.append(
-    await getOrderId(orderId),
-    await getOrderDate(orderDate),
+    await getOrderId(id),
+    await getOrderDate(date),
     await getPhone(phone),
-    await openImage(userId, orderId),
+    await openImage(userId, id),
     await getItemUrl(itemUrl),
     await getDescription(description),
-    await getCurrentOrderStatus(status),
-    await createDownloadFileLink(userId, orderId)
+    await getCurrentOrderStatus(orderStatus),
+    await createDownloadFileLink(userId, id)
   );
 
   var tbody = document.createElement("tbody");
   tbody.append(tr);
-  tbody.id = orderId;
+  tbody.id = id;
 
-  var thead = createTableHeadForOrder(orders);
+  var thead = createTableHeadForOrder(data);
 
   var table = document.getElementById("table");
   table.append(thead, tbody);
 
-  await closePopUp(orderId);
-  await formForSetOrderStatus(userId, orderId);
+  await closePopUp(id);
+  await formForSetOrderStatus(userId, id);
 
   var userInfo = await getUserInfo(userId);
-  var openPopUp = await formForOpenPopUp(userId, orderId);
+  var openPopUp = await formForOpenPopUp(userId, id);
   var backToOrdersButton = await createBackToOrdersButton(userId);
-  var formForDeleteOrder = await createDeleteOrderForm(userId, orderId);
+  var formForDeleteOrder = await createDeleteOrderForm(userId, id);
 
   var body = document.getElementById("orderInfo");
   body.append(
@@ -63,4 +58,6 @@ export default async function rowForSingle(orders) {
   );
 
   return body;
-}
+};
+
+export default rowForSingle;

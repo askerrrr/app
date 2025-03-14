@@ -12,41 +12,37 @@ import formForSetOrderStatus from "../checkbox/formForSetOrderStatus.js";
 import createTableHeadForOrder from "./services/createTableHeadForOrder.js";
 import createBackToOrdersButton from "./services/createBackToOrdersButton.js";
 
-var rowForMultiple = async (elem) => {
-  var orderId = elem.order.id;
-  var phone = elem.order.phone;
-  var userId = elem.order.userId;
-  var orderDate = elem.order.date;
-  var status = elem.order.orderStatus;
+var rowForMultiple = async (data) => {
+  var { userId, id, orderStatus, phone, date } = data.order;
 
   var tr = document.createElement("tr");
 
   tr.append(
-    await getOrderId(orderId),
-    await getOrderDate(orderDate),
-    await createXlsxFileLink(userId, orderId),
+    await getOrderId(id),
+    await getOrderDate(date),
+    await createXlsxFileLink(userId, id),
     await getPhone(phone),
-    await getCurrentOrderStatus(status),
-    await createDownloadFileLink(userId, orderId)
+    await getCurrentOrderStatus(orderStatus),
+    await createDownloadFileLink(userId, id)
   );
 
   var tbody = document.createElement("tbody");
   tbody.append(tr);
-  tbody.id = orderId;
+  tbody.id = id;
 
-  var thead = createTableHeadForOrder(elem);
+  var thead = createTableHeadForOrder(data);
 
   var table = document.getElementById("table");
   table.append(thead, tbody);
 
-  await closePopUp(orderId);
-  await formForSetOrderStatus(userId, orderId);
+  await closePopUp(id);
+  await formForSetOrderStatus(userId, id);
 
   var userInfo = await getUserInfo(userId);
   var backToOrdersButton = await createBackToOrdersButton(userId);
 
-  var openPopUp = await formForOpenPopUp(userId, orderId);
-  var formForDeleteOrder = await createDeleteOrderForm(userId, orderId);
+  var openPopUp = await formForOpenPopUp(userId, id);
+  var formForDeleteOrder = await createDeleteOrderForm(userId, id);
 
   var body = document.getElementById("orderInfo");
   body.append(
