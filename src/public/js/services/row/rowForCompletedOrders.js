@@ -16,8 +16,8 @@ var rowForCompletedOrders = async (completedOrders) => {
     var tr = document.createElement("tr");
 
     tr.append(
-      await createOrderLink(userId, id),
       await getOrderDate(date),
+      await createOrderLink(userId, id),
       await getCurrentOrderStatus(orderStatus)
     );
 
