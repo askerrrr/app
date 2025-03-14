@@ -34,7 +34,7 @@ router.get("/api/order/:userId/:orderId", async (req, res) => {
     var order = user.orders.find((e) => e.order.id === orderId);
 
     return order ? res.json(order) : res.sendStatus(404);
-  } catch {
+  } catch (err) {
     res.status(500).json({ err });
   }
 });
