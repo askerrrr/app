@@ -8,6 +8,7 @@ import updateItemId from "./services/updateItemId.js";
 import findFilePath from "./services/findFilePath.js";
 import createNewUser from "./services/createNewUser.js";
 import getItemStatus from "./services/getItemStatus.js";
+import checkOrderType from "./services/checkOrderType.js";
 import getActiveOrders from "./services/getActiveOrders.js";
 import updateItemStatus from "./services/updateItemStatus.js";
 import updateOrderStatus from "./services/updateOrderStatus.js";
@@ -28,6 +29,7 @@ var db = {
   findFilePath,
   createNewUser,
   getItemStatus,
+  checkOrderType,
   getActiveOrders,
   updateItemStatus,
   updateOrderStatus,
