@@ -1,4 +1,4 @@
-var checkOrderType = async (userId, orderId, collection) => {
+var getOrderType = async (userId, orderId, collection) => {
   var document = await collection.findOne({ userId });
 
   var { order } = document.orders.find((e) => e.order.id == orderId);
@@ -6,4 +6,4 @@ var checkOrderType = async (userId, orderId, collection) => {
   return order.type;
 };
 
-export default checkOrderType;
+export default getOrderType;

@@ -4,11 +4,11 @@ import getItemId from "./services/getItemId.js";
 import deleteUser from "./services/deleteUser.js";
 import addNewOrder from "./services/addNewOrder.js";
 import deleteOrder from "./services/deleteOrder.js";
+import getOrderType from "./services/getOrderType.js";
 import updateItemId from "./services/updateItemId.js";
 import findFilePath from "./services/findFilePath.js";
 import createNewUser from "./services/createNewUser.js";
 import getItemStatus from "./services/getItemStatus.js";
-import checkOrderType from "./services/checkOrderType.js";
 import getActiveOrders from "./services/getActiveOrders.js";
 import updateItemStatus from "./services/updateItemStatus.js";
 import updateOrderStatus from "./services/updateOrderStatus.js";
@@ -25,11 +25,11 @@ var db = {
   addNewOrder,
   deleteOrder,
   deleteOrder,
+  getOrderType,
   updateItemId,
   findFilePath,
   createNewUser,
   getItemStatus,
-  checkOrderType,
   getActiveOrders,
   updateItemStatus,
   updateOrderStatus,
