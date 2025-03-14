@@ -1,4 +1,4 @@
-import checkOrderType from "./checkOrderType";
+import checkOrderType from "./checkOrderType.js";
 
 var deleteOrder = async (userId, orderId, collection, itemCollection) => {
   var result, result1;
