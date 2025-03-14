@@ -6,7 +6,7 @@ var deleteOrder = async (userId, orderId, collection, itemCollection) => {
     }
   );
 
-  var result1 = itemCollection.updateOne(
+  var result1 = await itemCollection.updateOne(
     { userId, "orders.order.id": orderId },
     { $pull: { orders: { "order.id": orderId } } }
   );

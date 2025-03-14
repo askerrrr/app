@@ -123,6 +123,7 @@ router.delete("/api/delete/:userId/:orderId", async (req, res) => {
         itemCollection
       );
 
+      
       return isFileDeleted && isDeletedFromDB
         ? res.sendStatus(200)
         : res.sendStatus(304);
