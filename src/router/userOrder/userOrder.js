@@ -1,4 +1,4 @@
-import e, { Router } from "express";
+import { Router } from "express";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import db from "../../database/db.js";
