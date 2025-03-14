@@ -11,8 +11,6 @@ var getoCompletedOrders = async () => {
 
   var { completedOrders } = await response.json();
 
-  console.log("c ", completedOrders);
-
   await rowForCompletedOrders(completedOrders);
 };
 

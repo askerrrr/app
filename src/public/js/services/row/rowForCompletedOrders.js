@@ -26,7 +26,7 @@ var rowForCompletedOrders = async (completedOrders) => {
     return table;
   });
 
-  var formForDeleteUser = await createDeleteUserForm(data.userId);
+  var formForDeleteUser = await createDeleteUserForm(userId);
 
   var body = document.getElementById("body");
   body.append(formForDeleteUser);
